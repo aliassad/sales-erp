@@ -162,17 +162,17 @@ if ($result) {
                     </tr>
                     <tr>
                         <td class="nocenter"><i class="fa fa-money"></i>&nbsp;<b>Total Amount:</b>
-                            <?php echo CURRENCY_SYMBOL.' '. number_format($tamount+$charge, 2); ?>
+                            <?php echo CURRENCY_SIGN.' '. number_format($tamount+$charge, 2); ?>
                         </td>
                     </tr>
                     <tr>
                         <td class="nocenter"><i class="fa fa-money"></i>&nbsp;<b>Total Amount Recieved:</b>
-                            <?php echo CURRENCY_SYMBOL.' '. number_format($tpaid+$amountReceived, 2); ?>
+                            <?php echo CURRENCY_SIGN.' '. number_format($tpaid+$amountReceived, 2); ?>
                         </td>
                     </tr>
                     <tr>
                         <td class="nocenter"><i class="fa fa-money"></i>&nbsp;<b>Total Balance:</b>
-                            <?php echo CURRENCY_SYMBOL.' '. number_format($tbalance, 2); ?>
+                            <?php echo CURRENCY_SIGN.' '. number_format($tbalance, 2); ?>
                         </td>
                     </tr>
 
@@ -513,13 +513,13 @@ if ($result) {
                     <div class="col-md-6" style="padding-left:0px">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-money"></i>&nbsp;Total Amount Received</span>
-                            <input type="text" class="form-control" value="<?php echo CURRENCY_SYMBOL.' '. number_format($tpaid+$amountReceived, 2); ?>" readonly>
+                            <input type="text" class="form-control" value="<?php echo CURRENCY_SIGN.' '. number_format($tpaid+$amountReceived, 2); ?>" readonly>
                         </div>
                     </div>
                     <div class="col-md-6" style="padding-left:0px">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-money"></i>&nbsp;Total Amount Balance</span>
-                            <input type="text" class="form-control" value="<?php echo CURRENCY_SYMBOL.' '. number_format($tbalance, 2); ?>" readonly>
+                            <input type="text" class="form-control" value="<?php echo CURRENCY_SIGN.' '. number_format($tbalance, 2); ?>" readonly>
                         </div>
                     </div>
                 </div>

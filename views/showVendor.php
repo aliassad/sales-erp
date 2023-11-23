@@ -213,7 +213,7 @@ $pendingpayment = $pendingpayment - $paidAmount + $receivedAmount + $opening_bal
                                             <span class="input-group-addon"><i class="fa fa-money"></i>&nbsp;Opening Balance</span>
                                             <input name="eopening_balance" id="eopening_balance" type="text"
                                                    class="form-control"
-                                                   value="<?php echo CURRENCY_SYMBOL . ' ' . number_format($opening_balance, 2); ?>"
+                                                   value="<?php echo CURRENCY_SIGN . ' ' . number_format($opening_balance, 2); ?>"
                                                    readonly/>
                                             <input name="evopening_balance" id="evopening_balance" type="hidden"
                                                    class="form-control"
@@ -225,7 +225,7 @@ $pendingpayment = $pendingpayment - $paidAmount + $receivedAmount + $opening_bal
                                         <div class="input-group">
                                             <span class="input-group-addon red"><i class="fa fa-money"></i>&nbsp;Total Amount to Pay</span>
                                             <input name="payment" id="payment" type="text" class="form-control"
-                                                   value="<?php echo CURRENCY_SYMBOL . ' ' . number_format($pendingpayment, 2); ?>"
+                                                   value="<?php echo CURRENCY_SIGN . ' ' . number_format($pendingpayment, 2); ?>"
                                                    readonly/>
                                         </div>
                                     </div>

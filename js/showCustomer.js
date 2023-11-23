@@ -1,5 +1,5 @@
 var db;
-const CURRENCY_SYMBOL = $('#CURRENCY_SYMBOL').val()
+const CURRENCY_SIGN = $('#CURRENCY_SIGN').val()
 $(document).ready(function () {
     var url = "views/gettingBills.php?id=" + $('#cid').html();
     $.getJSON(url, function (data) {
@@ -11,7 +11,7 @@ $(document).ready(function () {
         }
 
         for (var i = 0; i < 500; i++)
-            $('#bills').append("<tr onclick='showbill(this);'><td>" + rows[i]['id'] + "</td><td>" + rows[i]['name'] + "</td><td>" + CURRENCY_SYMBOL + " " + parseFloat(rows[i]['amount']).toLocaleString() + "</td><td>" + CURRENCY_SYMBOL + " " + parseFloat(rows[i]['paid']).toLocaleString() + "</td><td>" + CURRENCY_SYMBOL + " " + parseFloat(rows[i]['balance']).toLocaleString() + "</td><td>" + rows[i]['date'] + "</td><td>" + rows[i]['ddate'] + "</td><td><span class=' label label-primary' >" + rows[i]['type'] + "</span></td></tr>");
+            $('#bills').append("<tr onclick='showbill(this);'><td>" + rows[i]['id'] + "</td><td>" + rows[i]['name'] + "</td><td>" + CURRENCY_SIGN + " " + parseFloat(rows[i]['amount']).toLocaleString() + "</td><td>" + CURRENCY_SIGN + " " + parseFloat(rows[i]['paid']).toLocaleString() + "</td><td>" + CURRENCY_SIGN + " " + parseFloat(rows[i]['balance']).toLocaleString() + "</td><td>" + rows[i]['date'] + "</td><td>" + rows[i]['ddate'] + "</td><td><span class=' label label-primary' >" + rows[i]['type'] + "</span></td></tr>");
 
     });
 
@@ -50,7 +50,7 @@ function filter() {
             for (var i = 0; i < rows.length; i++) {
                 if (sid == rows[i]['id'] || toDate(fdate).getTime() === toDate(rows[i]['date']).getTime()) {
                     flag = true;
-                    $('#bills').append("<tr onclick='showbill(this);' class='success'><td>" + rows[i]['id'] + "</td><td>" + rows[i]['name'] + "</td><td>" + CURRENCY_SYMBOL + " " + parseFloat(rows[i]['amount']).toLocaleString() + "</td><td>" + CURRENCY_SYMBOL + " " + parseFloat(rows[i]['paid']).toLocaleString() + "</td><td>" + CURRENCY_SYMBOL + " " + parseFloat(rows[i]['balance']).toLocaleString() + "</td><td>" + rows[i]['date'] + "</td><td>" + rows[i]['ddate'] + "</td><td><span class=' label label-primary' >" + rows[i]['type'] + "</span></td></tr>");
+                    $('#bills').append("<tr onclick='showbill(this);' class='success'><td>" + rows[i]['id'] + "</td><td>" + rows[i]['name'] + "</td><td>" + CURRENCY_SIGN + " " + parseFloat(rows[i]['amount']).toLocaleString() + "</td><td>" + CURRENCY_SIGN + " " + parseFloat(rows[i]['paid']).toLocaleString() + "</td><td>" + CURRENCY_SIGN + " " + parseFloat(rows[i]['balance']).toLocaleString() + "</td><td>" + rows[i]['date'] + "</td><td>" + rows[i]['ddate'] + "</td><td><span class=' label label-primary' >" + rows[i]['type'] + "</span></td></tr>");
                 }
 
             }
@@ -66,7 +66,7 @@ function filter() {
             for (var i = 0; i < rows.length; i++) {
                 if (toDate(rows[i]['date']).getTime() >= toDate(fdate).getTime() && toDate(rows[i]['date']).getTime() <= toDate(tdate).getTime()) {
                     flag = true;
-                    $('#bills').append("<tr onclick='showbill(this);' class='success'><td>" + rows[i]['id'] + "</td><td>" + rows[i]['name'] + "</td><td>" + CURRENCY_SYMBOL + " " + parseFloat(rows[i]['amount']).toLocaleString() + "</td><td>" + CURRENCY_SYMBOL + " " + parseFloat(rows[i]['paid']).toLocaleString() + "</td><td>" + CURRENCY_SYMBOL + " " + parseFloat(rows[i]['balance']).toLocaleString() + "</td><td>" + rows[i]['date'] + "</td><td>" + rows[i]['ddate'] + "</td><td><span class=' label label-primary' >" + rows[i]['type'] + "</span></td></tr>");
+                    $('#bills').append("<tr onclick='showbill(this);' class='success'><td>" + rows[i]['id'] + "</td><td>" + rows[i]['name'] + "</td><td>" + CURRENCY_SIGN + " " + parseFloat(rows[i]['amount']).toLocaleString() + "</td><td>" + CURRENCY_SIGN + " " + parseFloat(rows[i]['paid']).toLocaleString() + "</td><td>" + CURRENCY_SIGN + " " + parseFloat(rows[i]['balance']).toLocaleString() + "</td><td>" + rows[i]['date'] + "</td><td>" + rows[i]['ddate'] + "</td><td><span class=' label label-primary' >" + rows[i]['type'] + "</span></td></tr>");
                 }
 
             }
@@ -81,7 +81,7 @@ function filter() {
     } else {
         rows = db().get();
         for (var i = 0; i < 500; i++) {
-            $('#bills').append("<tr onclick='showbill(this);'><td>" + rows[i]['id'] + "</td><td>" + rows[i]['name'] + "</td><td>" + CURRENCY_SYMBOL + " " + parseFloat(rows[i]['amount']).toLocaleString() + "</td><td>" + CURRENCY_SYMBOL + " " + parseFloat(rows[i]['paid']).toLocaleString() + "</td><td>" + CURRENCY_SYMBOL + " " + parseFloat(rows[i]['balance']).toLocaleString() + "</td><td>" + rows[i]['date'] + "</td><td>" + rows[i]['ddate'] + "</td><td><span class=' label label-primary' >" + rows[i]['type'] + "</span></td></tr>");
+            $('#bills').append("<tr onclick='showbill(this);'><td>" + rows[i]['id'] + "</td><td>" + rows[i]['name'] + "</td><td>" + CURRENCY_SIGN + " " + parseFloat(rows[i]['amount']).toLocaleString() + "</td><td>" + CURRENCY_SIGN + " " + parseFloat(rows[i]['paid']).toLocaleString() + "</td><td>" + CURRENCY_SIGN + " " + parseFloat(rows[i]['balance']).toLocaleString() + "</td><td>" + rows[i]['date'] + "</td><td>" + rows[i]['ddate'] + "</td><td><span class=' label label-primary' >" + rows[i]['type'] + "</span></td></tr>");
         }
 
     }
@@ -241,9 +241,9 @@ function loadPayments() {
         }
         for (var i = 0; i < 500; i++) {
             if ($('#userRole').val() == "Admin") {
-                $('#paymentsList').append("<tr id='" + rows[i]['id'] + "'><td>" + (i + 1) + "</td><td class='nocenter'>" + rows[i]['date'] + "</td><td class='nocenter'>" + CURRENCY_SYMBOL + " " + parseFloat(rows[i]['amount']).toLocaleString() + "</td><td class='nocenter'>" + rows[i]['type'] + "</td><td class='nocenter'>" + rows[i]['detail'] + "</td><td class='nocenter'><a class='btn btn-sm btn-primary' onclick='editSrow(this);'><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td class='nocenter'><a class='btn btn-sm btn-danger' onclick='deleteSrow(this);'><i class='fa fa-trash'></i>&nbsp;Delete</a></td></tr>");
+                $('#paymentsList').append("<tr id='" + rows[i]['id'] + "'><td>" + (i + 1) + "</td><td class='nocenter'>" + rows[i]['date'] + "</td><td class='nocenter'>" + CURRENCY_SIGN + " " + parseFloat(rows[i]['amount']).toLocaleString() + "</td><td class='nocenter'>" + rows[i]['type'] + "</td><td class='nocenter'>" + rows[i]['detail'] + "</td><td class='nocenter'><a class='btn btn-sm btn-primary' onclick='editSrow(this);'><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td class='nocenter'><a class='btn btn-sm btn-danger' onclick='deleteSrow(this);'><i class='fa fa-trash'></i>&nbsp;Delete</a></td></tr>");
             } else {
-                $('#paymentsList').append("<tr id='" + rows[i]['id'] + "'><td>" + (i + 1) + "</td><td class='nocenter'>" + rows[i]['date'] + "</td><td class='nocenter'>" + CURRENCY_SYMBOL + " " + parseFloat(rows[i]['amount']).toLocaleString() + "</td><td class='nocenter'>" + rows[i]['type'] + "</td><td class='nocenter'>" + rows[i]['detail'] + "</td><td class='nocenter'><a class='btn btn-sm btn-primary' style='display: none;' onclick='editSrow(this);'><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td class='nocenter'><a class='btn btn-sm btn-danger' style='display: none;' onclick='deleteSrow(this);'><i class='fa fa-trash' ></i>&nbsp;Delete</a></td></tr>");
+                $('#paymentsList').append("<tr id='" + rows[i]['id'] + "'><td>" + (i + 1) + "</td><td class='nocenter'>" + rows[i]['date'] + "</td><td class='nocenter'>" + CURRENCY_SIGN + " " + parseFloat(rows[i]['amount']).toLocaleString() + "</td><td class='nocenter'>" + rows[i]['type'] + "</td><td class='nocenter'>" + rows[i]['detail'] + "</td><td class='nocenter'><a class='btn btn-sm btn-primary' style='display: none;' onclick='editSrow(this);'><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td class='nocenter'><a class='btn btn-sm btn-danger' style='display: none;' onclick='deleteSrow(this);'><i class='fa fa-trash' ></i>&nbsp;Delete</a></td></tr>");
             }
         }
 
@@ -281,9 +281,9 @@ function filterPayments() {
                 if (toDate(fdate).getTime() === toDate(rows[i]['date']).getTime()) {
                     flag = true;
                     if ($('#userRole').val() == "Admin") {
-                        $('#paymentsList').append("<tr id='" + rows[i]['id'] + "' class='success'><td>" + (i + 1) + "</td><td class='nocenter'>" + rows[i]['date'] + "</td><td class='nocenter'>" + CURRENCY_SYMBOL + " " + parseFloat(rows[i]['amount']).toLocaleString() + "</td><td class='nocenter'>" + rows[i]['type'] + "</td><td class='nocenter'>" + rows[i]['detail'] + "</td><td class='nocenter'><a class='btn btn-sm btn-primary' onclick='editSrow(this);'><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td class='nocenter'><a class='btn btn-sm btn-danger' onclick='deleteSrow(this);'><i class='fa fa-trash'></i>&nbsp;Delete</a></td></tr>");
+                        $('#paymentsList').append("<tr id='" + rows[i]['id'] + "' class='success'><td>" + (i + 1) + "</td><td class='nocenter'>" + rows[i]['date'] + "</td><td class='nocenter'>" + CURRENCY_SIGN + " " + parseFloat(rows[i]['amount']).toLocaleString() + "</td><td class='nocenter'>" + rows[i]['type'] + "</td><td class='nocenter'>" + rows[i]['detail'] + "</td><td class='nocenter'><a class='btn btn-sm btn-primary' onclick='editSrow(this);'><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td class='nocenter'><a class='btn btn-sm btn-danger' onclick='deleteSrow(this);'><i class='fa fa-trash'></i>&nbsp;Delete</a></td></tr>");
                     } else {
-                        $('#paymentsList').append("<tr id='" + rows[i]['id'] + "'><td>" + (i + 1) + "</td><td class='nocenter'>" + rows[i]['date'] + "</td><td class='nocenter'>" + CURRENCY_SYMBOL + " " + parseFloat(rows[i]['amount']).toLocaleString() + "</td><td class='nocenter'>" + rows[i]['type'] + "</td><td class='nocenter'>" + rows[i]['detail'] + "</td><td class='nocenter'><a class='btn btn-sm btn-primary' style='display: none;' onclick='editSrow(this);'><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td class='nocenter'><a class='btn btn-sm btn-danger' style='display: none;' onclick='deleteSrow(this);'><i class='fa fa-trash' ></i>&nbsp;Delete</a></td></tr>");
+                        $('#paymentsList').append("<tr id='" + rows[i]['id'] + "'><td>" + (i + 1) + "</td><td class='nocenter'>" + rows[i]['date'] + "</td><td class='nocenter'>" + CURRENCY_SIGN + " " + parseFloat(rows[i]['amount']).toLocaleString() + "</td><td class='nocenter'>" + rows[i]['type'] + "</td><td class='nocenter'>" + rows[i]['detail'] + "</td><td class='nocenter'><a class='btn btn-sm btn-primary' style='display: none;' onclick='editSrow(this);'><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td class='nocenter'><a class='btn btn-sm btn-danger' style='display: none;' onclick='deleteSrow(this);'><i class='fa fa-trash' ></i>&nbsp;Delete</a></td></tr>");
                     }
                 }
 
@@ -301,9 +301,9 @@ function filterPayments() {
                 if (toDate(rows[i]['date']).getTime() >= toDate(fdate).getTime() && toDate(rows[i]['date']).getTime() <= toDate(tdate).getTime()) {
                     flag = true;
                     if ($('#userRole').val() == "Admin") {
-                        $('#paymentsList').append("<tr id='" + rows[i]['id'] + "' class='success'><td>" + (i + 1) + "</td><td class='nocenter'>" + rows[i]['date'] + "</td><td class='nocenter'>" + CURRENCY_SYMBOL + " " + parseFloat(rows[i]['amount']).toLocaleString() + "</td><td class='nocenter'>" + rows[i]['type'] + "</td><td class='nocenter'>" + rows[i]['detail'] + "</td><td class='nocenter'><a class='btn btn-sm btn-primary' onclick='editSrow(this);'><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td class='nocenter'><a class='btn btn-sm btn-danger' onclick='deleteSrow(this);'><i class='fa fa-trash'></i>&nbsp;Delete</a></td></tr>");
+                        $('#paymentsList').append("<tr id='" + rows[i]['id'] + "' class='success'><td>" + (i + 1) + "</td><td class='nocenter'>" + rows[i]['date'] + "</td><td class='nocenter'>" + CURRENCY_SIGN + " " + parseFloat(rows[i]['amount']).toLocaleString() + "</td><td class='nocenter'>" + rows[i]['type'] + "</td><td class='nocenter'>" + rows[i]['detail'] + "</td><td class='nocenter'><a class='btn btn-sm btn-primary' onclick='editSrow(this);'><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td class='nocenter'><a class='btn btn-sm btn-danger' onclick='deleteSrow(this);'><i class='fa fa-trash'></i>&nbsp;Delete</a></td></tr>");
                     } else {
-                        $('#paymentsList').append("<tr id='" + rows[i]['id'] + "'><td>" + (i + 1) + "</td><td class='nocenter'>" + rows[i]['date'] + "</td><td class='nocenter'>" + CURRENCY_SYMBOL + " " + parseFloat(rows[i]['amount']).toLocaleString() + "</td><td class='nocenter'>" + rows[i]['type'] + "</td><td class='nocenter'>" + rows[i]['detail'] + "</td><td class='nocenter'><a class='btn btn-sm btn-primary' style='display: none;' onclick='editSrow(this);'><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td class='nocenter'><a class='btn btn-sm btn-danger' style='display: none;' onclick='deleteSrow(this);'><i class='fa fa-trash' ></i>&nbsp;Delete</a></td></tr>");
+                        $('#paymentsList').append("<tr id='" + rows[i]['id'] + "'><td>" + (i + 1) + "</td><td class='nocenter'>" + rows[i]['date'] + "</td><td class='nocenter'>" + CURRENCY_SIGN + " " + parseFloat(rows[i]['amount']).toLocaleString() + "</td><td class='nocenter'>" + rows[i]['type'] + "</td><td class='nocenter'>" + rows[i]['detail'] + "</td><td class='nocenter'><a class='btn btn-sm btn-primary' style='display: none;' onclick='editSrow(this);'><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td class='nocenter'><a class='btn btn-sm btn-danger' style='display: none;' onclick='deleteSrow(this);'><i class='fa fa-trash' ></i>&nbsp;Delete</a></td></tr>");
                     }
                 }
 
@@ -320,9 +320,9 @@ function filterPayments() {
         rows = db1().get();
         for (var i = 0; i < 500; i++) {
             if ($('#userRole').val() == "Admin") {
-                $('#paymentsList').append("<tr id='" + rows[i]['id'] + "'><td>" + (i + 1) + "</td><td class='nocenter'>" + rows[i]['date'] + "</td><td class='nocenter'>" + CURRENCY_SYMBOL + " " + parseFloat(rows[i]['amount']).toLocaleString() + "</td><td class='nocenter'>" + rows[i]['type'] + "</td><td class='nocenter'>" + rows[i]['detail'] + "</td><td class='nocenter'><a class='btn btn-sm btn-primary' onclick='editSrow(this);'><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td class='nocenter'><a class='btn btn-sm btn-danger' onclick='deleteSrow(this);'><i class='fa fa-trash'></i>&nbsp;Delete</a></td></tr>");
+                $('#paymentsList').append("<tr id='" + rows[i]['id'] + "'><td>" + (i + 1) + "</td><td class='nocenter'>" + rows[i]['date'] + "</td><td class='nocenter'>" + CURRENCY_SIGN + " " + parseFloat(rows[i]['amount']).toLocaleString() + "</td><td class='nocenter'>" + rows[i]['type'] + "</td><td class='nocenter'>" + rows[i]['detail'] + "</td><td class='nocenter'><a class='btn btn-sm btn-primary' onclick='editSrow(this);'><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td class='nocenter'><a class='btn btn-sm btn-danger' onclick='deleteSrow(this);'><i class='fa fa-trash'></i>&nbsp;Delete</a></td></tr>");
             } else {
-                $('#paymentsList').append("<tr id='" + rows[i]['id'] + "'><td>" + (i + 1) + "</td><td class='nocenter'>" + rows[i]['date'] + "</td><td class='nocenter'>" + CURRENCY_SYMBOL + " " + parseFloat(rows[i]['amount']).toLocaleString() + "</td><td class='nocenter'>" + rows[i]['type'] + "</td><td class='nocenter'>" + rows[i]['detail'] + "</td><td class='nocenter'><a class='btn btn-sm btn-primary' style='display: none;' onclick='editSrow(this);'><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td class='nocenter'><a class='btn btn-sm btn-danger' style='display: none;' onclick='deleteSrow(this);'><i class='fa fa-trash' ></i>&nbsp;Delete</a></td></tr>");
+                $('#paymentsList').append("<tr id='" + rows[i]['id'] + "'><td>" + (i + 1) + "</td><td class='nocenter'>" + rows[i]['date'] + "</td><td class='nocenter'>" + CURRENCY_SIGN + " " + parseFloat(rows[i]['amount']).toLocaleString() + "</td><td class='nocenter'>" + rows[i]['type'] + "</td><td class='nocenter'>" + rows[i]['detail'] + "</td><td class='nocenter'><a class='btn btn-sm btn-primary' style='display: none;' onclick='editSrow(this);'><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td class='nocenter'><a class='btn btn-sm btn-danger' style='display: none;' onclick='deleteSrow(this);'><i class='fa fa-trash' ></i>&nbsp;Delete</a></td></tr>");
             }
         }
 

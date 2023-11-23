@@ -5,7 +5,7 @@ define("DATABASE_SERVER", "localhost");
 define("DATABASE_USER", "root");
 define("DATABASE_PASS", "");
 define("CURRENCY", "EURO");
-define("CURRENCY_SYMBOL", "€");
+define("CURRENCY_SIGN", "\xE2\x82\xAc");
 function render($file, $data = array())
 {
     $path = __DIR__ . "/" . $file . ".php";

@@ -38,7 +38,7 @@ else {
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     [endif]-->
     <input type="hidden" id="CURRENCY" value="<?= CURRENCY ?>"/>
-    <input type="hidden" id="CURRENCY_SYMBOL" value="<?= CURRENCY_SYMBOL ?>"/>
+    <input type="hidden" id="CURRENCY_SIGN" value="<?= CURRENCY_SIGN ?>"/>
 </head>
 
 <body style="margin-top: 50px;">

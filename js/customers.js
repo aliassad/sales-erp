@@ -12,10 +12,10 @@ $(document).ready(function () {
         var total_recievable = 0;
         $.each(data, function (index, data) {
             total_recievable += parseFloat(data.total_balance);
-            $('#customers').append('<tr onclick="showCustomer(this);" ><td>' + data.id + '</td><td>' + data.customer_no + '</td><td>' + data.name + '</td><td>' + data.company + '</td><td>' + data.uid_no + '</td><td>' + data.account_no + '</td><td>' + data.country + '</td><td>' + data.city + '</td><td>' + data.zip_code + '</td><td>' + data.email + '</td><td>' + data.phone + '</td><td>' + data.telephone + '</td><td>' + data.address + '</td><td>' + data.gst + '</td><td>' + $("#CURRENCY_SYMBOL").val() + ' ' + parseFloat(data.total_balance).toLocaleString() + '</td></tr>');
+            $('#customers').append('<tr onclick="showCustomer(this);" ><td>' + data.id + '</td><td>' + data.customer_no + '</td><td>' + data.name + '</td><td>' + data.company + '</td><td>' + data.uid_no + '</td><td>' + data.account_no + '</td><td>' + data.country + '</td><td>' + data.city + '</td><td>' + data.zip_code + '</td><td>' + data.email + '</td><td>' + data.phone + '</td><td>' + data.telephone + '</td><td>' + data.address + '</td><td>' + data.gst + '</td><td>' + $("#CURRENCY_SIGN").val() + ' ' + parseFloat(data.total_balance).toLocaleString() + '</td></tr>');
         });
 
-        $('#total_Receivable').val($('#CURRENCY_SYMBOL').val() + " " + parseFloat(total_recievable).toLocaleString());
+        $('#total_Receivable').val($('#CURRENCY_SIGN').val() + " " + parseFloat(total_recievable).toLocaleString());
     });
 });
 
@@ -47,7 +47,7 @@ function filter() {
             total_recievable = 0;
             for (var i = 0; i < rows.length; i++) {
                 total_recievable += parseFloat(rows[i]['total_balance']);
-                $('#customers').append('<tr class="success" onclick="showCustomer(this);" ><td>' + rows[i]['id'] + '</td><td>' + rows[i]['customer_no'] + '</td><td>' + rows[i]['name'] + '</td><td>' + rows[i]['company'] + '</td><td>' + rows[i]['uid_no'] + '</td><td>' + rows[i]['account_no'] + '</td><td>' + rows[i]['country'] + '</td><td>' + rows[i]['city'] + '</td><td>' + rows[i]['zip_code'] + '</td><td>' + rows[i]['email'] + '</td><td>' + rows[i]['phone'] + '</td><td>' + rows[i]['telephone'] + '</td><td>' + rows[i]['address'] + '</td><td>' + rows[i]['gst'] + '</td><td>' + $("#CURRENCY_SYMBOL").val() + ' ' + parseFloat(rows[i]['total_balance']).toLocaleString() + '</td></tr > ');
+                $('#customers').append('<tr class="success" onclick="showCustomer(this);" ><td>' + rows[i]['id'] + '</td><td>' + rows[i]['customer_no'] + '</td><td>' + rows[i]['name'] + '</td><td>' + rows[i]['company'] + '</td><td>' + rows[i]['uid_no'] + '</td><td>' + rows[i]['account_no'] + '</td><td>' + rows[i]['country'] + '</td><td>' + rows[i]['city'] + '</td><td>' + rows[i]['zip_code'] + '</td><td>' + rows[i]['email'] + '</td><td>' + rows[i]['phone'] + '</td><td>' + rows[i]['telephone'] + '</td><td>' + rows[i]['address'] + '</td><td>' + rows[i]['gst'] + '</td><td>' + $("#CURRENCY_SIGN").val() + ' ' + parseFloat(rows[i]['total_balance']).toLocaleString() + '</td></tr > ');
             }
         }
     } else {
@@ -55,11 +55,11 @@ function filter() {
         rows = db().get();
         for (var i = 0; i < rows.length; i++) {
             total_recievable += parseFloat(rows[i]['total_balance']);
-            $('#customers').append('<tr onclick="showCustomer(this);" ><td>' + rows[i]['id'] + '</td><td>' + rows[i]['customer_no'] + '</td><td>' + rows[i]['name'] + '</td><td>' + rows[i]['company'] + '</td><td>' + rows[i]['uid_no'] + '</td><td>' + rows[i]['account_no'] + '</td><td>' + rows[i]['country'] + '</td><td>' + rows[i]['city'] + '</td><td>' + rows[i]['zip_code'] + '</td><td>' + rows[i]['email'] + '</td><td>' + rows[i]['phone'] + '</td><td>' + rows[i]['telephone'] + '</td><td>' + rows[i]['address'] + '</td><td>' + rows[i]['gst'] + '</td><td>' + $("#CURRENCY_SYMBOL").val() + ' ' + parseFloat(rows[i]['total_balance']).toLocaleString() + '</td></tr>');
+            $('#customers').append('<tr onclick="showCustomer(this);" ><td>' + rows[i]['id'] + '</td><td>' + rows[i]['customer_no'] + '</td><td>' + rows[i]['name'] + '</td><td>' + rows[i]['company'] + '</td><td>' + rows[i]['uid_no'] + '</td><td>' + rows[i]['account_no'] + '</td><td>' + rows[i]['country'] + '</td><td>' + rows[i]['city'] + '</td><td>' + rows[i]['zip_code'] + '</td><td>' + rows[i]['email'] + '</td><td>' + rows[i]['phone'] + '</td><td>' + rows[i]['telephone'] + '</td><td>' + rows[i]['address'] + '</td><td>' + rows[i]['gst'] + '</td><td>' + $("#CURRENCY_SIGN").val() + ' ' + parseFloat(rows[i]['total_balance']).toLocaleString() + '</td></tr>');
         }
     }
 
-    $('#total_Receivable').val($('#CURRENCY_SYMBOL').val() + " " + parseFloat(total_recievable).toLocaleString());
+    $('#total_Receivable').val($('#CURRENCY_SIGN').val() + " " + parseFloat(total_recievable).toLocaleString());
 
 
 }

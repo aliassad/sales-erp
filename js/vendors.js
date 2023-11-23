@@ -13,10 +13,10 @@ $(document).ready(function () {
         }
         $.each(data, function (index, data) {
             total_payable += parseFloat(data.payment);
-            $('#vendors').append('<tr onclick="showEmployee(this);" ><td>' + data.id + '</td><td>' + data.vendor_no + '</td><td>' + data.name + '</td><td>' + data.phone + '</td><td>' + data.country + '</td><td>' + data.city + '</td><td>' + data.zip_code + '</td><td>' + data.uid_no + '</td><td>' + data.account_no + '</td><td>' + data.address + '</td><td>' + data.email + '</td><td>' + data.cname + '</td><td>' + data.gst + '</td><td>' + $("#CURRENCY_SYMBOL").val() + ' ' + parseFloat(data.payment).toLocaleString() + '</td></tr>');
+            $('#vendors').append('<tr onclick="showEmployee(this);" ><td>' + data.id + '</td><td>' + data.vendor_no + '</td><td>' + data.name + '</td><td>' + data.phone + '</td><td>' + data.country + '</td><td>' + data.city + '</td><td>' + data.zip_code + '</td><td>' + data.uid_no + '</td><td>' + data.account_no + '</td><td>' + data.address + '</td><td>' + data.email + '</td><td>' + data.cname + '</td><td>' + data.gst + '</td><td>' + $("#CURRENCY_SIGN").val() + ' ' + parseFloat(data.payment).toLocaleString() + '</td></tr>');
         });
 
-        $('#total_Payable').val('' + $("#CURRENCY_SYMBOL").val() + ' ' + parseFloat(total_payable).toLocaleString());
+        $('#total_Payable').val('' + $("#CURRENCY_SIGN").val() + ' ' + parseFloat(total_payable).toLocaleString());
 
     });
 });
@@ -59,7 +59,7 @@ function filter() {
             total_payable = 0;
             for (var i = 0; i < rows.length; i++) {
                 total_payable += parseFloat(rows[i]['payment']);
-                $('#vendors').append('<tr class="success" onclick="showEmployee(this);" ><td>' + rows[i]['id'] + '</td><td>' + rows[i]['vendor_no'] + '</td><td>' + rows[i]['name'] + '</td><td>' + rows[i]['phone'] + '</td><td>' + rows[i]['country'] + '</td><td>' + rows[i]['city'] + '</td><td>' + rows[i]['zip_code'] + '</td><td>' + rows[i]['uid_no'] + '</td><td>' + rows[i]['account_no'] + '</td><td>' + rows[i]['address'] + '</td><td>' + rows[i]['email'] + '</td><td>' + rows[i]['cname'] + '</td><td>' + rows[i]['gst'] + '</td><td>' + $("#CURRENCY_SYMBOL").val() + ' ' + parseFloat(rows[i]['payment']).toLocaleString() + '</td></tr>');
+                $('#vendors').append('<tr class="success" onclick="showEmployee(this);" ><td>' + rows[i]['id'] + '</td><td>' + rows[i]['vendor_no'] + '</td><td>' + rows[i]['name'] + '</td><td>' + rows[i]['phone'] + '</td><td>' + rows[i]['country'] + '</td><td>' + rows[i]['city'] + '</td><td>' + rows[i]['zip_code'] + '</td><td>' + rows[i]['uid_no'] + '</td><td>' + rows[i]['account_no'] + '</td><td>' + rows[i]['address'] + '</td><td>' + rows[i]['email'] + '</td><td>' + rows[i]['cname'] + '</td><td>' + rows[i]['gst'] + '</td><td>' + $("#CURRENCY_SIGN").val() + ' ' + parseFloat(rows[i]['payment']).toLocaleString() + '</td></tr>');
             }
         }
 
@@ -69,12 +69,12 @@ function filter() {
         rows = db().get();
         for (var i = 0; i < rows.length; i++) {
             total_payable += parseFloat(rows[i]['payment']);
-            $('#vendors').append('<tr onclick="showEmployee(this);" ><td>' + rows[i]['id'] + '</td><td>' + rows[i]['vendor_no'] + '</td><td>' + rows[i]['name'] + '</td><td>' + rows[i]['phone'] + '</td><td>' + rows[i]['country'] + '</td><td>' + rows[i]['city'] + '</td><td>' + rows[i]['zip_code'] + '</td><td>' + rows[i]['uid_no'] + '</td><td>' + rows[i]['account_no'] + '</td><td>' + rows[i]['address'] + '</td><td>' + rows[i]['email'] + '</td><td>' + rows[i]['cname'] + '</td><td>' + rows[i]['gst'] + '</td><td>' + $("#CURRENCY_SYMBOL").val() + ' ' + parseFloat(rows[i]['payment']).toLocaleString() + '</td></tr>')
+            $('#vendors').append('<tr onclick="showEmployee(this);" ><td>' + rows[i]['id'] + '</td><td>' + rows[i]['vendor_no'] + '</td><td>' + rows[i]['name'] + '</td><td>' + rows[i]['phone'] + '</td><td>' + rows[i]['country'] + '</td><td>' + rows[i]['city'] + '</td><td>' + rows[i]['zip_code'] + '</td><td>' + rows[i]['uid_no'] + '</td><td>' + rows[i]['account_no'] + '</td><td>' + rows[i]['address'] + '</td><td>' + rows[i]['email'] + '</td><td>' + rows[i]['cname'] + '</td><td>' + rows[i]['gst'] + '</td><td>' + $("#CURRENCY_SIGN").val() + ' ' + parseFloat(rows[i]['payment']).toLocaleString() + '</td></tr>')
         }
     }
 
 
-    $('#total_Payable').val($('#CURRENCY_SYMBOL').val() + " " + parseFloat(total_payable).toLocaleString());
+    $('#total_Payable').val($('#CURRENCY_SIGN').val() + " " + parseFloat(total_payable).toLocaleString());
 
 }
 
