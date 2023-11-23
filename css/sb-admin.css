@@ -1,0 +1,595 @@
+/*!
+ * Start Bootstrap - SB Admin Bootstrap Admin Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+/* Global Styles */
+
+body {
+    margin-top: 100px;
+    background-color:whitesmoke;
+}
+
+@media(min-width:768px) {
+    body {
+        margin-top: 50px;
+    }
+}
+
+#wrapper {
+  
+    padding-left: 0px;
+}
+
+#page-wrapper {
+    width:100%;
+    padding:0px;
+    margin: 0px; 
+    background-color: #fff;
+    min-height:590px;
+    overflow-y:auto;
+
+}
+
+.huge {
+    font-size: 50px;
+    line-height: normal;
+}
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-left:0px;
+    }
+
+    #page-wrapper {
+        padding:25px;
+    }
+}
+
+/* Top Navigation */
+
+.top-nav {
+    padding: 0 15px;
+}
+
+.top-nav>li {
+    display: inline-block;
+    float: left;
+}
+
+.top-nav>li>a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    line-height: 20px;
+    color: #999;
+}
+
+.top-nav>li>a:hover,
+.top-nav>li>a:focus,
+.top-nav>.open>a,
+.top-nav>.open>a:hover,
+.top-nav>.open>a:focus {
+    color: #fff;
+    background-color: #357ebd;
+}
+
+.top-nav>.open>.dropdown-menu {
+    
+    position: absolute;
+    margin-top:5px;
+    border: 10px solid rgba(0,0,0,.15);
+    border-radius:10px;
+    border-radius:10px;
+    background-color: #fff;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+
+.top-nav>.open>.dropdown-menu>li>a {
+    white-space: normal;
+}
+
+ul.message-dropdown {
+    padding: 0;
+    max-height: 250px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+li.message-preview {
+    width: 275px;
+    border-bottom: 1px solid rgba(0,0,0,.15);
+}
+
+li.message-preview>a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+li.message-footer {
+    margin: 5px 0;
+}
+
+ul.alert-dropdown {
+    width: 200px;
+}
+
+/* Side Navigation */
+
+
+
+.side-nav>li>ul {
+    padding: 0;
+}
+
+.side-nav>li>ul>li>a {
+    display: block;
+    padding: 10px 15px 10px 38px;
+    text-decoration: none;
+    color: #999;
+}
+
+/* Flot Chart Containers */
+
+.flot-chart {
+    display: block;
+    height: 400px;
+}
+
+.flot-chart-content {
+    width: 100%;
+    height: 100%;
+}
+
+/* Custom Colored Panels */
+
+.huge {
+    font-size: 40px;
+}
+
+.panel-green {
+    border-color: #5cb85c;
+}
+
+.panel-green > .panel-heading {
+    border-color: #5cb85c;
+    color: #fff;
+    background-color: #5cb85c;
+}
+
+.panel-green > a {
+    color: #5cb85c;
+}
+
+.panel-green > a:hover {
+    color: #3d8b3d;
+}
+
+.panel-red {
+    border-color: #d9534f;
+}
+
+.panel-red > .panel-heading {
+    border-color: #d9534f;
+    color: #fff;
+    background-color: #d9534f;
+}
+
+.panel-red > a {
+    color: #d9534f;
+}
+
+.panel-red > a:hover {
+    color: #b52b27;
+}
+
+.panel-yellow {
+    border-color: #f0ad4e;
+}
+
+.panel-yellow > .panel-heading {
+    border-color: #f0ad4e;
+    color: #fff;
+    background-color: #f0ad4e;
+}
+
+.panel-yellow > a {
+    color: #f0ad4e;
+}
+
+.panel-yellow > a:hover {
+    color: #df8a13;
+}
+
+
+.panel-blue {
+     border-color: #2D89EF !important;
+}
+
+.panel-blue > .panel-heading {
+    background: #2D89EF !important;
+    border-color: #2D89EF !important;
+    color: #fff;
+}
+.quick-button {
+	border: 1px solid #ddd;
+	margin-bottom: -1px;
+  	padding: 28px 0px 0px 0px;
+	font-size: 12px;
+  	background-color: #fafafa;
+    background-image: -moz-linear-gradient(top, #ffffff, #f3f3f3);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#f3f3f3));
+    background-image: -webkit-linear-gradient(top, #ffffff, #f3f3f3);
+    background-image: -o-linear-gradient(top, #ffffff, #f3f3f3);
+    background-image: linear-gradient(to bottom, #ffffff, #f3f3f3);
+    background-repeat: repeat-x;
+  	filter: progid:dximagetransform.microsoft.gradient(startColorstr='#fafafa', endColorstr='#efefef', GradientType=0);
+  	-webkit-box-shadow: 0 1px 0px rgba(255, 255, 255, .8);
+	   -moz-box-shadow: 0 1px 0px rgba(255, 255, 255, .8);
+			box-shadow: 0 1px 0px rgba(255, 255, 255, .8);
+  	-webkit-border-radius: 2px;
+       -moz-border-radius: 2px;
+          	border-radius: 2px;
+	display:block;
+	color: #646464;
+	text-shadow: 0 1px 0px rgba(255, 255, 255, .6);
+	text-align: center;
+	cursor: pointer;
+	position: relative;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-ms-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+
+.quick-button:hover {
+
+    margin-bottom:-1px;
+  	padding: 26px 0px 0px 0px;
+	text-decoration:none;
+	border-color: #a5a5a5;
+	color: #444444;
+	text-shadow: 0 1px 0px rgba(255, 255, 255, 1);
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-ms-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+  	-webkit-box-shadow: 0px 0px 3px rgba(0,0,0,.25);
+       -moz-box-shadow: 0px 0px 3px rgba(0,0,0,.25);
+          	box-shadow: 0px 0px 3px rgba(0,0,0,.25);
+
+}
+.quick-button:hover .notification {
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-ms-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+	-webkit-box-shadow: 0px 0px 3px rgba(0,0,0,.6);
+       -moz-box-shadow: 0px 0px 3px rgba(0,0,0,.6);
+          	box-shadow: 0px 0px 3px rgba(0,0,0,.6);
+
+}
+
+.quick-button i {
+	font-size: 25px;
+}
+
+
+.notification {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    line-height: 16px;
+    padding: 3px 6px;
+    color: white !important;
+    text-shadow: 0 1px hsla(0, 0%, 0%, 0.25);
+    border-width: 1px;
+    border-style: solid;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    -webkit-box-shadow: 0 1px 1px hsla(0, 0%, 0%, 0.08), inset 0 1px hsla(0, 100%, 100%, 0.3);
+    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08), inset 0 1px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 1px 1px hsla(0, 0%, 0%, 0.08), inset 0 1px hsla(0, 100%, 100%, 0.3);
+}
+
+/*
+.panel-blue > a {
+    color: #f0ad4e;
+}
+
+.panel-blue > a:hover {
+    color: #df8a13;
+}
+*/
+
+.break {
+    border-left: 1px solid #FFF;
+    margin: -12px 10px -10px 10px;
+    padding: 6px 0px 5px 0px;
+}
+.blue {
+    background: #2D89EF !important;
+    border-color: #2D89EF !important;
+    color: #fff;
+}
+.green
+{
+    background: #00A300 !important;
+    border-color: #00A300 !important;
+    color: #fff;
+}
+
+.red{
+       background: #EB3C00 !important;
+    border-color: #EB3C00 !important;
+    color: #fff;
+}
+.yellow
+{
+    background: #FFC40D !important;
+    border-color: #FFC40D !important;
+    color: #fff;
+}
+.col-md-8
+{
+padding:0px; 
+}
+
+
+@media(min-width:768px)
+{
+    .side-nav {
+        position: fixed;
+        top:51px;
+        width:65px;
+        border-right:20px double #428bca;
+        overflow-y:auto;
+        background-color:whitesmoke;
+        bottom:0;
+        overflow-x: hidden;
+        padding-bottom:40px;
+    }
+
+    .side-nav>li>a {
+        width:180px;
+    }
+
+}
+#wrapper {
+        padding-left:0px;
+    }
+
+
+#page-wrapper {
+    width:100%;
+    padding:2px;
+    padding-left:70px;
+    padding-right:10px;
+    min-height: 490px;
+    background-color: #fff;
+}
+
+
+/** The Magic **/
+.btn-breadcrumb{
+
+margin-top: 10px;
+}
+
+#menu
+{
+    cursor:pointer;
+}
+
+.btn-breadcrumb .btn:not(:last-child):after {
+  content: " ";
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 17px solid transparent;
+  border-bottom: 17px solid transparent;
+  border-left: 10px solid white;
+  position: absolute;
+  top: 50%;
+  margin-top: -17px;
+  left: 100%;
+  z-index: 3;
+}
+.btn-breadcrumb .btn:not(:last-child):before {
+  content: " ";
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 17px solid transparent;
+  border-bottom: 17px solid transparent;
+  border-left: 10px solid rgb(173, 173, 173);
+  position: absolute;
+  top: 50%;
+  margin-top: -17px;
+  margin-left: 1px;
+  left: 100%;
+  z-index: 3;
+}
+
+/** The Spacing **/
+.btn-breadcrumb .btn {
+  padding:6px 12px 6px 24px;
+}
+.btn-breadcrumb .btn:first-child {
+  padding:6px 6px 6px 10px;
+}
+.btn-breadcrumb .btn:last-child {
+  padding:6px 18px 6px 24px;
+}
+
+/** Default button **/
+.btn-breadcrumb .btn.btn-default:not(:last-child):after {
+  border-left: 10px solid #fff;
+}
+.btn-breadcrumb .btn.btn-default:not(:last-child):before {
+  border-left: 10px solid #ccc;
+}
+.btn-breadcrumb .btn.btn-default:hover:not(:last-child):after {
+  border-left: 10px solid #ebebeb;
+}
+.btn-breadcrumb .btn.btn-default:hover:not(:last-child):before {
+  border-left: 10px solid #adadad;
+}
+
+/** Primary button **/
+.btn-breadcrumb .btn.btn-primary:not(:last-child):after {
+  border-left: 10px solid #428bca;
+}
+.btn-breadcrumb .btn.btn-primary:not(:last-child):before {
+  border-left: 10px solid #357ebd;
+}
+.btn-breadcrumb .btn.btn-primary:hover:not(:last-child):after {
+  border-left: 10px solid #3276b1;
+}
+.btn-breadcrumb .btn.btn-primary:hover:not(:last-child):before {
+  border-left: 10px solid #285e8e;
+}
+
+/** Success button **/
+.btn-breadcrumb .btn.btn-success:not(:last-child):after {
+  border-left: 10px solid #5cb85c;
+}
+.btn-breadcrumb .btn.btn-success:not(:last-child):before {
+  border-left: 10px solid #4cae4c;
+}
+.btn-breadcrumb .btn.btn-success:hover:not(:last-child):after {
+  border-left: 10px solid #47a447;
+}
+.btn-breadcrumb .btn.btn-success:hover:not(:last-child):before {
+  border-left: 10px solid #398439;
+}
+
+/** Danger button **/
+.btn-breadcrumb .btn.btn-danger:not(:last-child):after {
+  border-left: 10px solid #d9534f;
+}
+.btn-breadcrumb .btn.btn-danger:not(:last-child):before {
+  border-left: 10px solid #d43f3a;
+}
+.btn-breadcrumb .btn.btn-danger:hover:not(:last-child):after {
+  border-left: 10px solid #d2322d;
+}
+.btn-breadcrumb .btn.btn-danger:hover:not(:last-child):before {
+  border-left: 10px solid #ac2925;
+}
+
+/** Warning button **/
+.btn-breadcrumb .btn.btn-warning:not(:last-child):after {
+  border-left: 10px solid #f0ad4e;
+}
+.btn-breadcrumb .btn.btn-warning:not(:last-child):before {
+  border-left: 10px solid #eea236;
+}
+.btn-breadcrumb .btn.btn-warning:hover:not(:last-child):after {
+  border-left: 10px solid #ed9c28;
+}
+.btn-breadcrumb .btn.btn-warning:hover:not(:last-child):before {
+  border-left: 10px solid #d58512;
+}
+
+/** Info button **/
+.btn-breadcrumb .btn.btn-info:not(:last-child):after {
+  border-left: 10px solid #5bc0de;
+}
+.btn-breadcrumb .btn.btn-info:not(:last-child):before {
+  border-left: 10px solid #46b8da;
+}
+.btn-breadcrumb .btn.btn-info:hover:not(:last-child):after {
+  border-left: 10px solid #39b3d7;
+}
+.btn-breadcrumb .btn.btn-info:hover:not(:last-child):before {
+  border-left: 10px solid #269abc;
+}
+
+.dashboard-avatar {
+    height: 65px;
+    width: 70px;
+    padding: 1px;
+    float: left;
+    margin-left: 15px;
+    margin-right: 15px;
+    border: 2px solid #EBEBEB;
+    border-radius: 50%;
+}
+ul
+{
+ list-style-type:none;
+}
+
+.panel-notify
+{
+padding:3px;
+overflow-y: auto;
+max-height:380px;    
+}
+.notification-panel
+{
+    border: 5px solid rgba(0,0,0,.15);
+    background-color: #fff;
+    -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.175);
+    box-shadow: 0 3px 6px rgba(0,0,0,.175);
+    padding: 3px;
+    margin: 4px;
+}
+
+.tag
+{
+   float: right;
+   padding-left:4px;
+   padding-right:4px;
+   
+   color:#fff;
+   border: 1px solid #ebebeb;
+   border-radius:4px; 
+
+}
+.green
+{
+background-color:#47a447;
+}
+
+.red
+{
+background-color:#b52b27;
+
+}
+.box
+{
+margin:10px;
+
+}
+input[type=text],input[type=number],input[type=email], textarea {
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  border: 1px solid #DDDDDD;
+}
+ 
+input[type=text]:focus,input[type=number]:focus,input[type=email]:focus, textarea:focus {
+  box-shadow: 0 0 5px #337ab7;
+  border: 1px solid #337ab7;
+}
+
+ .modal-footer > .btn-primary:hover,.modal-footer > .btn-primary:focus
+{
+         box-shadow: 0 0 2px red;
+         border: 2px solid red;
+}
+ 
+.btn-entry > .btn-warning:hover,.btn-entry > .btn-warning:focus
+{
+         box-shadow: 0 0 2px red;
+  border: 2px solid red;
+}

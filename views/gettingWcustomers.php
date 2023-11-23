@@ -1,0 +1,16 @@
+<?php
+require("helpers.php");
+$result= query('SELECT * from wicustomer m order by m.id desc ');
+$data = array();
+while($row = mysqli_fetch_array($result)){
+    $row_data = array(
+        'id' => $row['id'],
+        'name' => $row['name'],
+        'phone' => $row['cellno']
+    );
+    array_push($data, $row_data);
+}
+
+echo json_encode($data);
+
+?>
