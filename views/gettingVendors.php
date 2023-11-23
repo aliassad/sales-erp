@@ -46,6 +46,12 @@ while ($vendor = mysqli_fetch_array($vendors)) {
         'email' => $vendor['email'],
         'cname' => $vendor['companyname'],
         'city' => $vendor['city'],
+        'country' => $vendor['country'],
+        'zip_code' => $vendor['zip_code'],
+        'uid_no' => $vendor['uid_no'],
+        'account_no' => $vendor['account_no'],
+        'gst' => $vendor['gst'],
+        'vendor_no' => $vendor['vendor_no'],
         'payment' => round($total)
     );
     array_push($data, $row_data);
@@ -53,7 +59,6 @@ while ($vendor = mysqli_fetch_array($vendors)) {
 
 }
 echo json_encode($data);
-
 
 
 ?>

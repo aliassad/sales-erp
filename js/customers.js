@@ -6,7 +6,7 @@ $(document).ready(function () {
         db = TAFFY(data);
         $('#loading').hide();
         if (data == "") {
-            $('#vendors').append("<tr class='danger'><td colspan='8'><center><b>No Customers Found !...</b></center></td></tr>");
+            $('#vendors').append("<tr class='danger'><td colspan='15'><center><b>No Customers Found !...</b></center></td></tr>");
             return;
         }
         var total_recievable = 0;

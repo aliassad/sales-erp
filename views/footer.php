@@ -1,6 +1,6 @@
 <div class="row align-center" style="margin-top:5px;text-align: center;  padding:0px;">
     <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-        <p class="label label-default label-custom">Copyright &copy; 2016-17 Fast Software Solutions <b>(Ali Assad
+        <p class="label label-default label-custom">Copyright &copy; 2017-2023 Fast Software Solutions <b>(Ali Assad
                 +923348101214)</b>, All rights
             reserved.</p>
 
