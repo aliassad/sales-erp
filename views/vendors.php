@@ -21,7 +21,7 @@
 
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-search"></i>&nbsp;Vendor No#</span>
-                    <input id="eno" type="number" class="form-control" onkeyup="filter();">
+                    <input id="eno" type="text" class="form-control" onkeyup="filter();">
                 </div>
             </div>
             <div class="col-md-4">

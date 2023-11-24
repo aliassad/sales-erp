@@ -27,7 +27,7 @@
 
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-search"></i>&nbsp;Customer #</span>
-                    <input id="pno" type="number" class="form-control" onkeyup="filter();">
+                    <input id="pno" type="text" class="form-control" onkeyup="filter();">
                 </div>
             </div>
             <div class="col-md-4" style="padding-left:5px; padding-right:3px;">
