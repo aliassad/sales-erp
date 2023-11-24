@@ -175,7 +175,6 @@ function loadData() {
     $('#ctelephone').val($('#telephone').html());
     $('#cphone').val($('#phone').html());
     $('#ccity').val($('#city').html());
-    $('#ccity').selectpicker('val', $('#city').html());
     $('#ccountry').val($('#country').html());
     $('#ccountry').selectpicker('val', $('#country').html());
     $('#ccompany').val($('#company').html());

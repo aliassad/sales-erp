@@ -44,7 +44,7 @@ function filter() {
     if (!pname || pname == "Show all")
         pname = "999";
 
-    if (!pcity || pcity == "Show all")
+    if (!pcity)
         pcity = "999";
 
     if (!pid)
@@ -54,7 +54,7 @@ function filter() {
 
     if (pid != "999" || pname != "999" || pcity != "999") {
 
-        rows = db().filter([{vendor_no: {likenocase: pid}}, {name: {"===": pname}}, {city: {"===": pcity}}]).get();
+        rows = db().filter([{vendor_no: {likenocase: pid}}, {name: {"===": pname}}, {city: {likenocase: pcity}}]).get();
         if (rows.length == 0) {
             total_payable = 0;
             $('#vendors').append("<tr class='danger'><td colspan='14'><center><b>No result found..!</b></center></td></tr>");
@@ -87,7 +87,6 @@ function saveEmployee() {
         swal("Input Error!", "Please fill all required fields", "error");
         return;
     }
-
 
     $.ajax({
         url: "views/addVendor.php",

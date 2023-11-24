@@ -71,10 +71,10 @@
                             <i class="fa  fa-user"></i> Vendor
                         </th>
                         <th class="text-center">
-                            <i class="fa  fa-arrow-circle-o-up"></i>&nbsp;Length
+                            <i class="fa  fa-arrow-circle-o-up"></i>&nbsp;Length <span class="small">(cm)</span>
                         </th>
                         <th class="text-center">
-                            <i class="fa  fa-arrow-circle-right"></i>&nbsp;Width
+                            <i class="fa  fa-arrow-circle-right"></i>&nbsp;Width <span class="small">(cm)</span>
                         </th>
                         <th class="text-center">
                             <i class="fa  fa-balance-scale"></i>&nbsp;Square Meter
@@ -150,22 +150,16 @@
                     </div>
                     <div class="row">
                         <div class="form-group" style="padding-top: 20px;">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-arrow-circle-up"></i>&nbsp;Item Length</span>
+                                    <span class="input-group-addon"><i class="fa fa-arrow-circle-up"></i>&nbsp;Item Length <span class="small">(cm)</span></span>
                                     <input id="item_length" name="item_length" type="text" class="form-control" tabindex="3"/>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-arrow-circle-right"></i>&nbsp;Item Width</span>
+                                    <span class="input-group-addon"><i class="fa fa-arrow-circle-right"></i>&nbsp;Item Width <span class="small">(cm)</span></span>
                                     <input id="item_width" name="item_width" type="text" class="form-control" tabindex="4"/>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-square"></i>&nbsp;Square Meter</span>
-                                    <input id="square_meter" name="square_meter" type="text" class="form-control" tabindex="5"/>
                                 </div>
                             </div>
                         </div>
@@ -175,7 +169,7 @@
                             <div class="col-md-6">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-globe"></i>&nbsp;Origin</span>
-                                    <input id="origin" name="origin" type="text" class="form-control" tabindex="6"/>
+                                    <input id="origin" name="origin" type="text" class="form-control" tabindex="5"/>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -183,7 +177,7 @@
                                     <span class="input-group-addon"><i class="fa fa-hashtag"></i>&nbsp;Vendor</span>
                                     <select id="vendor_id" name="vendor_id" class="selectpicker show-tick"
                                             data-live-search="true" title='Select
-                                            Vendor...' tabindex="7">
+                                            Vendor...' tabindex="6">
                                         <?php
                                         $result = query("select * from vendor order by name");
                                         while ($row = mysqli_fetch_array($result)) {
@@ -200,13 +194,13 @@
                             <div class="col-md-6">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-edit"></i>&nbsp;Description</span>
-                                    <input id="description" name="description" type="text" class="form-control" tabindex="8"/>
+                                    <input id="description" name="description" type="text" class="form-control" tabindex="7"/>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-briefcase"></i>&nbsp;Stock</span>
-                                    <input id="stock" name="stock" type="number" class="form-control" tabindex="9"/>
+                                    <input id="stock" name="stock" type="number" class="form-control" tabindex="8"/>
                                 </div>
                             </div>
                         </div>
@@ -216,14 +210,14 @@
                             <div class="col-md-6">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-money"></i>&nbsp;Sale Price</span>
-                                    <input id="sprice" name="sprice" type="number" class="form-control" tabindex="10"/>
+                                    <input id="sprice" name="sprice" type="number" class="form-control" tabindex="9"/>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i
                                                 class="fa fa-money"></i>&nbsp;Purchase Price</span>
-                                    <input id="pprice" name="pprice" type="number" class="form-control" tabindex="11"/>
+                                    <input id="pprice" name="pprice" type="number" class="form-control" tabindex="10"/>
                                 </div>
                             </div>
                         </div>
@@ -234,14 +228,14 @@
                             <div class="col-md-6">
                                 <div class="input-group">
                                     <span class="input-group-addon"><b>%</b>&nbsp;Discount Percent</span>
-                                    <input id="discount" name="discount" type="number" class="form-control" tabindex="12"/>
+                                    <input id="discount" name="discount" type="number" class="form-control" tabindex="11"/>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i
                                                 class="fa fa-minus-square"></i>&nbsp;Min Stock</span>
-                                    <input id="minstock" name="minstock" type="number" class="form-control" tabindex="13"/>
+                                    <input id="minstock" name="minstock" type="number" class="form-control" tabindex="12"/>
                                 </div>
                             </div>
                         </div>
@@ -250,10 +244,10 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="saveProduct();" tabindex="14"><i
+                <button type="button" class="btn btn-primary" onclick="saveProduct();" tabindex="13"><i
                             class="fa fa-save"></i>&nbsp;Save changes
                 </button>
-                <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="15"><i
+                <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="14"><i
                             class="fa fa-remove"></i>&nbsp;Close
                 </button>
 
@@ -291,22 +285,16 @@
                     </div>
                     <div class="row">
                         <div class="form-group" style="padding-top: 20px;">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-arrow-circle-up"></i>&nbsp;Item Length</span>
+                                    <span class="input-group-addon"><i class="fa fa-arrow-circle-up"></i>&nbsp;Item Length <span class="small">(cm)</span></span>
                                     <input id="edit_item_length" name="edit_item_length" type="text" class="form-control" tabindex="3"/>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-arrow-circle-right"></i>&nbsp;Item Width</span>
+                                    <span class="input-group-addon"><i class="fa fa-arrow-circle-right"></i>&nbsp;Item Width <span class="small">(cm)</span></span>
                                     <input id="edit_item_width" name="edit_item_width" type="text" class="form-control" tabindex="4"/>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-square"></i>&nbsp;Square Meter</span>
-                                    <input id="edit_square_meter" name="edit_square_meter" type="text" class="form-control" tabindex="5"/>
                                 </div>
                             </div>
                         </div>

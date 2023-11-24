@@ -492,16 +492,7 @@ $pendingpayment = $pendingpayment - $paidAmount + $receivedAmount + $opening_bal
                                         <div class="input-group">
                                             <span class="input-group-addon"><i
                                                         class="fa fa-building-o"></i>&nbsp;City</span>
-                                            <select id="vcity" name="vcity" class="selectpicker show-tick"
-                                                    data-live-search="true" title='Select
-                                            City...'>
-                                                <?php
-                                                $result = query("select name from cities order by name");
-                                                while ($row = mysqli_fetch_array($result)) {
-                                                    echo '<option>' . $row['name'] . '</option>';
-                                                }
-                                                ?>
-                                            </select>
+                                            <input name="vcity" id="vcity" type="text" class="form-control" />
                                         </div>
                                     </div>
                                 </div>

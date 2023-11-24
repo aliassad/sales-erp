@@ -47,17 +47,8 @@
             </div>
             <div class="col-md-4" style="padding-left:5px; padding-right:0px;">
                 <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-search"></i>&nbsp;City#</span>
-                    <select id="pcity" class="selectpicker show-tick" data-live-search="true" title='Select City...'
-                            onchange="filter();">
-                        <option class="btn-success">Show all</option>
-                        <?php
-                        $result = query("select name from cities order by name");
-                        while ($row = mysqli_fetch_array($result)) {
-                            echo '<option>' . $row['name'] . '</option>';
-                        }
-                        ?>
-                    </select>
+                    <span class="input-group-addon"><i class="fa fa-search"></i>&nbsp;City</span>
+                    <input id="pcity" type="text" class="form-control" onkeyup="filter();">
                 </div>
             </div>
         </div>
@@ -236,16 +227,7 @@
                             <div class="col-md-6">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-building"></i>&nbsp;City</span>
-                                    <select id="ccity" name="ccity" class="selectpicker show-tick"
-                                            data-live-search="true" title='Select
-                                            City...'>
-                                        <?php
-                                        $result = query("select name from cities order by name");
-                                        while ($row = mysqli_fetch_array($result)) {
-                                            echo '<option>' . $row['name'] . '</option>';
-                                        }
-                                        ?>
-                                    </select>
+                                    <input id="ccity" name="ccity" type="text" class="form-control">
                                 </div>
                             </div>
                         </div>

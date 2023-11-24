@@ -9,7 +9,7 @@ $(document).ready(function () {
             return;
         }
         $.each(data, function (index, data) {
-            $('#products').append('<tr><td>' + data.id + '</td><td>' + data.s_no + '</td><td>' + data.article_no + '</td><td>' + data.origin + '</td><td>' + data.vendor_no + '</td><td>' + data.item_length + '</td><td>' + data.item_width + '</td><td>' + data.square_meter + '</td><td>' + data.des + '</td><td>' + data.stock + '</td><td>' + $("#CURRENCY_SIGN").val() + ' ' + parseFloat(data.sprice).toLocaleString() + '</td><td>' + $("#CURRENCY_SIGN").val() + ' ' + parseFloat(data.pprice).toLocaleString() + '</td><td>' + parseFloat(data.disc).toLocaleString() + ' %</td><td>' + data.minstock + '</td><td><a class="btn btn-primary btn-sm" style="padding-bottom:1px;padding-top:1px;"  onclick="editProduct(this);"><i class="fa fa-edit"></i>&nbsp;Edit</a></td><td><a class="btn btn-danger btn-sm" style="padding-bottom:1px;padding-top:1px;"  onclick="deleteProduct(this);"><i class=" fa fa-trash"></i>&nbsp;Delete</a></td></tr>');
+            $('#products').append('<tr><td>' + data.id + '</td><td>' + data.s_no + '</td><td>' + data.article_no + '</td><td>' + data.origin + '</td><td>' + data.vendor_no + '</td><td>' + data.item_length + '</td><td>' + data.item_width + '</td><td>' + calculateSquareMeter(data.item_length, data.item_width) + '</td><td>' + data.des + '</td><td>' + data.stock + '</td><td>' + $("#CURRENCY_SIGN").val() + ' ' + parseFloat(data.sprice).toLocaleString() + '</td><td>' + $("#CURRENCY_SIGN").val() + ' ' + parseFloat(data.pprice).toLocaleString() + '</td><td>' + parseFloat(data.disc).toLocaleString() + ' %</td><td>' + data.minstock + '</td><td><a class="btn btn-primary btn-sm" style="padding-bottom:1px;padding-top:1px;"  onclick="editProduct(this);"><i class="fa fa-edit"></i>&nbsp;Edit</a></td><td><a class="btn btn-danger btn-sm" style="padding-bottom:1px;padding-top:1px;"  onclick="deleteProduct(this);"><i class=" fa fa-trash"></i>&nbsp;Delete</a></td></tr>');
         });
 
     });
@@ -36,16 +36,18 @@ function filter() {
             $('#products').append("<tr class='danger' ><td colspan='16'><center><b>No result found..!</b></center></td></tr>");
         } else {
             for (var i = 0; i < rows.length; i++)
-                $('#products').append('<tr class="success"><td>' + rows[i]['id'] + '</td><td>' + rows[i]['s_no'] + '</td><td>' + rows[i]['article_no'] + '</td><td>' + rows[i]['origin'] + '</td><td>' + rows[i]['vendor_no'] + '</td><td>' + rows[i]['item_length'] + '</td><td>' + rows[i]['item_width'] + '</td><td>' + rows[i]['square_meter'] + '</td><td>' + rows[i]['des'] + '</td><td>' + rows[i]['stock'] + '</td><td>' + $("#CURRENCY_SIGN").val() + ' ' + parseFloat(rows[i]['sprice']).toLocaleString() + '</td><td>' + $("#CURRENCY_SIGN").val() + ' ' + parseFloat(rows[i]['pprice']).toLocaleString() + '</td><td>' + parseFloat(rows[i]['disc']).toLocaleString() + ' %</td><td>' + rows[i]['minstock'] + '</td><td><a class="btn btn-primary btn-sm" style="padding-bottom:1px;padding-top:1px;"  onclick="editProduct(this);"><i class="fa fa-edit"></i>&nbsp;Edit</a></td><td><a class="btn btn-danger btn-sm" style="padding-bottom:1px;padding-top:1px;"  onclick="deleteProduct(this);"><i class=" fa fa-trash"></i>&nbsp;Delete</a></td></tr>');
+                $('#products').append('<tr class="success"><td>' + rows[i]['id'] + '</td><td>' + rows[i]['s_no'] + '</td><td>' + rows[i]['article_no'] + '</td><td>' + rows[i]['origin'] + '</td><td>' + rows[i]['vendor_no'] + '</td><td>' + rows[i]['item_length'] + '</td><td>' + rows[i]['item_width'] + '</td><td>' + calculateSquareMeter(rows[i]['item_length'], rows[i]['item_width']) + '</td><td>' + rows[i]['des'] + '</td><td>' + rows[i]['stock'] + '</td><td>' + $("#CURRENCY_SIGN").val() + ' ' + parseFloat(rows[i]['sprice']).toLocaleString() + '</td><td>' + $("#CURRENCY_SIGN").val() + ' ' + parseFloat(rows[i]['pprice']).toLocaleString() + '</td><td>' + parseFloat(rows[i]['disc']).toLocaleString() + ' %</td><td>' + rows[i]['minstock'] + '</td><td><a class="btn btn-primary btn-sm" style="padding-bottom:1px;padding-top:1px;"  onclick="editProduct(this);"><i class="fa fa-edit"></i>&nbsp;Edit</a></td><td><a class="btn btn-danger btn-sm" style="padding-bottom:1px;padding-top:1px;"  onclick="deleteProduct(this);"><i class=" fa fa-trash"></i>&nbsp;Delete</a></td></tr>');
 
         }
     } else {
         rows = db().get();
         for (var i = 0; i < rows.length; i++)
-            $('#products').append('<tr><td>' + rows[i]['id'] + '</td><td>' + rows[i]['s_no'] + '</td><td>' + rows[i]['article_no'] + '</td><td>' + rows[i]['origin'] + '</td><td>' + rows[i]['vendor_no'] + '</td><td>' + rows[i]['item_length'] + '</td><td>' + rows[i]['item_width'] + '</td><td>' + rows[i]['square_meter'] + '</td><td>' + rows[i]['des'] + '</td><td>' + rows[i]['stock'] + '</td><td>' + $("#CURRENCY_SIGN").val() + ' ' + parseFloat(rows[i]['sprice']).toLocaleString() + '</td><td>' + $("#CURRENCY_SIGN").val() + ' ' + parseFloat(rows[i]['pprice']).toLocaleString() + '</td><td>' + parseFloat(rows[i]['disc']).toLocaleString() + ' %</td><td>' + rows[i]['minstock'] + '</td><td><a class="btn btn-primary btn-sm" style="padding-bottom:1px;padding-top:1px;"  onclick="editProduct(this);"><i class="fa fa-edit"></i>&nbsp;Edit</a></td><td><a class="btn btn-danger btn-sm" style="padding-bottom:1px;padding-top:1px;"  onclick="deleteProduct(this);"><i class=" fa fa-trash"></i>&nbsp;Delete</a></td></tr>');
+            $('#products').append('<tr><td>' + rows[i]['id'] + '</td><td>' + rows[i]['s_no'] + '</td><td>' + rows[i]['article_no'] + '</td><td>' + rows[i]['origin'] + '</td><td>' + rows[i]['vendor_no'] + '</td><td>' + rows[i]['item_length'] + '</td><td>' + rows[i]['item_width'] + '</td><td>' + calculateSquareMeter(rows[i]['item_length'], rows[i]['item_width']) + '</td><td>' + rows[i]['des'] + '</td><td>' + rows[i]['stock'] + '</td><td>' + $("#CURRENCY_SIGN").val() + ' ' + parseFloat(rows[i]['sprice']).toLocaleString() + '</td><td>' + $("#CURRENCY_SIGN").val() + ' ' + parseFloat(rows[i]['pprice']).toLocaleString() + '</td><td>' + parseFloat(rows[i]['disc']).toLocaleString() + ' %</td><td>' + rows[i]['minstock'] + '</td><td><a class="btn btn-primary btn-sm" style="padding-bottom:1px;padding-top:1px;"  onclick="editProduct(this);"><i class="fa fa-edit"></i>&nbsp;Edit</a></td><td><a class="btn btn-danger btn-sm" style="padding-bottom:1px;padding-top:1px;"  onclick="deleteProduct(this);"><i class=" fa fa-trash"></i>&nbsp;Delete</a></td></tr>');
     }
+}
 
-
+function calculateSquareMeter(length, width) {
+    return (length * width / 10000).toFixed(2);
 }
 
 function saveProduct() {
@@ -159,7 +161,6 @@ function editProduct(id) {
     }
     $('#edit_item_length').val(id.parentNode.parentNode.children[5].innerHTML);
     $('#edit_item_width').val(id.parentNode.parentNode.children[6].innerHTML);
-    $('#edit_square_meter').val(id.parentNode.parentNode.children[7].innerHTML);
     $('#edit_description').val(id.parentNode.parentNode.children[8].innerHTML);
     $('#edit_stock').val(id.parentNode.parentNode.children[9].innerHTML);
     $('#edit_sprice').val(id.parentNode.parentNode.children[10].innerHTML.replace(/[^0-9\.\-]+/g, ""));

@@ -9,7 +9,6 @@ $serial_no = $_POST["serial_no"];
 $article_no = $_POST["article_no"];
 $item_length = $_POST["item_length"];
 $item_width = $_POST["item_width"];
-$square_meter = $_POST["square_meter"];
 $origin = $_POST["origin"];
 $vendor_id = $_POST["vendor_id"];
 $description = $_POST["description"];
@@ -24,7 +23,6 @@ $sql = "insert into product(id,
                     minstock,
                     item_length,
                     item_width,
-                    square_meter,
                     origin,
                     vendor_id,
                     article_no,
@@ -39,7 +37,6 @@ values(NULL,
        '$mstock',
        '$item_length',
        '$item_width',
-       '$square_meter',
        '$origin',
        '$vendor_id',
        '$article_no',
