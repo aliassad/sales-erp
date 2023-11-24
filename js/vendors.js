@@ -47,11 +47,14 @@ function filter() {
     if (!pcity || pcity == "Show all")
         pcity = "999";
 
+    if (!pid)
+        pid = "999";
+
     var total_payable = 0;
 
-    if (pid || pname != "999" || pcity != "999") {
+    if (pid != "999" || pname != "999" || pcity != "999") {
 
-        rows = db().filter([{vendor_no: {likenocase: pid}}, {name: {likenocase: pname}}, {city: {likenocase: pcity}}]).get();
+        rows = db().filter([{vendor_no: {likenocase: pid}}, {name: {"===": pname}}, {city: {"===": pcity}}]).get();
         if (rows.length == 0) {
             total_payable = 0;
             $('#vendors').append("<tr class='danger'><td colspan='14'><center><b>No result found..!</b></center></td></tr>");

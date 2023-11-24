@@ -31,14 +31,17 @@ function filter() {
     if (!pname || pname == "Show all")
         pname = "999";
 
+    if (!pid)
+        pid = "999";
+
     if (!pcity || pcity == "Show all")
         pcity = "999";
 
     var total_recievable = 0;
 
-    if (pid || pname != "999" || pcity != "999") {
+    if (pid!="999" || pname != "999" || pcity != "999") {
 
-        rows = db().filter([{customer_no: {likenocase: pid}}, {name: {likenocase: pname}}, {city: {likenocase: pcity}}]).get();
+        rows = db().filter([{name: {'===': pname}}, {customer_no: {likenocase: pid}}, {city: {'===': pcity}}]).get();
         if (rows.length == 0) {
             total_recievable = 0;
             $('#customers').append("<tr class='danger' onclick='showCustomer(this);' ><td colspan='15'><center><b>No result" +
