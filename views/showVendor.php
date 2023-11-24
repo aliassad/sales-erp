@@ -632,21 +632,21 @@ $pendingpayment = $pendingpayment - $paidAmount + $receivedAmount + $opening_bal
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-money"></i>&nbsp;Total Advance</span>
                         <input type="text" class="form-control"
-                               value="<?php echo "RS " . number_format($pendingadvance + $paidadvance, 2); ?>" readonly>
+                               value="<?php echo CURRENCY_SIGN . ' ' . number_format($pendingadvance + $paidadvance, 2); ?>" readonly>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-money"></i>&nbsp;Total Advance Recieved</span>
                         <input type="text" class="form-control"
-                               value="<?php echo "RS " . number_format($paidadvance, 2); ?>" readonly>
+                               value="<?php echo CURRENCY_SIGN . ' ' . number_format($paidadvance, 2); ?>" readonly>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-money"></i>&nbsp;Total Advance Pending</span>
                         <input type="text" class="form-control"
-                               value="<?php echo "RS " . number_format($pendingadvance, 2); ?>" readonly>
+                               value="<?php echo CURRENCY_SIGN . ' ' . number_format($pendingadvance, 2); ?>" readonly>
                     </div>
                 </div>
             </div>
@@ -695,14 +695,14 @@ $pendingpayment = $pendingpayment - $paidAmount + $receivedAmount + $opening_bal
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-money"></i>&nbsp;Total Amount Balance</span>
                             <input type="text" class="form-control"
-                                   value="<?php echo "RS " . number_format($pendingpayment, 2); ?>" readonly>
+                                   value="<?php echo CURRENCY_SIGN . ' ' . number_format($pendingpayment, 2); ?>" readonly>
                         </div>
                     </div>
                     <div class="col-md-6" style="padding-left:0px">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-money"></i>&nbsp;Total Amount Paid</span>
                             <input type="text" class="form-control"
-                                   value="<?php echo "RS " . number_format($paidAmount, 2); ?>" readonly>
+                                   value="<?php echo CURRENCY_SIGN . ' ' . number_format($paidAmount, 2); ?>" readonly>
                         </div>
                     </div>
                 </div>

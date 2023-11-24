@@ -25,7 +25,7 @@ function query($sql)
     $query = mysqli_query($connection, $sql);
 
     if (!$query)
-        return false;
+        echo("Error description: " . mysqli_error($connection));
 
     return $query;
 }

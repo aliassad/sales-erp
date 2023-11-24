@@ -362,10 +362,8 @@ function deleteSrow(id) {
                     url: "views/deleteCustomerPayment.php",
                     data: {id: id.parentNode.parentNode.id},
                     success: function (msg) {
-
                         var d = id.parentNode.parentNode.id;
                         document.getElementById('ssad').deleteRow(d);
-                        // alert(msg);
                     }
                 });
 
@@ -436,9 +434,6 @@ function editpay() {
                         detail: $('#ppdetail').val()
                     },
                     success: function (msg) {
-
-                        alert(msg);
-
                         swal({
                             title: "Data Updated!",
                             type: "success",
@@ -495,9 +490,6 @@ function customerPayment() {
                         detail: $('#pdetail').val()
                     },
                     success: function (msg) {
-
-                        alert(msg);
-
                         swal({
                             title: "Data Updated!",
                             type: "success",
