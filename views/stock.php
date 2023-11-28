@@ -86,10 +86,10 @@
                             <i class="fa  fa-briefcase"></i>&nbsp;Stock
                         </th>
                         <th class="text-center">
-                            <i class="fa  fa-money"></i>&nbsp;Sale Price
+                            <i class="fa  fa-money"></i>&nbsp;Sale Per Sqm
                         </th>
                         <th class="text-center">
-                            <i class="fa  fa-money"></i>&nbsp;Purchase Price
+                            <i class="fa  fa-money"></i>&nbsp;Purchase Per Sqm
                         </th>
                         <th class="text-center">
                             <b>%</b>&nbsp;Discount
@@ -209,14 +209,14 @@
                         <div class="form-group" style="padding-top: 20px;">
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-money"></i>&nbsp;Sale Price</span>
+                                    <span class="input-group-addon"><i class="fa fa-money"></i>&nbsp;Sale Per Sqm</span>
                                     <input id="sprice" name="sprice" type="number" class="form-control" tabindex="9"/>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i
-                                                class="fa fa-money"></i>&nbsp;Purchase Price</span>
+                                                class="fa fa-money"></i>&nbsp;Purchase Per Sqm</span>
                                     <input id="pprice" name="pprice" type="number" class="form-control" tabindex="10"/>
                                 </div>
                             </div>
@@ -344,14 +344,14 @@
                         <div class="form-group" style="padding-top: 20px;">
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-money"></i>&nbsp;Sale Price</span>
+                                    <span class="input-group-addon"><i class="fa fa-money"></i>&nbsp;Sale Per Sqm</span>
                                     <input id="edit_sprice" name="edit_sprice" type="number" class="form-control" tabindex="10"/>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i
-                                                class="fa fa-money"></i>&nbsp;Purchase Price</span>
+                                                class="fa fa-money"></i>&nbsp;Purchase Per Sqm</span>
                                     <input id="edit_pprice" name="edit_pprice" type="number" class="form-control" tabindex="11"/>
                                 </div>
                             </div>
