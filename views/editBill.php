@@ -7,7 +7,7 @@ if (isset($_GET["cid"])) {
     $cid = $_GET["cid"];
 }
 
-$result = query("select b.cid,b.amount,b.discount,DATE_FORMAT(b.date,'%d-%m-%Y') as date,DATE_FORMAT(b.ddate,'%d-%m-%Y') as ddate,b.notes,b.type,b.gst from bill b where id='$billno'");
+$result = query("select b.cid,b.amount,b.discount,DATE_FORMAT(b.date,'%d-%m-%Y') as date,DATE_FORMAT(b.ddate,'%d-%m-%Y') as ddate,b.notes,b.type,b.gst,b.billing_company from bill b where id='$billno'");
 
 while ($row = mysqli_fetch_array($result)) {
     $cid = $row['cid'];
@@ -18,6 +18,7 @@ while ($row = mysqli_fetch_array($result)) {
     $note = $row['notes'];
     $type = $row['type'];
     $gst = $row['gst'];
+    $billing_company = $row['billing_company'];
 }
 $result = query("select Sum(amount) as paid from billamounts where bid='$billno'");
 while ($row = mysqli_fetch_array($result)) {
@@ -37,6 +38,7 @@ $products = query("select * from product");
     #discount > td > input {
         font-size: 32px;
     }
+
     #discount > td > input[id="final_total"] {
         font-size: 48px;
         height: 49px;
@@ -75,7 +77,7 @@ $products = query("select * from product");
 
 
         <div class="row">
-            <div class="col-md-4" style="padding-left: 0px;">
+            <div class="col-md-4" style="padding: 0px;">
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user"></i>&nbsp;Customer</span>
@@ -95,7 +97,7 @@ $products = query("select * from product");
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 col-md-offset-1">
+            <div class="col-md-3">
                 <div class="form-group" style="padding-left:20px; padding-right:20px;">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-edit"></i></span>
@@ -106,6 +108,21 @@ $products = query("select * from product");
                             <?php if ($type != "Invoice" && $type != "Order")
                                 echo '<option>Invoice</option>';
                             ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-building"></i>&nbsp;Company</span>
+                        <select style="font-size:18px" id="billing_company" class="form-control">
+                            <option value="teppich_clean" <?php if ($billing_company === "tippich_clean") echo "SELECTED"; ?>>
+                                TEPPICH CLEAN24
+                            </option>
+                            <option value="carpet_world" <?php if ($billing_company === "carpet_world") echo "SELECTED"; ?>>
+                                CARPET WORLD24
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -224,7 +241,8 @@ $products = query("select * from product");
                                    value="<?= $paid; ?>" readonly/>
                         </td>
                         <td>
-                            <input type="text" id="final_total" class="form-control" value="<?php echo number_format((($amount + $gst)-$discount)-$paid, 2); ?>"
+                            <input type="text" id="final_total" class="form-control"
+                                   value="<?php echo number_format((($amount + $gst) - $discount) - $paid, 2); ?>"
                                    readonly>
                         </td>
                     </tr>

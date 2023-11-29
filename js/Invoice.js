@@ -250,7 +250,8 @@ function saveData() {
             gst: $('#gst_amount').val(),
             paid: $('#paid').val(),
             discount: $('#discount1').val(),
-            balance: $('#final_total').val()
+            balance: $('#final_total').val(),
+            billing_company: $('#billing_company').val()
         },
         success: function (msg) {
             swal("Bill Saved!", "Successfully", "success");
@@ -264,7 +265,6 @@ function saveData() {
 function saveInvoice() {
     saveData();
     setTimeout("location.href='index.php?page=sell';", 1500);
-
 }
 
 //Saving  Invoice in DB with a print.

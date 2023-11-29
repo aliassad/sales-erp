@@ -5,7 +5,7 @@ if (isset($_GET["cid"])) {
     $cid = $_GET["cid"];
 }
 
-$result = query("select b.cid,b.amount,b.discount,DATE_FORMAT(b.date,'%d-%m-%Y') as date,DATE_FORMAT(b.ddate,'%d-%m-%Y') as ddate,b.notes,b.type,b.gst from bill b where b.id='$billno'");
+$result = query("select b.cid,b.amount,b.discount,DATE_FORMAT(b.date,'%d-%m-%Y') as date,DATE_FORMAT(b.ddate,'%d-%m-%Y') as ddate,b.notes,b.type,b.gst,b.billing_company from bill b where b.id='$billno'");
 
 
 while ($row = mysqli_fetch_array($result)) {
@@ -16,6 +16,7 @@ while ($row = mysqli_fetch_array($result)) {
     $ddate = $row['ddate'];
     $note = $row['notes'];
     $type = $row['type'];
+    $billing_company = $row['billing_company'];
     $gst = $row['gst'];
 }
 
@@ -28,11 +29,26 @@ while ($row = mysqli_fetch_array($result)) {
     $address = $row['address'];
     $name = $row['name'];
     $phone = $row['phone'];
+    $zip_code = $row['zip_code'];
+    $city = $row['city'];
+    $country = $row['country'];
     $customer_gst = $row['gst'];
 }
 $pending = ($amount + $gst) - $paid;
 
 ?>
+<style>
+    .container {
+        background-color: #eee8e1 !important;
+    }
+
+    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+        padding: 2px;
+        line-height: 1.42857143;
+        vertical-align: top;
+        border-top: none !important;
+    }
+</style>
 <input id="userRole" value="<?php echo $_SESSION['role']; ?>" style="display: none;">
 <div class="page-content">
 
@@ -80,15 +96,19 @@ $pending = ($amount + $gst) - $paid;
 <div class="container" style="background-color:#FFFFFF; ">
     <div class="row">
         <div class="col-sm-6">
-            <img src="img/teppich_clean.jpeg" class="img-responsive" width="160px" height="auto">
+            <?php if ($billing_company === "teppich_clean") { ?>
+                <img src="img/teppich_clean.png" class="img-responsive" width="160px" height="auto">
+            <?php } else { ?>
+                <img src="img/carpet_world.png" class="img-responsive" width="160px" height="auto">
+            <?php } ?>
         </div>
-        <div class="col-sm-6" >
-            <h2 id="type" style="float: right"><?= $type; ?></h2>
+        <div class="col-sm-6">
+            <h1 id="type" style="float: right;text-transform: uppercase"><?= $type; ?></h1>
         </div>
     </div>
 
     <div class="row box">
-        <div class="col-lg-5" style="padding-left:40px;">
+        <div class="col-lg-5" style="padding-left:10px;">
 
             <table class="table">
                 <tbody id="tocustomer">
@@ -104,54 +124,97 @@ $pending = ($amount + $gst) - $paid;
                 </tr>
                 <tr>
                     <td class="nocenter"><b><i class="fa fa-book"></i>&nbsp;Address:</b>
-                        <?php echo $address; ?>
+                        <?php echo $zip_code . ' ' . $address . '<br> ' . $city . ', ' . $country; ?>
                     </td>
                 </tr>
                 </tbody>
             </table>
 
         </div>
-        <div class="col-lg-5 col-lg-offset-2" style="padding-right:40px;">
-            <table class="table table">
-                <tbody>
 
-                <tr>
-                    <td class="nocenter">
-                        <i class="fa fa-tag"></i>&nbsp;<b>Customer Order id: </b>
-                        <?php echo $billno; ?>
-                        <input type="number" id="billno" value="<?php echo $billno; ?>" style="display:none;"/>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="nocenter"><i class="fa fa-calendar"></i>&nbsp;<b>Date: </b>
-                        <?php echo $date; ?>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="nocenter"><i class="fa fa-calendar"></i>&nbsp;<b>Due by: </b>
-                        <?php echo $ddate; ?>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+        <div class="col-lg-3 col-lg-offset-4" style="padding-right:20px;">
+            <?php if ($billing_company === "teppich_clean") { ?>
+                <table class="table table">
+                    <tbody>
+                    <tr>
+                        <td class="nocenter">Teppich Clean24 Inh. Tipu Khan</td>
+                    </tr>
+                    <tr>
+                        <td class="nocenter"><i class="fa fa-building-o"></i>&nbsp;Im Taubental 40, 41468 Neuss</td>
+                    </tr>
+                    <tr>
+                        <td class="nocenter"><i class="fa fa-phone-square"></i>&nbsp;021 31/7 18 69-0</td>
+                    </tr>
+                    <tr>
+                        <td class="nocenter"><i class="fa fa-print"></i>&nbsp;021 31/7 18 69-21</td>
+                    </tr>
+                    <tr>
+                        <td class="nocenter"><i class="fa fa-envelope-open"></i>&nbsp;Info@teppich-clean24.de</td>
+                    </tr>
+                    <tr>
+                        <td class="nocenter"><i class="fa fa-globe"></i>&nbsp;www.teppich-clean24.de</td>
+                    </tr>
+                    </tbody>
+                </table>
+            <?php } else { ?>
+                <table class="table table">
+                    <tbody>
+                    <tr>
+                        <td class="nocenter">Carpet World24 Inh. Tipu Khan</td>
+                    </tr>
+                    <tr>
+                        <td class="nocenter"><i class="fa fa-building-o"></i>&nbsp;Im Taubental 40, 41468 Neuss</td>
+                    </tr>
+                    <tr>
+                        <td class="nocenter"><i class="fa fa-phone-square"></i>&nbsp;021 31/7 18 69-0</td>
+                    </tr>
+                    <tr>
+                        <td class="nocenter"><i class="fa fa-print"></i>&nbsp;021 31/7 18 69-21</td>
+                    </tr>
+                    <tr>
+                        <td class="nocenter"><i class="fa fa-envelope-open"></i>&nbsp;Info@carpet-world24.de</td>
+                    </tr>
+                    <tr>
+                        <td class="nocenter"><i class="fa fa-globe"></i>&nbsp;www.carpet-world24.de</td>
+                    </tr>
+                    </tbody>
+                </table>
+            <?php } ?>
         </div>
     </div>
-
+    <div class="row box">
+        <b style="font-size: 16px"><?= $type; ?> No: <?php echo $billno; ?></b><input type="number" id="billno" value="<?php echo $billno; ?>"
+                                                       style="display:none;"/>
+    </div>
     <div class="row box">
         <table class="table">
             <thead>
             <th class="text-center">
-                <i class="fa fa-pencil "></i>&nbsp;Item no#
+                <i class="fa fa-hashtag"></i>&nbsp;Pos.
             </th>
             <th class="text-center">
-                <i class="fa fa-briefcase "></i>&nbsp;Product
+                Article no.
             </th>
             <th class="text-center">
-                <i class="fa fa-money "></i>&nbsp;Price Per SQM
+                Origin
             </th>
             <th class="text-center">
-                <i class="fa fa-table"></i>&nbsp;Qty
+                Description
+            </th>
+            <th class="text-center">
+                Length
+            </th>
+            <th class="text-center">
+                Width
+            </th>
+            <th class="text-center">
+                QTY
+            </th>
+            <th class="text-center">
+                SQM
+            </th>
+            <th class="text-center">
+                Price Per SQM
             </th>
             <th class="text-center">
                 <b>%</b>&nbsp;Discount
@@ -162,16 +225,29 @@ $pending = ($amount + $gst) - $paid;
             </thead>
             <tbody>
             <?php
-            $result = query("SELECT l.*, p.article_no, p.origin,p.item_length,p.item_width, p.saleprice  FROM `lineitem` l, product p  WHERE l.bid = '$billno' and  l.product = p.id; ");
+            $result = query("SELECT l.*, p.article_no, p.origin,p.item_length,p.item_width, p.saleprice,p.des  FROM `lineitem` l, product p  WHERE l.bid = '$billno' and  l.product = p.id; ");
             while ($row = mysqli_fetch_array($result)) {
-                echo '<tr><td class="text-center" >' . $row['lid'] . '</td><td>' . $row['article_no'] . ' ' . $row['origin'] . ' ' . $row['des'] . ' ' . $row['item_length'] . '*' . $row['item_width'] . ': ' . number_format(($row['item_length'] * $row['item_width'] / 10000), 2) . ' SQM</td><td class="text-center" >' . $row['rate'] . '</td><td class="text-center" >' . $row['unit'] . '</td><td class="text-center" >' . $row['discount'] . '</td><td class="text-center" >' . ($row['amount']) . '</td></tr>';
-            }
+                ?>
+                <tr>
+                    <td class="text-center"><?= $row['lid'] ?></td>
+                    <td class="text-center"><?= $row['article_no'] ?></td>
+                    <td class="text-center"><?= $row['origin'] ?></td>
+                    <td class="text-center"><?= $row['des'] ?></td>
+                    <td class="text-center"><?= $row['item_length'] ?></td>
+                    <td class="text-center"><?= $row['item_width'] ?></td>
+                    <td class="text-center"><?= $row['unit'] ?></td>
+                    <td class="text-center"><?= number_format(($row['item_length'] * $row['item_width']) / 10000, 2); ?></td>
+                    <td class="text-center"><?= $row['rate'] ?></td>
+                    <td class="text-center"><?= $row['discount'] ?></td>
+                    <td class="text-center"><?= $row['amount'] ?></td>
+                </tr>
+            <?php }
             ?>
 
             </tbody>
             <tfoot>
             <tr>
-                <td colspan="4" rowspan="3" style="border-style:none;">
+                <td colspan="6" rowspan="3" style="border-style:none;">
                     <table class="table table-bordered">
                         <thead>
                         <th style="background:lightgrey;"><i class="fa fa-newspaper-o"></i>Notes</th>
@@ -187,7 +263,7 @@ $pending = ($amount + $gst) - $paid;
                     </table>
                 </td>
                 <td></td>
-                <td colspan="2">
+                <td colspan="4">
                     <table class="table table-bordered">
                         <tbody>
                         <tr>
@@ -226,6 +302,37 @@ $pending = ($amount + $gst) - $paid;
                    value="<?php echo $pending - $discount; ?>">
             </tfoot>
         </table>
+    </div>
+    <div class="row box">
+        You are required to keep the invoice for tax purposes for two years.
+        <p>
+            Payable: Net upon receipt of Invoice Reductions In fees result from our current framework or conditions
+        </p>
+    </div>
+    <div class="row box">
+        <div class="col-sm-6">
+            Sparkasse Neuss: Account number: 934 230 69 Bank code: 305 500 00<br>
+            Sparkasse Neuss: IBAN: DE81 3055 0000 0093 4230 69
+        </div>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3"><b>
+        Tax No. 125/5308/5032<br>
+        UID No. DE 274915735
+            </b>
+        </div>
+    </div>
+    <div class="row box" style="padding: 20px">
+        <div class="col-sm-3"></div>
+
+        <?php if ($billing_company === "teppich_clean") { ?>
+            <div class="col-sm-6">
+                Terms and conditions at: <b>https://teppich-clean24.de/agb/</b>
+            </div>
+        <?php } else { ?>
+            <div class="col-sm-6">
+                Terms and conditions at: <b>https://carpet-clean24.de/agb</b>
+            </div>
+        <?php } ?>
     </div>
 
 </div>

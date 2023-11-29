@@ -307,7 +307,8 @@ function saveInvoice() {
                         paid: $('#paid').val(),
                         discount: $('#discount1').val(),
                         balance: $('#final_total').val(),
-                        gst: $('#gst_amount').val()
+                        gst: $('#gst_amount').val(),
+                        billing_company: $('#billing_company').val()
                     },
                     success: function (msg) {
                         swal({

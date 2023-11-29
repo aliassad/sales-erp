@@ -14,6 +14,7 @@ $cno = $_POST['cno'];
 $mno = $_POST['mno'];
 $bdate = $_POST['bdate'];
 $gst = $_POST['gst'];
+$billing_company = $_POST['billing_company'];
 
 $tableData = stripcslashes($_POST['pTableData']);
 
@@ -33,7 +34,7 @@ if (!$r) {
         $r = query("insert into wicustomer values('NULL','$wname','$cno')");
     }
 
-    $r = query("insert into `bill`(`cid`, `discount`, `amount`, `date`, `ddate`, `notes`, `type`, `gst`) values('$id','$discount','$gtotal',STR_TO_DATE('$bdate','%d-%m-%Y'),STR_TO_DATE('$duedate', '%d-%m-%Y'),'$notes','$type','$gst')");
+    $r = query("insert into `bill`(`cid`, `discount`, `amount`, `date`, `ddate`, `notes`, `type`, `gst`,`billing_company`) values('$id','$discount','$gtotal',STR_TO_DATE('$bdate','%d-%m-%Y'),STR_TO_DATE('$duedate', '%d-%m-%Y'),'$notes','$type','$gst','$billing_company')");
 
     if (!$r) {
         echo "false2";

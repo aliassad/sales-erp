@@ -13,6 +13,7 @@ $paid = $_POST['paid'];
 $discount = $_POST['discount'];
 $balance = $_POST['balance'];
 $gst = $_POST['gst'];
+$billing_company = $_POST['billing_company'];
 
 
 $r = query("select type from bill where id='$bid'");
@@ -52,7 +53,7 @@ if (!$r) {
     }
 
 
-    $r = query("UPDATE  bill SET `gst`='$gst',`cid`='$id',`discount`='$discount',`amount`='$gtotal',date=STR_TO_DATE('$date', '%d-%m-%Y'),ddate=STR_TO_DATE('$duedate', '%d-%m-%Y'),notes='$notes',type='$type' where id='$bid'");
+    $r = query("UPDATE  bill SET `billing_company`='$billing_company',`gst`='$gst',`cid`='$id',`discount`='$discount',`amount`='$gtotal',date=STR_TO_DATE('$date', '%d-%m-%Y'),ddate=STR_TO_DATE('$duedate', '%d-%m-%Y'),notes='$notes',type='$type' where id='$bid'");
     if (!$r) {
         echo "false1";
     }

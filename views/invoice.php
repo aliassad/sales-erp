@@ -37,7 +37,7 @@ $products = query("select * from product");
             <div class="col-md-4">
                 <center>
                     <div class="form-group">
-                        <button class="btn btn-md btn-info" style="margin-top:5px;"><b>Bill No</b> <span
+                        <button class="btn btn-md btn-warning" style="margin-top:5px;"><b>BILL No</b> <span
                                     class="badge"><?php
                                 $result = query("SHOW TABLE STATUS LIKE 'bill'");
                                 $data = mysqli_fetch_assoc($result);
@@ -57,12 +57,21 @@ $products = query("select * from product");
             </div>
         </div>
 
-
-        <!-- /.row -->
-
-
-        <div class="row" style="padding-top:0px;">
-            <div class="col-md-4" style="padding-left: 0px; ">
+        <div class="row" style="padding-bottom:10px;padding-top:20px;">
+            <div class="col-md-1"></div>
+            <div class="col-md-3" style="padding-left: 0;">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-edit"></i>&nbsp;Type</span>
+                        <select style="font-size:18px" id="intitle" class="form-control">
+                            <option>Invoice</option>
+                            <option>Quotation</option>
+                            <!--                                <option>Order</option>-->
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" style="padding: 0px; ">
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user"></i>&nbsp;Customer</span>
@@ -86,24 +95,17 @@ $products = query("select * from product");
                     </div>
                 </div>
             </div>
-            <div class="col-md-2" style="padding: 0;">
-                <a href="#" class="btn btn-md btn-success" data-toggle="modal" data-target="#newCustomerModal"
-                   onclick="clearModal();">
-                    <i class="fa fa-plus"></i>&nbsp;New Customer</a>
-            </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-edit"></i>&nbsp;Type</span>
-                        <select style="font-size:18px" id="intitle" class="form-control">
-                            <option>Invoice</option>
-                            <option>Quotation</option>
-                            <!--                                <option>Order</option>-->
+                        <span class="input-group-addon"><i class="fa fa-building"></i>&nbsp;Company</span>
+                        <select style="font-size:18px" id="billing_company" class="form-control" >
+                            <option value="teppich_clean">TEPPICH CLEAN24</option>
+                            <option value="carpet_world">CARPET WORLD24</option>
                         </select>
                     </div>
                 </div>
             </div>
-
         </div>
 
 
@@ -170,7 +172,8 @@ $products = query("select * from product");
                     <tr>
                         <td class="itemno">1</td>
                         <td style="width:30%;">
-                            <select id="product1" onchange="loadProductDetail(1);"  data-live-search="true" class="form-control">
+                            <select id="product1" onchange="loadProductDetail(1);" data-live-search="true"
+                                    class="form-control">
                             </select>
                         </td>
                         <td style=" width:12%">
@@ -430,7 +433,6 @@ $products = query("select * from product");
                                     return;
                                 }
                                 $('#myModal').modal('toggle');
-
 
                                 $.ajax({
                                     type: "POST",
