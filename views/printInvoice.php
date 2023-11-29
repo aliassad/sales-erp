@@ -48,6 +48,13 @@
 
     <style>
 
+        #rectangle {
+            margin: auto;
+            width: 20px;
+            height: 20px;
+            background: none;
+            border: 2px solid #444;
+        }
 
         th,
         thead, {
@@ -78,7 +85,8 @@
             margin: 10px;
 
         }
-        body , .container{
+
+        body, .container {
             background-color: #eee8e1 !important;
         }
 
@@ -112,28 +120,30 @@
             <?php } ?>
         </div>
         <div class="col-sm-6">
-            <h1 id="type" style="float: right;text-transform: uppercase"><?= $type; ?></h1>
+            <h1 id="type" style="float: right;text-transform: uppercase">
+                <?php if ($type === "Invoice") { ?>
+                    RECHNUNG
+                <?php } else { ?>
+                    WÄSCHE-/REPARATURAUFTRAG
+                <?php } ?>
+
+            </h1>
         </div>
     </div>
 
     <div class="row box">
         <div class="col-sm-5" style="padding-left:0px;background: transparent !important;">
 
-            <table class="table"  style="background: transparent !important;">
-                <tbody id="tocustomer"  style="background: transparent !important;">
+            <table class="table" style="background: transparent !important;">
+                <tbody id="tocustomer" style="background: transparent !important;">
                 <tr>
-                    <td class="nocenter"><b><i class="fa fa-user"></i>&nbsp;Name:</b>
+                    <td class="nocenter"><b><i class="fa fa-user"></i></b>
                         <?php echo $name; ?>
                     </td>
                 </tr>
                 <tr>
-                    <td class="nocenter"><b><i class="fa fa-phone "></i>&nbsp;Phone:</b>
-                        <?php echo $phone; ?>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="nocenter"><b><i class="fa fa-book"></i>&nbsp;Address:</b>
-                        <?php echo $zip_code . ' ' . $address . '<br> ' . $city . ', ' . $country; ?>
+                    <td class="nocenter"><b><i class="fa fa-address-book"></i></b>
+                        <?php echo $address . '<br>' . $zip_code . ' ' . $city . ' <br>' . $country; ?>
                     </td>
                 </tr>
                 </tbody>
@@ -191,9 +201,24 @@
         </div>
     </div>
     <div class="row box">
-        <b style="font-size: 16px"><?= $type; ?> No: <?php echo $billno; ?></b><input type="number" id="billno"
-                                                                                      value="<?php echo $billno; ?>"
-                                                                                      style="display:none;"/>
+        <div class="col-lg-6">
+            <b style="font-size: 16px">
+                <?php if ($type === "Invoice") { ?>
+                    Rechnungs Nr.
+                <?php } else { ?>
+                    Auftrags Nr.
+                <?php } ?>
+                <?php echo str_pad($billno, 6, '0', STR_PAD_LEFT);; ?></b><input type="number" id="billno"
+                                                                                 value="<?php echo $billno; ?>"
+                                                                                 style="display:none;"/>
+        </div>
+        <div class="col-lg-2"></div>
+        <div class="col-lg-4">
+            <span class="nocenter" style="font-size: 14px;float: right"><i
+                        class="fa fa-calendar"></i>&nbsp;<b>Datum: </b>
+                <?= $date; ?>
+            </span>
+        </div>
     </div>
     <div class="row box">
         <table class="table">
@@ -202,34 +227,42 @@
                 <i class="fa fa-hashtag"></i>&nbsp;Pos.
             </th>
             <th class="text-center">
-                Article no.
+                Artikle no.
             </th>
             <th class="text-center">
-                Origin
+                herkunft
             </th>
             <th class="text-center">
-                Description
+                Bezeichnung
             </th>
             <th class="text-center">
-                Length
+                Lang
             </th>
             <th class="text-center">
-                Width
+                Breit
             </th>
             <th class="text-center">
-                QTY
+                Menge
             </th>
             <th class="text-center">
-                SQM
+                Qm
+            </th>
+            <?php if ($type !== "Invoice") { ?>
+                <th class="text-center">
+                    Wascne
+                </th>
+                <th class="text-center">
+                    heratur
+                </th>
+            <?php } ?>
+            <th class="text-center">
+                VK/Qm
             </th>
             <th class="text-center">
-                Price Per SQM
+                <b>%</b>&nbsp;Rabatt
             </th>
             <th class="text-center">
-                <b>%</b>&nbsp;Discount
-            </th>
-            <th class="text-center">
-                <i class="fa fa-money "></i>&nbsp;Amount
+                <i class="fa fa-money "></i>&nbsp;Gesamt
             </th>
             </thead>
             <tbody>
@@ -242,13 +275,21 @@
                     <td class="text-center"><?= $row['article_no'] ?></td>
                     <td class="text-center"><?= $row['origin'] ?></td>
                     <td class="text-center"><?= $row['des'] ?></td>
-                    <td class="text-center"><?= $row['item_length'] ?></td>
-                    <td class="text-center"><?= $row['item_width'] ?></td>
+                    <td class="text-center"><?= number_format($row['item_length'], 2, ',', '.'); ?></td>
+                    <td class="text-center"><?= number_format($row['item_width'], 2, ',', '.'); ?></td>
                     <td class="text-center"><?= $row['unit'] ?></td>
-                    <td class="text-center"><?= number_format(($row['item_length'] * $row['item_width']) / 10000, 2); ?></td>
+                    <td class="text-center"><?= number_format(($row['item_length'] * $row['item_width']) / 10000, 2, ',', '.'); ?></td>
+                    <?php if ($type !== "Invoice") { ?>
+                        <td class="text-center">
+                            <div id="rectangle"></div>
+                        </td>
+                        <td class="text-center">
+                            <div id="rectangle"></div>
+                        </td>
+                    <?php } ?>
                     <td class="text-center"><?= $row['rate'] ?></td>
                     <td class="text-center"><?= $row['discount'] ?></td>
-                    <td class="text-center"><?= $row['amount'] ?></td>
+                    <td class="text-center"><?= number_format($row['amount'], 2, ',', '.'); ?></td>
                 </tr>
             <?php }
             ?>
@@ -256,10 +297,10 @@
             </tbody>
             <tfoot>
             <tr>
-                <td colspan="6" rowspan="3" style="border-style:none;">
+                <td colspan="<?= ($type === "Invoice") ? '6' : '8'; ?>" rowspan="3" style="border-style:none;">
                     <table class="table table-bordered">
                         <thead>
-                        <th style="background:lightgrey;"><i class="fa fa-newspaper-o"></i>Notes</th>
+                        <th style="background:lightgrey;"><i class="fa fa-newspaper-o"></i>Anmerkungen</th>
                         </thead>
                         <tbody>
                         <tr>
@@ -276,30 +317,33 @@
                     <table class="table table-bordered">
                         <tbody>
                         <tr>
-                            <td class="nocenter"><b>Gross Total:</b></td>
+                            <td class="nocenter"><b>Bruttosumme:</b></td>
                             <td class="nocenter">
-                                <?= CURRENCY_SIGN . ' ' . number_format(($amount), 2) ?>
+                                <?= number_format(($amount), 2, ',', '.') . CURRENCY_SIGN; ?>
                             </td>
                         </tr>
                         <tr>
                             <td class="nocenter"><b>GST (<?= $customer_gst ?>)%:</b></td>
-                            <td class="nocenter"><?= CURRENCY_SIGN . ' ' . number_format(($gst), 2); ?></td>
+                            <td class="nocenter"><?= number_format(($gst), 2, ',', '.') . CURRENCY_SIGN; ?></td>
                         </tr>
                         <tr>
-                            <td class="nocenter"><b>Net Total:</b></td>
-                            <td class="nocenter"><?= CURRENCY_SIGN . ' ' . number_format(($amount + $gst), 2); ?></td>
+                            <td class="nocenter"><b>Nettogesamt:</b></td>
+                            <td class="nocenter"><?= number_format(($amount + $gst), 2, ',', '.') . CURRENCY_SIGN; ?></td>
                         </tr>
+                        <?php if ($discount * 1 > 0) { ?>
+                            <tr>
+                                <td class="nocenter"><b>Rabatt:</b></td>
+                                <td class="nocenter"><?= number_format(($discount), 2, ',', '.') . CURRENCY_SIGN; ?></td>
+                            </tr>
+                        <?php } ?>
                         <tr>
-                            <td class="nocenter"><b>Discount:</b></td>
-                            <td class="nocenter"><?= CURRENCY_SIGN . ' ' . number_format(($discount), 2); ?></td>
+                            <td class="nocenter"><b>Erhaltener Betrag:</b></td>
+                            <td class="nocenter"><?= number_format(($paid), 2, ',', '.') . CURRENCY_SIGN; ?></td>
                         </tr>
+
                         <tr>
-                            <td class="nocenter"><b>Amount Received:</b></td>
-                            <td class="nocenter"><?= CURRENCY_SIGN . ' ' . number_format(($paid), 2); ?></td>
-                        </tr>
-                        <tr>
-                            <td class="nocenter" style="background:lightgrey;"><b>Balance:</b></td>
-                            <td class="nocenter"><?= CURRENCY_SIGN . ' ' . number_format(($pending - $discount), 2) ?>
+                            <td class="nocenter" style="background:lightgrey;"><b>Gleichgewicht:</b></td>
+                            <td class="nocenter"><?= number_format(($pending - $discount), 2, ',', '.') . CURRENCY_SIGN; ?>
                             </td>
                         </tr>
 
@@ -312,34 +356,51 @@
             </tfoot>
         </table>
     </div>
-    <div class="row box">
-        You are required to keep the invoice for tax purposes for two years.
-        <p>
-            Payable: Net upon receipt of Invoice Reductions In fees result from our current framework or conditions
-        </p>
-    </div>
-    <div class="row box">
-        <div class="col-sm-6">
-            Sparkasse Neuss: Account number: 934 230 69 Bank code: 305 500 00<br>
-            Sparkasse Neuss: IBAN: DE81 3055 0000 0093 4230 69
+    <?php if ($type === "Invoice") { ?>
+        <div class="row box">
+            Sie sind verpflichtet, die Rechnung zu Steuerzwecken zwei Jahre lang aufzubewahren
+            <p>
+                Zahibar: Nach Rechnungserhalt Netto
+                Entgeltminderungen ergeben sich us unserer aktuellen Rahmen- ode Konditionsbedingungen.
+            </p>
         </div>
-        <div class="col-sm-3"></div>
-        <div class="col-sm-3"><b>
-                Tax No. 125/5308/5032<br>
-                UID No. DE 274915735
-            </b>
+        <div class="row box">
+            <div class="col-sm-6">
+                Sparkasse Neuss: Account number: 934 230 69 Bank code: 305 500 00<br>
+                Sparkasse Neuss: IBAN: DE81 3055 0000 0093 4230 69
+            </div>
+            <div class="col-sm-3"></div>
+            <div class="col-sm-3"><b>
+                    Steuer Nr. 125/5308/5032<br>
+                    UID Nr. DE 274915735
+                </b>
+            </div>
         </div>
-    </div>
+    <?php } else { ?>
+        <div class="row box">
+            <p>Für die Bearbeitung der Stücke benötigen wir je nach Saison und Auslastung ca. 6 Werktage
+                Gegenstand des Auftrages ist immer die ordnungsgemäße und komplette Durchführung der Wäsche.
+                Eine Gewähr für eine voliständige Entfernung von Flecken, Verfärbungen und anderer
+                gebrauchsbedingter Veränderungen, insbesondere der Versuch in Eigenarbeit diese
+                zu entfernen, ist damit ausdrücklich nicht verbunden.
+                Die Zusatzbehandlungen Appretur, Imprägnierung und Hygienespülung können ur in Verbindung
+                mit einer Reinigung bestellt werden.</p>
+            <p>Sonderbehandlung von Flecken* und Verlärbungen* nur auf Bestellung. Die Berechnung
+                erfogt nach Kostenvoranschlag ode nach Zeitaufwand
+                *onne triolasgarante.</p>
+        </div>
+
+    <?php } ?>
+
     <div class="row box" style="padding: 20px">
         <div class="col-sm-3"></div>
-
         <?php if ($billing_company === "teppich_clean") { ?>
-            <div class="col-sm-6">
-                Terms and conditions at: <b>https://teppich-clean24.de/agb/</b>
+            <div class="col-sm-6 text-center">
+                AGB unter: <b>https://teppich-clean24.de/agb</b>
             </div>
         <?php } else { ?>
-            <div class="col-sm-6">
-                Terms and conditions at: <b>https://carpet-clean24.de/agb</b>
+            <div class="col-sm-6 text-center">
+                AGB unter: <b>https://carpet-world24.de/pages/allgemeine-geschaftsbedingungen-agb</b>
             </div>
         <?php } ?>
     </div>
