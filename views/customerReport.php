@@ -9,17 +9,17 @@ $amountReceived = 0;
 $MoreCharge = 0;
 $result = query("select * from customer where id='$id'");
 while ($row = mysqli_fetch_array($result)) {
-    $opening_balance = round($row['openingbalance']);
+    $opening_balance = ($row['openingbalance']);
 }
 
 
 $result = query("select sum(amount) as amountReceived from customerpayments where cid='$id' and ptype='Credit'");
 while ($row = mysqli_fetch_array($result)) {
-    $amountReceived = round($row['amountReceived']);
+    $amountReceived = ($row['amountReceived']);
 }
 $result = query("select sum(amount) as MoreCharge from customerpayments where cid='$id' and ptype='Debit'");
 while ($row = mysqli_fetch_array($result)) {
-    $MoreCharge = round($row['MoreCharge']);
+    $MoreCharge = ($row['MoreCharge']);
 }
 
 
@@ -27,8 +27,8 @@ while ($row = mysqli_fetch_array($result)) {
 $result = query("Select (SELECT sum(ba.amount) from billamounts ba,bill b WHERE ba.bid=b.id and b.cid='$id' ) tpaid,sum(amount-discount) tamount  from bill b where b.type='Invoice' and b.cid='$id'");
 if ($result) {
     while ($row = mysqli_fetch_array($result)) {
-        $tamount = round($row['tamount']);
-        $tpaid = round($row['tpaid']);
+        $tamount = ($row['tamount']);
+        $tpaid = ($row['tpaid']);
 
     }
     $tbalance = $tamount - $tpaid + $opening_balance-$amountReceived+$MoreCharge;
@@ -65,7 +65,7 @@ $totalDebit = $openingBalance;
 $result = query("Select sum(amount-discount) debit  from bill b where b.type='Invoice' and b.cid='$pid' and b
 .date < STR_TO_DATE('$from','%d-%M-%Y')") ;
 while ($row = mysqli_fetch_array($result)) {
-    $totalDebit += round($row['debit']);
+    $totalDebit += ($row['debit']);
 }
 //$result = query("select sum((l.unit*(l.rate-((l.rate*l
 //.discount)/100)))) as debit from `bill` b,`lineitem` l where b.cid='$pid' and l.bid=b.id and b
@@ -78,26 +78,26 @@ while ($row = mysqli_fetch_array($result)) {
 
 $result = query("select sum(b.discount) as credit from `bill` b where b.cid='$pid' and b.type='Invoice' and b.date < STR_TO_DATE ('$from','%d-%M-%Y')");
 while ($row = mysqli_fetch_array($result))
-    $totalCredit += round($row['credit']);
+    $totalCredit += ($row['credit']);
 
 
 
 $result = query("select sum(ba.amount) as credit from `bill` b,`billamounts` ba where  b.type='Invoice' and b.cid='$pid' and ba.bid=b.id and b.date < STR_TO_DATE 
 ('$from','%d-%M-%Y');");
 while ($row = mysqli_fetch_array($result))
-    $totalCredit += round($row['credit']);
+    $totalCredit += ($row['credit']);
 
 
 $result = query("select sum(cp.amount) as amountReceived from customerpayments cp where cid='$pid' and ptype='Credit' and cp.date < STR_TO_DATE 
 ('$from','%d-%M-%Y');");
 while ($row = mysqli_fetch_array($result)) {
-    $totalCredit += round($row['amountReceived']);
+    $totalCredit += ($row['amountReceived']);
 }
 
 $result = query("select sum(cp.amount) as debit from customerpayments cp where cid='$pid' and ptype='Debit' and cp.date < STR_TO_DATE 
 ('$from','%d-%M-%Y');");
 while ($row = mysqli_fetch_array($result)) {
-    $totalDebit += round($row['debit']);
+    $totalDebit += ($row['debit']);
 }
 
 
@@ -116,7 +116,7 @@ if($row['credit'] != 0){
     $row_data = array(
         'des' => $row['des'],
         'debit' => 0,
-        'credit' => round($row['credit']),
+        'credit' => ($row['credit']),
         'date' => $row['date']
     );
 array_push($data, $row_data);
@@ -144,7 +144,7 @@ STR_TO_DATE
 while ($row = mysqli_fetch_array($result)) {
     $row_data = array(
         'des' => $row['des'],
-        'debit' => round($row['debit']),
+        'debit' => ($row['debit']),
         'credit' => 0,
         'date' => $row['date']
     );
@@ -164,7 +164,7 @@ while ($row = mysqli_fetch_array($result)) {
         $row_data = array(
             'des' => $row['des'],
             'debit' => 0,
-            'credit' => round($row['credit']),
+            'credit' => ($row['credit']),
             'date' => $row['date']
         );
         array_push($data, $row_data);
@@ -184,7 +184,7 @@ while ($row = mysqli_fetch_array($result)) {
         $row_data = array(
             'des' => $row['des'],
             'debit' => 0,
-            'credit' => round($row['credit']),
+            'credit' => ($row['credit']),
             'date' => $row['date']
         );
         array_push($data, $row_data);
@@ -202,7 +202,7 @@ while ($row = mysqli_fetch_array($result)) {
     if (round($row['debit']) != 0) {
         $row_data = array(
             'des' => $row['des'],
-            'debit' => round($row['debit']),
+            'debit' => ($row['debit']),
             'credit' => 0,
             'date' => $row['date']
         );

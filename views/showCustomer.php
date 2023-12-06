@@ -16,12 +16,12 @@ while ($row = mysqli_fetch_array($result)) {
 
 $result = query("select sum(amount) as amountReceived from customerpayments where cid='$cid' and ptype='Credit'");
 while ($row = mysqli_fetch_array($result)) {
-    $amountReceived = round($row['amountReceived']);
+    $amountReceived = ($row['amountReceived']);
 }
 
 $result = query("select sum(amount) as charge from customerpayments where cid='$cid' and ptype='Debit'");
 while ($row = mysqli_fetch_array($result)) {
-    $charge = round($row['charge']);
+    $charge = ($row['charge']);
 }
 
 

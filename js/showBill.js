@@ -169,6 +169,13 @@ $('#printBill').click(function () {
 
 });
 
+$('#printDeliveryOrder').click(function () {
+
+    setTimeout("location.href='views/printInvoice.php?DL=true&billid=" + $('#billno').val() + "'", 500);
+
+
+});
+
 
 function deleteArow(id) {
 

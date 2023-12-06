@@ -8,7 +8,7 @@ while($row = mysqli_fetch_array($result)){
 
     $row_data = array(
         'id' => $row['id'],
-        'amount' => round($row['amount']),
+        'amount' => ($row['amount']),
         'date' => $row['date'],
         'type' => $row['ptype'],
         'detail' => $row['pdetail']

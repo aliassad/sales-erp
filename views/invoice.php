@@ -19,6 +19,13 @@ $products = query("select * from product");
         height: 49px;
     }
 
+    .dropup .dropdown-menu, .navbar-fixed-bottom .dropdown .dropdown-menu {
+        top: 100% !important;
+        bottom: auto !important;
+        margin-bottom: 2px;
+    }
+
+
 </style>
 
 <div class="container-fluid">
@@ -99,7 +106,7 @@ $products = query("select * from product");
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-building"></i>&nbsp;Company</span>
-                        <select style="font-size:18px" id="billing_company" class="form-control" >
+                        <select style="font-size:18px" id="billing_company" class="form-control">
                             <option value="teppich_clean">TEPPICH CLEAN24</option>
                             <option value="carpet_world">CARPET WORLD24</option>
                         </select>

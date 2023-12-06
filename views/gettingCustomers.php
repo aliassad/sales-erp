@@ -8,25 +8,25 @@ $amountReceived = 0;
 $MoreCharge = 0;
 $customers = query("select * from customer");
 while ($customer = mysqli_fetch_array($customers)) {
-    $opening_balance = round($customer['openingbalance']);
+    $opening_balance = ($customer['openingbalance']);
     $id = $customer['id'];
 
 
     $receivedAmounts = query("select sum(amount) as amountReceived from customerpayments where cid='$id' and ptype='Credit'");
     while ($row = mysqli_fetch_array($receivedAmounts)) {
-        $amountReceived = round($row['amountReceived']);
+        $amountReceived = ($row['amountReceived']);
     }
     $moreAmountCharged = query("select sum(amount) as MoreCharge from customerpayments where cid='$id' and ptype='Debit'");
     while ($row = mysqli_fetch_array($moreAmountCharged)) {
-        $MoreCharge = round($row['MoreCharge']);
+        $MoreCharge = ($row['MoreCharge']);
     }
 
 
     $billAmounts = query("Select (SELECT sum(ba.amount) from billamounts ba,bill b WHERE ba.bid=b.id and b.cid='$id' ) tpaid,sum(amount-discount) tamount  from bill b where b.type='Invoice' and b.cid='$id'");
     if ($billAmounts) {
         while ($row = mysqli_fetch_array($billAmounts)) {
-            $tamount = round($row['tamount']);
-            $tpaid = round($row['tpaid']);
+            $tamount = ($row['tamount']);
+            $tpaid = ($row['tpaid']);
 
         }
         $tbalance = $tamount - $tpaid + $opening_balance - $amountReceived + $MoreCharge;

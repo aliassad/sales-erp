@@ -87,9 +87,14 @@ $pending = ($amount + $gst) - $paid;
                     <b>&nbsp;Delete Bill</b></a>
             <?php } ?>
         </div>
+
         <a class="btn btn-lg btn-primary" style="float:right;" id="printBill"><i class="fa fa-print"></i>&nbsp;Print
             Bill</a>
-
+        <?php if ($type == "Invoice") { ?>
+            <a class="btn btn-lg btn-info" style="float:right; margin-right: 10px" id="printDeliveryOrder"><i
+                        class="fa fa-print"></i>&nbsp;Print
+                Delivery Order</a>
+        <?php } ?>
     </div>
 </div>
 <!-- /.row -->
@@ -183,8 +188,9 @@ $pending = ($amount + $gst) - $paid;
         </div>
     </div>
     <div class="row box">
-        <b style="font-size: 16px"><?= $type; ?> No: <?php echo $billno; ?></b><input type="number" id="billno" value="<?php echo $billno; ?>"
-                                                       style="display:none;"/>
+        <b style="font-size: 16px"><?= $type; ?> No: <?php echo $billno; ?></b><input type="number" id="billno"
+                                                                                      value="<?php echo $billno; ?>"
+                                                                                      style="display:none;"/>
     </div>
     <div class="row box">
         <table class="table">
@@ -195,10 +201,10 @@ $pending = ($amount + $gst) - $paid;
             <th class="text-center">
                 Article no.
             </th>
-            <th class="text-center">
+            <th class="text-left">
                 Origin
             </th>
-            <th class="text-center">
+            <th class="text-left">
                 Description
             </th>
             <th class="text-center">
@@ -210,7 +216,7 @@ $pending = ($amount + $gst) - $paid;
             <th class="text-center">
                 QTY
             </th>
-            <th class="text-center">
+            <th class="text-right">
                 SQM
             </th>
             <th class="text-center">
@@ -226,24 +232,43 @@ $pending = ($amount + $gst) - $paid;
             <tbody>
             <?php
             $result = query("SELECT l.*, p.article_no, p.origin,p.item_length,p.item_width, p.saleprice,p.des  FROM `lineitem` l, product p  WHERE l.bid = '$billno' and  l.product = p.id; ");
+            $index = 0;
+            $unit_total = 0;
+            $sqm_total = 0;
             while ($row = mysqli_fetch_array($result)) {
+                $index++;
+                $unit_total = $unit_total + $row['unit'];
+                $sqm = (($row['item_length'] * $row['item_width']) / 10000);
+                $sqm_total = $sqm_total + $sqm;
                 ?>
                 <tr>
-                    <td class="text-center"><?= $row['lid'] ?></td>
+                    <td class="text-center"><?= $index ?></td>
                     <td class="text-center"><?= $row['article_no'] ?></td>
-                    <td class="text-center"><?= $row['origin'] ?></td>
-                    <td class="text-center"><?= $row['des'] ?></td>
+                    <td class="text-left"><?= $row['origin'] ?></td>
+                    <td class="text-left"><?= $row['des'] ?></td>
                     <td class="text-center"><?= $row['item_length'] ?></td>
                     <td class="text-center"><?= $row['item_width'] ?></td>
                     <td class="text-center"><?= $row['unit'] ?></td>
-                    <td class="text-center"><?= number_format(($row['item_length'] * $row['item_width']) / 10000, 2); ?></td>
+                    <td class="text-right"><?= number_format($sqm, 2, ',', '.'); ?></td>
                     <td class="text-center"><?= $row['rate'] ?></td>
                     <td class="text-center"><?= $row['discount'] ?></td>
                     <td class="text-center"><?= $row['amount'] ?></td>
                 </tr>
             <?php }
             ?>
-
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><?= $unit_total ?></td>
+                <td class="text-right"><?= number_format($sqm_total, 2, ',', '.'); ?></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
             </tbody>
             <tfoot>
             <tr>
@@ -316,8 +341,8 @@ $pending = ($amount + $gst) - $paid;
         </div>
         <div class="col-sm-3"></div>
         <div class="col-sm-3"><b>
-        Tax No. 125/5308/5032<br>
-        UID No. DE 274915735
+                Tax No. 125/5308/5032<br>
+                UID No. DE 274915735
             </b>
         </div>
     </div>

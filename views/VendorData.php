@@ -34,14 +34,14 @@ if($result) {
 $result= query("Select sum(vp.amount) amount  FROM `vendorpayments` vp WHERE  vp.vid='$id' and vp.ptype='Debit'");
 if($result) {
  while ($row = mysqli_fetch_array($result)) {
-  $paid = round($row['amount']);
+  $paid = ($row['amount']);
  }
 }
 
 $result= query("Select sum(vp.amount) amount  FROM `vendorpayments` vp WHERE  vp.vid='$id' and vp.ptype='Credit'");
 if($result) {
  while ($row = mysqli_fetch_array($result)) {
-  $incentive = round($row['amount']);
+  $incentive = ($row['amount']);
  }
 }
 

@@ -24,14 +24,14 @@ while ($vendor = mysqli_fetch_array($vendors)) {
     $vendorPayments = query("Select sum(vp.amount) amount  FROM `vendorpayments` vp WHERE  vp.vid='$id' and vp.ptype='Debit'");
     if ($vendorPayments) {
         while ($row = mysqli_fetch_array($vendorPayments)) {
-            $paid = round($row['amount']);
+            $paid = ($row['amount']);
         }
     }
 
     $vendorPaymentCredit = query("Select sum(vp.amount) amount  FROM `vendorpayments` vp WHERE  vp.vid='$id' and vp.ptype='Credit'");
     if ($vendorPaymentCredit) {
         while ($row = mysqli_fetch_array($vendorPaymentCredit)) {
-            $incentive = round($row['amount']);
+            $incentive = ($row['amount']);
         }
     }
 
@@ -52,7 +52,7 @@ while ($vendor = mysqli_fetch_array($vendors)) {
         'account_no' => $vendor['account_no'],
         'gst' => $vendor['gst'],
         'vendor_no' => $vendor['vendor_no'],
-        'payment' => round($total)
+        'payment' => ($total)
     );
     array_push($data, $row_data);
 
