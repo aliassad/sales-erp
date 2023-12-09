@@ -107,7 +107,7 @@
         }
 
         .customer-title-table {
-            margin-top: 4cm;
+            margin-top: 2.5cm;
             margin-left: 2cm;
         }
 
@@ -170,12 +170,14 @@
                             41468 Neuss
                         </td>
                     </tr>
+                    <tr style="height: 15px;"></tr>
                 <?php } else { ?>
                     <tr>
                         <td style="font-size: 16px !important;" class="nocenter">Carpet World24 Inh. Tipu Khan, Im
                             Taubental 40, 41468 Neuss
                         </td>
                     </tr>
+                    <tr style="height: 15px;"></tr>
                 <?php } ?>
                 <tr>
                     <td class="nocenter">
