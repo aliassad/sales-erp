@@ -139,8 +139,8 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-6">
-            <?php if ($billing_company === "teppich_clean") { ?>
-                <img src="../img/teppich_clean.png" class="img-responsive" width="180px" height="auto">
+            <?php if ($billing_company === "tipu_orient") { ?>
+                Tipu Orientteppichce
             <?php } else { ?>
                 <img src="../img/carpet_world.png" class="img-responsive" width="180px" height="auto">
             <?php } ?>
@@ -164,7 +164,7 @@
         <div class="col-sm-5" style="padding-left:0px;background: transparent !important;">
             <table class="table customer-title-table" style="background: transparent !important;">
                 <tbody id="tocustomer" style="background: transparent !important;">
-                <?php if ($billing_company === "teppich_clean") { ?>
+                <?php if ($billing_company === "tipu_orient") { ?>
                     <tr>
                         <td style="font-size: 16px !important;" class="nocenter">Teppich Clean24 Inh, Im Taubental 40,
                             41468 Neuss
@@ -194,7 +194,7 @@
 
         </div>
         <div class="col-sm-4 col-sm-offset-3" style="padding-right:0px;">
-            <?php if ($billing_company === "teppich_clean") { ?>
+            <?php if ($billing_company === "tipu_orient") { ?>
                 <table class="table table customer-title-table-1">
                     <tbody>
                     <tr>
@@ -464,7 +464,7 @@
 
         <div class="row box" style="padding: 20px">
             <div class="col-sm-3"></div>
-            <?php if ($billing_company === "teppich_clean") { ?>
+            <?php if ($billing_company === "tipu_orient") { ?>
                 <div class="col-sm-6 text-center">
                     AGB unter: <b>https://teppich-clean24.de/agb</b>
                 </div>

@@ -323,7 +323,7 @@ while ($row = mysqli_fetch_array($result)) {
                                 <select id="receivingPaymentMode" name="receivingPaymentMode" class="form-control"
                                         onchange="onReceivingPaymentModeChange();">
                                     <?php
-                                    $result = query("select id,name from paymentmodes where id = 1 or id = 3");
+                                    $result = query("select id,name from paymentmodes");
                                     while ($row = mysqli_fetch_array($result)) {
                                         echo '<option value=' . $row['id'] . '>' . $row['name'] . '</option>';
                                     }
@@ -433,7 +433,7 @@ while ($row = mysqli_fetch_array($result)) {
                                 <select id="payingPaymentMode" name="payingPaymentMode" class="form-control"
                                         onchange="onPayingPaymentModeChange();">
                                     <?php
-                                    $result = query("select id,name from paymentmodes  where id = 1 or id = 3");
+                                    $result = query("select id,name from paymentmodes");
                                     while ($row = mysqli_fetch_array($result)) {
                                         echo '<option value=' . $row['id'] . '>' . $row['name'] . '</option>';
                                     }

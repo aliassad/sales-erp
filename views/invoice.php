@@ -107,8 +107,8 @@ $products = query("select * from product");
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-building"></i>&nbsp;Company</span>
                         <select style="font-size:18px" id="billing_company" class="form-control">
-                            <option value="teppich_clean">TEPPICH CLEAN24</option>
                             <option value="carpet_world">CARPET WORLD24</option>
+                            <option value="tipu_orient">Tipu Orientteppichce</option>
                         </select>
                     </div>
                 </div>

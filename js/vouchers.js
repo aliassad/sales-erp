@@ -170,7 +170,7 @@ function getVendorData()
     $.getJSON(url,function(data){
 
         $.each(data,function(index,data) {
-            $("#vendorBalance").val('Rs '+parseFloat(data.ppayment).toLocaleString());
+            $("#vendorBalance").val($('#CURRENCY_SIGN').val()+' '+parseFloat(data.ppayment).toLocaleString());
             $("#vendorBalanceFigure").val(data.ppayment);
         });
 
@@ -184,7 +184,7 @@ function getCustomerData()
     var url = 'views/getCustomerData.php?id=' + $("#customerId").val();
     $.getJSON(url,function(data){
         $.each(data,function(index,data) {
-            $("#customerBalance").val('Rs '+parseFloat(data.ppayment).toLocaleString());
+            $("#customerBalance").val($('#CURRENCY_SIGN').val()+' '+parseFloat(data.ppayment).toLocaleString());
             $("#customerBalanceFigure").val(data.ppayment);
         });
 

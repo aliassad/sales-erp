@@ -101,8 +101,8 @@ $pending = ($amount + $gst) - $paid;
 <div class="container" style="background-color:#FFFFFF; ">
     <div class="row">
         <div class="col-sm-6">
-            <?php if ($billing_company === "teppich_clean") { ?>
-                <img src="img/teppich_clean.png" class="img-responsive" width="160px" height="auto">
+            <?php if ($billing_company === "tipu_orient") { ?>
+                Tipu Orientteppichce
             <?php } else { ?>
                 <img src="img/carpet_world.png" class="img-responsive" width="160px" height="auto">
             <?php } ?>
@@ -138,7 +138,7 @@ $pending = ($amount + $gst) - $paid;
         </div>
 
         <div class="col-lg-3 col-lg-offset-4" style="padding-right:20px;">
-            <?php if ($billing_company === "teppich_clean") { ?>
+            <?php if ($billing_company === "tipu_orient") { ?>
                 <table class="table table">
                     <tbody>
                     <tr>
@@ -349,7 +349,7 @@ $pending = ($amount + $gst) - $paid;
     <div class="row box" style="padding: 20px">
         <div class="col-sm-3"></div>
 
-        <?php if ($billing_company === "teppich_clean") { ?>
+        <?php if ($billing_company === "tipu_orient") { ?>
             <div class="col-sm-6">
                 Terms and conditions at: <b>https://teppich-clean24.de/agb/</b>
             </div>
