@@ -12,6 +12,8 @@ function render($file, $data = array())
     if (file_exists($path)) {
         extract($data);
         require($path);
+    } else {
+        echo "FILE NOT FOUND";
     }
 }
 

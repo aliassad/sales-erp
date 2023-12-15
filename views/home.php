@@ -341,7 +341,7 @@ while ($row = mysqli_fetch_array($result)) {
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6" id="receivingChequeBankContainer">
+                        <div class="col-md-6" id="receivingChequeBankContainer" style="padding-left:0px">
                         </div>
                     </div>
                     <div id="receivingPaymentModeContainer"></div>

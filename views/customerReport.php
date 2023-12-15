@@ -5,13 +5,15 @@ $id = $_GET['id'];
 
 $data = array();
 $opening_balance = 0;
+$customer_gst = 0;
 $amountReceived = 0;
 $MoreCharge = 0;
-$result = query("select * from customer where id='$id'");
+$party = $_GET['vname'];
+$result = query("select * from customer where concat(id,': ',name)='$party';");
 while ($row = mysqli_fetch_array($result)) {
     $opening_balance = ($row['openingbalance']);
+    $customer_gst = $row['gst'];
 }
-
 
 $result = query("select sum(amount) as amountReceived from customerpayments where cid='$id' and ptype='Credit'");
 while ($row = mysqli_fetch_array($result)) {
@@ -23,7 +25,6 @@ while ($row = mysqli_fetch_array($result)) {
 }
 
 
-
 $result = query("Select (SELECT sum(ba.amount) from billamounts ba,bill b WHERE ba.bid=b.id and b.cid='$id' ) tpaid,sum(amount-discount) tamount  from bill b where b.type='Invoice' and b.cid='$id'");
 if ($result) {
     while ($row = mysqli_fetch_array($result)) {
@@ -31,7 +32,7 @@ if ($result) {
         $tpaid = ($row['tpaid']);
 
     }
-    $tbalance = $tamount - $tpaid + $opening_balance-$amountReceived+$MoreCharge;
+    $tbalance = $tamount - $tpaid + $opening_balance - $amountReceived + $MoreCharge;
 
 } else {
     $tamount = 0;
@@ -52,18 +53,19 @@ $totalCredit = 0;
 $totalDebit = 0;
 
 
-$result = query("select id,name,address,openingbalance from customer where concat(id,': ',name)='$party';");
+$result = query("select id,name,address,openingbalance,gst from customer where concat(id,': ',name)='$party';");
 while ($row = mysqli_fetch_array($result)) {
     $pid = $row['id'];
     $pname = $row['name'];
     $address = $row['address'];
+    $customer_gst = $row['gst'];
     $openingBalance = $row['openingbalance'];
 }
 $totalDebit = $openingBalance;
 
 
 $result = query("Select sum(amount-discount) debit  from bill b where b.type='Invoice' and b.cid='$pid' and b
-.date < STR_TO_DATE('$from','%d-%M-%Y')") ;
+.date < STR_TO_DATE('$from','%d-%M-%Y')");
 while ($row = mysqli_fetch_array($result)) {
     $totalDebit += ($row['debit']);
 }
@@ -75,11 +77,9 @@ while ($row = mysqli_fetch_array($result)) {
 //}
 
 
-
 $result = query("select sum(b.discount) as credit from `bill` b where b.cid='$pid' and b.type='Invoice' and b.date < STR_TO_DATE ('$from','%d-%M-%Y')");
 while ($row = mysqli_fetch_array($result))
     $totalCredit += ($row['credit']);
-
 
 
 $result = query("select sum(ba.amount) as credit from `bill` b,`billamounts` ba where  b.type='Invoice' and b.cid='$pid' and ba.bid=b.id and b.date < STR_TO_DATE 
@@ -101,8 +101,6 @@ while ($row = mysqli_fetch_array($result)) {
 }
 
 
-
-
 $data = array();
 
 $result = query("select concat('Incentive on Bill no # ',b.id) as des, b.discount as credit, DATE_FORMAT(b
@@ -112,24 +110,21 @@ STR_TO_DATE
 
 while ($row = mysqli_fetch_array($result)) {
 
-if($row['credit'] != 0){
-    $row_data = array(
-        'des' => $row['des'],
-        'debit' => 0,
-        'credit' => ($row['credit']),
-        'date' => $row['date']
-    );
-array_push($data, $row_data);
+    if ($row['credit'] != 0) {
+        $row_data = array(
+            'des' => $row['des'],
+            'debit' => 0,
+            'credit' => ($row['credit']),
+            'date' => $row['date']
+        );
+        array_push($data, $row_data);
+    }
+
 }
-    
-}
 
-
-
-
-
-$result = query("select concat(l.product,' QTY: ', l.unit,' Rate: ', round(((l.rate-((l.rate*l.discount)/100)))),' Bill Id: ',b.id) as des ,(l.unit*(l.rate-((l.rate*l
-.discount)/100))) as debit,
+$result = query("select concat(' Bill Id: ',b.id,' QTY: ', l.unit,' ',
+    (select concat(' Art no: ',p.article_no,', ',p.item_length,'*',p.item_width,' SQM: ', ROUND(p.item_length*p.item_width/10000,2) ) from product p where p.id = l.product )) as des, 
+     l.amount as debit,
 DATE_FORMAT(b
 .date,'%d-%m-%Y') as date  from 
 `bill` b,
@@ -209,8 +204,6 @@ while ($row = mysqli_fetch_array($result)) {
         array_push($data, $row_data);
     }
 }
-
-
 
 
 function convert_number_to_words($number)
@@ -341,12 +334,14 @@ function ResolveSign($val)
 {
     if ($val <= -1) {
         $val = $val * -1;
+        $val = number_format($val,2,',','.');
         $val .= " Dr.";
         return $val;
     } else if ($val >= 1) {
+        $val = number_format($val,2,',','.');
         return $val . " Cr.";
     }
-    return $val;
+    return number_format($val,2,',','.');
 
 }
 
@@ -453,7 +448,7 @@ usort($data, 'date_compare');
 </div>
 <div class="row" style="min-height:0.75in; max-height:0.75in">
     <div class="col-xs-6">
-        <div><b>Party:</b></div>
+        <div><b>Kunde:</b></div>
         <div class="customer-details"><u><?php echo $pname . "     (" . $address . ")"; ?></u></div>
     </div>
 
@@ -493,12 +488,15 @@ usort($data, 'date_compare');
             $openingBlanace = $totalCredit - $totalDebit;
             for ($j = 0; $j < count($data); $j++) {
                 $totalCredit += $data[$j]['credit'];
-                $totalDebit += $data[$j]['debit'];
 
-                echo '<tr><td class="text-center">' . $i . '</td><td>' . $data[$j]['date'] . '</td><td >' . $data[$j]['des'] . '</td><td>' . $data[$j]['debit']
+                $total_debit_with_gst = $data[$j]['debit'] + (number_format($data[$j]['debit']*$customer_gst/100,2))*1.0;
+
+                $totalDebit += $total_debit_with_gst;
+
+                echo '<tr><td class="text-center">' . $i . '</td><td>' . $data[$j]['date'] . '</td><td >' . $data[$j]['des'] . '</td><td>' . number_format($total_debit_with_gst,2, ',','.')
                     . '</td><td>
 '
-                    . $data[$j]['credit'] . '</td><td>' . ResolveSign($totalCredit - $totalDebit) . '</td></tr>';
+                    . number_format($data[$j]['credit'],2, ',','.') . '</td><td>' . ResolveSign($totalCredit - $totalDebit) . '</td></tr>';
                 $i++;
             }
 

@@ -140,7 +140,7 @@
     <div class="row">
         <div class="col-sm-6">
             <?php if ($billing_company === "tipu_orient") { ?>
-                Tipu Orientteppichce
+                <h1>Tipu Orientteppichce</h1>
             <?php } else { ?>
                 <img src="../img/carpet_world.png" class="img-responsive" width="180px" height="auto">
             <?php } ?>
@@ -243,7 +243,7 @@
             <?php } ?>
         </div>
     </div>
-    <div class="row box">
+    <div class="row box" style="margin-top: 1.5cm;">
         <div class="col-sm-7" style="text-align: right">
             <b style="font-size: 16px;text-align: center">
                 <?php if ($type === "Invoice") { ?>
@@ -435,11 +435,11 @@
             </div>
             <div class="row box">
                 <div class="col-sm-6" style="padding-left: 0px">
-                    Sparkasse Neuss: Account number: 934 230 69 Bank code: 305 500 00<br>
+                    BIC WELADEDNXXX<br>
                     Sparkasse Neuss: IBAN: DE81 3055 0000 0093 4230 69
                 </div>
                 <div class="col-sm-3">
-                    <b style="font-size: 18px">Gerichtsstand Neuss</b>
+                    <b style="font-size: 18px">Gerichtsstand Amtsgereieht Neuss</b>
                 </div>
                 <div class="col-sm-3"><b>
                         Steuer Nr. 125/5308/5032<br>

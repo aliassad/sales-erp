@@ -1,4 +1,6 @@
 <?php
+
+
 setlocale(LC_MONETARY,"en_US");
 $id=$_GET["Accountno"];
 $result=query("SELECT a.id,a.code as accode,a.openingbalance,(select at.typename from accounttypes at where a.type=at.id or at.id is null ) as typename,ac.code from account a,accountcurrency ac WHERE  a.currency=ac.id and a.id='$id'");
@@ -127,7 +129,7 @@ else
                                         <div class="col-md-12" style="padding-top:15px; padding-left:0px; padding-right:0px;">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-money" ></i>&nbsp;Opening Balance</span>
-                                                <input type="text" class="form-control" value="<?php echo number_format($obalance); ?>" readonly>
+                                                <input type="text" class="form-control" value="<?php echo number_format($obalance,2,',','.'); ?>" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -136,7 +138,7 @@ else
                                         <div class="col-md-12" style="padding-top:15px; padding-left:0px; padding-right:0px;">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-download" ></i>&nbsp;Total Recieved</span>
-                                                <input type="text" class="form-control" value="<?php echo number_format($totalDebit); ?>" readonly>
+                                                <input type="text" class="form-control" value="<?php echo number_format($totalDebit,2,',','.'); ?>" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -145,7 +147,7 @@ else
                                         <div class="col-md-12" style="padding-top:15px; padding-left:0px; padding-right:0px;">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-upload" ></i>&nbsp;Total Paid</span>
-                                                <input type="text" class="form-control" value="<?php echo number_format($totalCredit); ?>" readonly>
+                                                <input type="text" class="form-control" value="<?php echo number_format($totalCredit,2,',','.'); ?>" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -153,7 +155,7 @@ else
                                         <div class="col-md-12" style="padding-top:16px; padding-left:0px; padding-right:0px;">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-money" ></i>&nbsp;Total Balance</span>
-                                                <input type="text" class="form-control" value="<?php echo number_format($totalBalance); ?>" readonly>
+                                                <input type="text" class="form-control" value="<?php echo number_format($totalBalance,2,',','.'); ?>" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -207,10 +209,10 @@ else
                                 <i class="fa fa-calendar"></i>&nbsp;Transaction Date
                             </th>
                             <th class="text-center">
-                                <i class="fa fa-file"></i>&nbsp;Discription
+                                <i class="fa fa-file"></i>&nbsp;Description
                             </th>
                             <th class="text-center">
-                                <i class="fa fa-download"></i>&nbsp;Recieved
+                                <i class="fa fa-download"></i>&nbsp;Received
                             </th>
                             <th class="text-center">
                                 <i class="fa fa-upload"></i>&nbsp;Paid
@@ -266,7 +268,7 @@ else
                                 <div class="form-group" style="padding-top: 20px;">
 
                                     <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-file-text"></i>&nbsp;Discription</span>
+                                        <span class="input-group-addon"><i class="fa fa-file-text"></i>&nbsp;Description</span>
                                         <textarea id="trdis" type="text" class="form-control" rows="3" cols="5"></textarea>
                                     </div>
                                 </div>
@@ -333,9 +335,9 @@ else
                                     while($row=mysqli_fetch_array($result))
                                     {   
                                         if($row['typename']==$atype)
-                                        echo '<option value='.$row[id].' selected>'.$row['typename'].'</option>';
+                                        echo '<option value='.$row["id"].' selected>'.$row['typename'].'</option>';
                                         else
-                                        echo '<option value='.$row[id].'>'.$row['typename'].'</option>';
+                                        echo '<option value='.$row["id"].'>'.$row['typename'].'</option>';
                                     }
                                     
                                     ?>
@@ -354,9 +356,9 @@ else
                                     while($row=mysqli_fetch_array($result))
                                     {   
                                         if($row['code']==$acurrency)
-                                        echo '<option value='.$row[id].' selected>'.$row['code'].'</option>';
+                                        echo '<option value='.$row["id"].' selected>'.$row['code'].'</option>';
                                         else
-                                        echo '<option value='.$row[id].'>'.$row['code'].'</option>';
+                                        echo '<option value='.$row["id"].'>'.$row['code'].'</option>';
                                     }
                                     
                                     ?>

@@ -4,27 +4,25 @@
     <?php
 
     require_once("helpers.php");
-    $cid=$_GET['cid'];
-    $date=$_GET['date'];
-    $amount=$_GET['amount'];
-    $detail=$_GET['detail'];
-    $mode=$_GET['mode'];
-    $balance=$_GET['balance'];
-    $balance=$balance-$amount;
+    $cid = $_GET['cid'];
+    $date = $_GET['date'];
+    $amount = $_GET['amount'];
+    $detail = $_GET['detail'];
+    $mode = $_GET['mode'];
+    $balance = $_GET['balance'];
+    $balance = $balance - $amount;
 
 
-    $result=query("select * from customer where id='$cid'");
-    $name="";
-    $phone="";
-    $address="";
-    while($row=mysqli_fetch_array($result))
-    {
-        $name=$row['name'];
-        $phone=$row['phone'];
-        $city=$row['city'];
-        $address=$row['address'];
+    $result = query("select * from customer where id='$cid'");
+    $name = "";
+    $phone = "";
+    $address = "";
+    while ($row = mysqli_fetch_array($result)) {
+        $name = $row['name'];
+        $phone = $row['phone'];
+        $city = $row['city'];
+        $address = $row['address'];
     }
-
 
 
     ?>
@@ -37,16 +35,17 @@
         th,
         thead, {
 
-            background-color:#eee;
+            background-color: #eee;
         }
-        .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{
-            padding:2px;
-            font-size:12px;
+
+        .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+            padding: 2px;
+            font-size: 12px;
         }
 
         @media print {
             #non-print-elem {
-                display:none;
+                display: none;
             }
         }
 
@@ -62,6 +61,7 @@
     .row.vertical-divider {
         overflow: hidden;
     }
+
     .row.vertical-divider > div[class^="col-"] {
 
         text-align: center;
@@ -71,26 +71,26 @@
         border-style: dotted;
 
     }
+
     .row.vertical-divider div[class^="col-"]:first-child {
         border-left: none;
     }
+
     .row.vertical-divider div[class^="col-"]:last-child {
         border-right: none;
     }
 </style>
 <div class="row" style=" margin-top:0.2in;margin-bottom:0.2in;">
     <div class="col-xs-12 text-right">
-        <a class="btn btn-info" href="../index.php?page=home" id="non-print-elem" ><i class=" fa fa-undo"></i> Go To Home</a>
+        <a class="btn btn-info" href="../index.php?page=home" id="non-print-elem"><i class=" fa fa-undo"></i> Go To Home</a>
         <a class="btn btn-info" id="non-print-elem" onclick="window.print();"><i class=" fa fa-print"></i> Print</a>
     </div>
 </div>
 <div class="row vertical-divider">
     <div class="col-md-6">
-        <center style="margin-bottom:2px;"><h6 id="type" style="border:4px double black;">&nbsp;Customer&nbsp;Payment Receiving:&nbsp;&nbsp;&nbsp;Print Date:&nbsp;<?php echo date
-                ("F j,
- Y, g:i a");?></h6></center>
-        <div class="row box" >
-            <div style="padding:2px;" >
+        <center style="margin-bottom:2px;"><h6 id="type" style="border:4px double black;">Zahlungsbeleg</h6></center>
+        <div class="row box">
+            <div style="padding:2px;">
 
                 <div class="col-md-12">
                     <table class="table" style="margin:0px; margin-bottom:15px;">
@@ -101,7 +101,8 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="nocenter" style="font-size: 14px;"><b><i class="fa fa-phone "></i>&nbsp;Phone:</b>
+                            <td class="nocenter" style="font-size: 14px;"><b><i
+                                            class="fa fa-phone "></i>&nbsp;Phone:</b>
                                 <?php echo $phone; ?>
                             </td>
                         </tr>
@@ -121,7 +122,7 @@
             </div>
         </div>
         <div class="row box">
-            <div style="padding:2px;" >
+            <div style="padding:2px;">
                 <table class="table" style="margin:0px;">
                     <thead>
                     <th class="text-center">
@@ -140,9 +141,9 @@
                     <tbody class="items">
                     <tr>
                         <td><?php echo $date; ?></td>
-                        <td><?php echo number_format(($amount),0); ?></td>
+                        <td><?php echo number_format(($amount), 2, ',', '.'); ?></td>
                         <td><?php echo $mode; ?></td>
-                        <td><?php echo $detail;?></td>
+                        <td><?php echo $detail; ?></td>
                     </tr>
                     </tbody>
                     <tfoot>
@@ -151,10 +152,9 @@
 
                     echo '<tr>
 <td colspan="4" ><table class="table table-bordered" style="margin:100px 0px 0px 0px;"><tbody>
-<tr><td class="nocenter" ><b>Total Amount Received:</b></td><td class="nocenter" style="font-weight:bold;font-size:14px;">RS '.number_format(($amount),0)
-                        .'</td></tr><tr><td 
-class="nocenter" ><b>Total Balance:</b></td><td class="nocenter" style="font-weight:bold;font-size:14px;">RS '.number_format($balance,0) .'</td></tr></tbody></table>';
-
+<tr><td class="nocenter" ><b>Total Amount Received:</b></td>
+<td class="nocenter" style="font-weight:bold;font-size:14px;">' . number_format(($amount), 2, ',', '.') . CURRENCY_SIGN . '</td></tr><tr><td 
+class="nocenter" ><b>Total Balance:</b></td><td class="nocenter" style="font-weight:bold;font-size:14px;">' . number_format($balance, 2, ',', '.') . CURRENCY_SIGN . '</td></tr></tbody></table>';
                     ?>
                     </tfoot>
                 </table>
@@ -162,17 +162,17 @@ class="nocenter" ><b>Total Balance:</b></td><td class="nocenter" style="font-wei
         </div>
         <div class="row" style="margin-top:30%;">
             <hr>
-            <p style="float:left;font-size: 10px;"><b>Note:</b>&nbsp;Computer Generated Slip is invalid Without Signature and Stamp.<p style="float:right">Signature
+            <p style="float:left;font-size: 10px;"><b>Note:</b>&nbsp;Computer Generated Slip is invalid Without
+                Signature and Stamp.
+            <p style="float:right">Signature
                 and Stamp</p>
         </div>
     </div>
 
     <div class="col-md-6">
-        <center style="margin-bottom:2px;"><h6 id="type" style="border:4px double black;">&nbsp;Customer&nbsp;Payment Receiving:&nbsp;&nbsp;&nbsp;Print Date:&nbsp;<?php echo date
-                ("F j,
- Y, g:i a");?></h6></center>
-        <div class="row box" >
-            <div style="padding:2px;" >
+        <center style="margin-bottom:2px;"><h6 id="type" style="border:4px double black;">Zahlungsbeleg</h6></center>
+        <div class="row box">
+            <div style="padding:2px;">
 
                 <div class="col-md-12">
 
@@ -184,7 +184,8 @@ class="nocenter" ><b>Total Balance:</b></td><td class="nocenter" style="font-wei
                             </td>
                         </tr>
                         <tr>
-                            <td class="nocenter" style="font-size: 14px;"><b><i class="fa fa-phone "></i>&nbsp;Phone:</b>
+                            <td class="nocenter" style="font-size: 14px;"><b><i
+                                            class="fa fa-phone "></i>&nbsp;Phone:</b>
                                 <?php echo $phone; ?>
                             </td>
                         </tr>
@@ -204,7 +205,7 @@ class="nocenter" ><b>Total Balance:</b></td><td class="nocenter" style="font-wei
             </div>
         </div>
         <div class="row box">
-            <div style="padding:2px;" >
+            <div style="padding:2px;">
                 <table class="table" style="margin:0px;">
                     <thead>
                     <th class="text-center">
@@ -223,9 +224,9 @@ class="nocenter" ><b>Total Balance:</b></td><td class="nocenter" style="font-wei
                     <tbody class="items">
                     <tr>
                         <td><?php echo $date; ?></td>
-                        <td><?php echo number_format(($amount),0); ?></td>
+                        <td><?php echo number_format(($amount), 2, ',', '.'); ?></td>
                         <td><?php echo $mode; ?></td>
-                        <td><?php echo $detail;?></td>
+                        <td><?php echo $detail; ?></td>
                     </tr>
                     </tbody>
                     <tfoot>
@@ -234,9 +235,9 @@ class="nocenter" ><b>Total Balance:</b></td><td class="nocenter" style="font-wei
 
                     echo '<tr>
 <td colspan="4" ><table class="table table-bordered" style="margin:100px 0px 0px 0px;"><tbody>
-<tr><td class="nocenter" ><b>Total Amount Received:</b></td><td class="nocenter" style="font-weight:bold;font-size:14px;">RS '.number_format(($amount),0)
-                        .'</td></tr><tr><td 
-class="nocenter" ><b>Total Balance:</b></td><td class="nocenter" style="font-weight:bold;font-size:14px;">RS '.number_format($balance,0).'</td></tr></tbody></table>';
+<tr><td class="nocenter" ><b>Total Amount Received:</b></td><td class="nocenter" style="font-weight:bold;font-size:14px;">' . number_format(($amount), 2, ',', '.') . CURRENCY_SIGN . '
+                     </td></tr><tr><td 
+class="nocenter" ><b>Total Balance:</b></td><td class="nocenter" style="font-weight:bold;font-size:14px;">' . number_format($balance, 2, ',', '.') . CURRENCY_SIGN . '</td></tr></tbody></table>';
 
                     ?>
                     </tfoot>
@@ -246,7 +247,9 @@ class="nocenter" ><b>Total Balance:</b></td><td class="nocenter" style="font-wei
 
         <div class="row" style="margin-top:30%;">
             <hr>
-            <p style="float:left;font-size: 10px;"><b>Note:</b>&nbsp;Computer Generated Slip is invalid Without Signature and Stamp.<p style="float:right">Signature
+            <p style="float:left;font-size: 10px;"><b>Note:</b>&nbsp;Computer Generated Slip is invalid Without
+                Signature and Stamp.
+            <p style="float:right">Signature
                 and Stamp</p>
         </div>
     </div>

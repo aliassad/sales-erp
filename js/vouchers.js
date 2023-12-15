@@ -1,68 +1,52 @@
 var banks;
 getBanks();
+
 function getBanks() {
     var url = 'views/gettingBanks.php';
-    $.getJSON(url,function(data){
-        banks=TAFFY(data);
+    $.getJSON(url, function (data) {
+        banks = TAFFY(data);
     });
 }
 
 
 function onReceivingPaymentModeChange() {
 
-    var mode=$('#receivingPaymentMode');
-    var container=$('#receivingPaymentModeContainer');
+    var mode = $('#receivingPaymentMode');
+    var container = $('#receivingPaymentModeContainer');
     container.html('');
-    var bankcontainer=$('#receivingChequeBankContainer');
+    var bankcontainer = $('#receivingChequeBankContainer');
     bankcontainer.html('');
-    if ( mode.val() == 2 )
-    {
-
-        container.html('<div class="row"> <div class="col-md-6" style="padding-left:0px; padding-bottom:3px;">' +
-            '<div class="input-group">' +
-            '<span class="input-group-addon"><i class="fa  fa-credit-card-alt"></i>&nbsp;Cheque no</span>' +
-            '<input id="receivingChequeNo" class="form-control"  type="text"/>' +
-            '</div>' +
-            '</div>' +
-            '<div class="col-md-6">' +
-            '<div class="input-group">' +
-            '<span class="input-group-addon"><i class="fa  fa-calendar"></i>&nbsp;Due Date</span>' +
-            '<input id="receivingChequeDueDate" class="form-control"  type="text" />' +
-            '</div>' +
-            '</div>' +
-            '</div>');
+    if (mode.val() == 3) {
         bankcontainer.html('<div class="input-group">' +
-            '<span class="input-group-addon"><i class="fa  fa-bank"></i>&nbsp;Bank</span>' +
-            '<input id="receivingChequeBank" class="form-control"  type="text"/>' +
+            '<span class="input-group-addon"><i class="fa  fa-credit-card-alt"></i>&nbsp;CREDIT CARD #</span>' +
+            '<input id="receivingChequeNo" name="receivingChequeNo" class="form-control"  type="text"/>' +
             '</div>' +
             '</div>');
 
         $('#receivingChequeDueDate').datepicker({
             format: "dd-mm-yyyy"
         });
-    }
-    else if ( mode.val() == 3 )
-    {
-        var rows=banks().get();
+    } else if (mode.val() == 2) {
+        var rows = banks().get();
 
         var banksList = '<select id="receivingBank" name="receivingBank" class="form-control">';
 
-                        if(rows.length < 1 ) {
-                            banksList += '<option value = "">No Bank Available</option>'
-                        } else {
-                            banksList += '<option value = "">Select Bank</option>'
-                        }
+        if (rows.length < 1) {
+            banksList += '<option value = "">No Bank Available</option>'
+        } else {
+            banksList += '<option value = "">Select Bank</option>'
+        }
 
-                        for (var i=0; i < rows.length; i++ ){
-                            banksList += '<option value = "'+rows[i]['id']+'">'+rows[i]['code']+'</option>'
-                        }
+        for (var i = 0; i < rows.length; i++) {
+            banksList += '<option value = "' + rows[i]['id'] + '">' + rows[i]['code'] + '</option>'
+        }
 
-                       banksList+='</select>';
+        banksList += '</select>';
 
 
         container.html('<div class="row"> <div class="col-md-6" style="padding-left:0px; padding-bottom:3px;">' +
             '<div class="input-group">' +
-            '<span class="input-group-addon"><i class="fa  fa-bank"></i>&nbsp;Bank</span>' +banksList+
+            '<span class="input-group-addon"><i class="fa  fa-bank"></i>&nbsp;Bank</span>' + banksList +
             '</div>' +
             '</div>' +
             '<div class="col-md-6">' +
@@ -75,42 +59,27 @@ function onReceivingPaymentModeChange() {
     }
 
 
-    if(mode.val()==3){
+    if (mode.val() != 1) {
         $('#receivingPaymentType').val('Credit');
-        $('#receivingPaymentType').attr('disabled','true');
+        $('#receivingPaymentType').attr('disabled', 'true');
 
-    }else{
+    } else {
         $('#receivingPaymentType').removeAttr('disabled');
     }
 }
 
 function onPayingPaymentModeChange() {
 
-    var mode=$('#payingPaymentMode');
-    var container=$('#payingPaymentModeContainer');
+    var mode = $('#payingPaymentMode');
+    var container = $('#payingPaymentModeContainer');
     container.html('');
-    var bankcontainer=$('#payingChequeBankContainer');
+    var bankcontainer = $('#payingChequeBankContainer');
     bankcontainer.html('');
 
-    if ( mode.val() == 2 )
-    {
-
-        container.html('<div class="row"> <div class="col-md-6" style="padding-left:0px; padding-bottom:3px;">' +
-            '<div class="input-group">' +
-            '<span class="input-group-addon"><i class="fa  fa-credit-card-alt"></i>&nbsp;Cheque no</span>' +
-            '<input id="payingChequeNo" class="form-control"  type="text"/>' +
-            '</div>' +
-            '</div>' +
-            '<div class="col-md-6">' +
-            '<div class="input-group">' +
-            '<span class="input-group-addon"><i class="fa  fa-calendar"></i>&nbsp;Due Date</span>' +
-            '<input id="payingChequeDueDate" class="form-control"  type="text" />' +
-            '</div>' +
-            '</div>' +
-            '</div>');
+    if (mode.val() == 3) {
         bankcontainer.html('<div class="input-group">' +
-            '<span class="input-group-addon"><i class="fa  fa-bank"></i>&nbsp;Bank</span>' +
-            '<input id="payingChequeBank" class="form-control"  type="text"/>' +
+            '<span class="input-group-addon"><i class="fa  fa-credit-card-alt"></i>&nbsp;Credit Card #</span>' +
+            '<input id="payingChequeNo" name="payingChequeNo" class="form-control"  type="text"/>' +
             '</div>' +
             '</div>');
 
@@ -119,27 +88,23 @@ function onPayingPaymentModeChange() {
         });
 
 
+    } else if (mode.val() == 2) {
 
-
-    }
-    else if ( mode.val() == 3 )
-    {
-
-        var rows=banks().get();
+        var rows = banks().get();
 
         var banksList = '<select id="payingBank" name="payingBank" class="form-control">';
 
-        if(rows.length < 1 ) {
+        if (rows.length < 1) {
             banksList += '<option value = "">No Bank Available</option>'
         } else {
             banksList += '<option value = "">Select Bank</option>'
         }
 
-        for (var i=0; i < rows.length; i++ ){
-            banksList += '<option value = "'+rows[i]['id']+'">'+rows[i]['code']+'</option>'
+        for (var i = 0; i < rows.length; i++) {
+            banksList += '<option value = "' + rows[i]['id'] + '">' + rows[i]['code'] + '</option>'
         }
 
-        banksList+='</select>';
+        banksList += '</select>';
 
         container.html('<div class="row"> <div class="col-md-6" style="padding-left:0px; padding-bottom:3px;">' +
             '<div class="input-group">' +
@@ -155,22 +120,21 @@ function onPayingPaymentModeChange() {
             '</div>');
     }
 
-    if(mode.val()==3){
+    if (mode.val() != 1) {
         $('#payingPaymentType').val('Debit');
-        $('#payingPaymentType').attr('disabled','true');
+        $('#payingPaymentType').attr('disabled', 'true');
 
-    }else{
+    } else {
         $('#payingPaymentType').removeAttr('disabled');
     }
 }
 
-function getVendorData()
-{
+function getVendorData() {
     var url = 'views/VendorData.php?id=' + $("#vendorId").val();
-    $.getJSON(url,function(data){
+    $.getJSON(url, function (data) {
 
-        $.each(data,function(index,data) {
-            $("#vendorBalance").val($('#CURRENCY_SIGN').val()+' '+parseFloat(data.ppayment).toLocaleString());
+        $.each(data, function (index, data) {
+            $("#vendorBalance").val($('#CURRENCY_SIGN').val() + ' ' + parseFloat(data.ppayment).toLocaleString());
             $("#vendorBalanceFigure").val(data.ppayment);
         });
 
@@ -179,12 +143,11 @@ function getVendorData()
 
 }
 
-function getCustomerData()
-{
+function getCustomerData() {
     var url = 'views/getCustomerData.php?id=' + $("#customerId").val();
-    $.getJSON(url,function(data){
-        $.each(data,function(index,data) {
-            $("#customerBalance").val($('#CURRENCY_SIGN').val()+' '+parseFloat(data.ppayment).toLocaleString());
+    $.getJSON(url, function (data) {
+        $.each(data, function (index, data) {
+            $("#customerBalance").val($('#CURRENCY_SIGN').val() + ' ' + parseFloat(data.ppayment).toLocaleString());
             $("#customerBalanceFigure").val(data.ppayment);
         });
 
@@ -193,66 +156,42 @@ function getCustomerData()
 
 }
 
-function submitPaymentPayingVoucher()
- {
-    if($('#payingPaymentMode').val()==1)
-    {
-        if(!$('#paymentPayingDate').val())
-        {
-            swal("Input Error!","Please  enter a valid Date","error");
-            return ;
-        }
-        else
-        if(!$('#vendorId').val())
-        {
+function submitPaymentPayingVoucher() {
+    if ($('#payingPaymentMode').val() == 1) {
+        if (!$('#paymentPayingDate').val()) {
+            swal("Input Error!", "Please  enter a valid Date", "error");
+            return;
+        } else if (!$('#vendorId').val()) {
             swal("Input Error!", "Please select a vendor", "error");
             return;
-        }
-        else
-        if(!$('#payingAmount').val())
-        {
+        } else if (!$('#payingAmount').val()) {
             swal("Input Error!", "Please enter a amount", "error");
             return;
         }
 
 
-    }else if($('#payingPaymentMode').val()==2)
-    {
-        if(!$('#paymentPayingDate').val()||!$('#vendorId').val()||!$('#payingAmount').val()||!$('#payingChequeDueDate').val()||!$('#payingChequeNo').val())
-        {
-            swal("Input Error!","Please fill all required fields","error");
+    } else if ($('#payingPaymentMode').val() == 3) {
+        if (!$('#paymentPayingDate').val() || !$('#vendorId').val() || !$('#payingAmount').val() || !$('#payingChequeNo').val()) {
+            swal("Input Error!", "Please fill all required fields", "error");
             return;
         }
-    }
-    else if($('#payingPaymentMode').val() == 3)
-        {
+    } else if ($('#payingPaymentMode').val() == 2) {
 
-            if(!$('#paymentPayingDate').val())
-            {
-                swal("Input Error!","Please  enter a valid Date","error");
-                return ;
-            }
-            else
-            if(!$('#vendorId').val())
-            {
-                swal("Input Error!", "Please select a vendor", "error");
-                return;
-            }
-            else
-            if(!$('#payingAmount').val())
-            {
-                swal("Input Error!", "Please enter a amount", "error");
-                return;
-            }
-            else
-            if(!$('#payingBank').val())
-            {
-                swal("Input Error!", "Please select the bank", "error");
-                return;
-            }
-
+        if (!$('#paymentPayingDate').val()) {
+            swal("Input Error!", "Please  enter a valid Date", "error");
+            return;
+        } else if (!$('#vendorId').val()) {
+            swal("Input Error!", "Please select a vendor", "error");
+            return;
+        } else if (!$('#payingAmount').val()) {
+            swal("Input Error!", "Please enter a amount", "error");
+            return;
+        } else if (!$('#payingBank').val()) {
+            swal("Input Error!", "Please select the bank", "error");
+            return;
         }
 
+    }
 
 
     swal({
@@ -266,28 +205,28 @@ function submitPaymentPayingVoucher()
             closeOnConfirm: false,
             closeOnCancel: false
         },
-        function(isConfirm){
+        function (isConfirm) {
             if (isConfirm) {
 
                 swal({
-                    title:"Updating",
+                    title: "Updating",
                     type: "warning",
-                    text:"Please Wait :)",
+                    text: "Please Wait :)",
                     timer: 1300,
                     showConfirmButton: false
                 });
 
                 $.ajax({
-                    type:"POST",
-                    url:"views/payAmount.php",
+                    type: "POST",
+                    url: "views/payAmount.php",
                     data: new FormData($('#paymentPayingForm')[0]),
-                    contentType:false,
+                    contentType: false,
                     cache: false,
-                    processData:false,
-                    success: function(msg){
+                    processData: false,
+                    success: function (msg) {
                         //alert(msg);
                         swal({
-                            title:"Payment  Added!",
+                            title: "Payment  Added!",
                             type: "success",
                             text: "Your action is done.",
                             timer: 1200,
@@ -296,10 +235,10 @@ function submitPaymentPayingVoucher()
                     }
                 });
 
-                setTimeout('location.href="index.php?page=home"',1500);
+                setTimeout('location.href="index.php?page=home"', 1500);
             } else {
                 swal({
-                    title:"Cancelled",
+                    title: "Cancelled",
                     type: "error",
                     text: "Payment not Paid",
                     timer: 1200,
@@ -312,65 +251,41 @@ function submitPaymentPayingVoucher()
 }
 
 function submitAndPrintPaymentPayingVoucher() {
-    if($('#payingPaymentMode').val()==1)
-    {
-        if(!$('#paymentPayingDate').val())
-        {
-            swal("Input Error!","Please  enter a valid Date","error");
-            return ;
-        }
-        else
-        if(!$('#vendorId').val())
-        {
+    if ($('#payingPaymentMode').val() == 1) {
+        if (!$('#paymentPayingDate').val()) {
+            swal("Input Error!", "Please  enter a valid Date", "error");
+            return;
+        } else if (!$('#vendorId').val()) {
             swal("Input Error!", "Please select a vendor", "error");
             return;
-        }
-        else
-        if(!$('#payingAmount').val())
-        {
+        } else if (!$('#payingAmount').val()) {
             swal("Input Error!", "Please enter a amount", "error");
             return;
         }
 
 
-    }else if($('#payingPaymentMode').val()==2)
-    {
-        if(!$('#paymentPayingDate').val()||!$('#vendorId').val()||!$('#payingAmount').val()||!$('#payingChequeDueDate').val()||!$('#payingChequeNo').val())
-        {
-            swal("Input Error!","Please fill all required fields","error");
+    } else if ($('#payingPaymentMode').val() == 3) {
+        if (!$('#paymentPayingDate').val() || !$('#vendorId').val() || !$('#payingAmount').val() || !$('#payingChequeNo').val()) {
+            swal("Input Error!", "Please fill all required fields", "error");
             return;
         }
-    }
-    else if($('#payingPaymentMode').val() == 3)
-    {
+    } else if ($('#payingPaymentMode').val() == 2) {
 
-        if(!$('#paymentPayingDate').val())
-        {
-            swal("Input Error!","Please  enter a valid Date","error");
-            return ;
-        }
-        else
-        if(!$('#vendorId').val())
-        {
+        if (!$('#paymentPayingDate').val()) {
+            swal("Input Error!", "Please  enter a valid Date", "error");
+            return;
+        } else if (!$('#vendorId').val()) {
             swal("Input Error!", "Please select a vendor", "error");
             return;
-        }
-        else
-        if(!$('#payingAmount').val())
-        {
+        } else if (!$('#payingAmount').val()) {
             swal("Input Error!", "Please enter a amount", "error");
             return;
-        }
-        else
-        if(!$('#payingBank').val())
-        {
+        } else if (!$('#payingBank').val()) {
             swal("Input Error!", "Please select the bank", "error");
             return;
         }
 
     }
-
-
 
 
     swal({
@@ -384,28 +299,28 @@ function submitAndPrintPaymentPayingVoucher() {
             closeOnConfirm: false,
             closeOnCancel: false
         },
-        function(isConfirm){
+        function (isConfirm) {
             if (isConfirm) {
 
                 swal({
-                    title:"Updating",
+                    title: "Updating",
                     type: "warning",
-                    text:"Please Wait :)",
+                    text: "Please Wait :)",
                     timer: 1300,
                     showConfirmButton: false
                 });
 
                 $.ajax({
-                    type:"POST",
-                    url:"views/payAmount.php",
+                    type: "POST",
+                    url: "views/payAmount.php",
                     data: new FormData($('#paymentPayingForm')[0]),
-                    contentType:false,
+                    contentType: false,
                     cache: false,
-                    processData:false,
-                    success: function(msg){
+                    processData: false,
+                    success: function (msg) {
                         // alert(msg);
                         swal({
-                            title:"Payment  Added!",
+                            title: "Payment  Added!",
                             type: "success",
                             text: "Your action is done.",
                             timer: 1200,
@@ -414,10 +329,10 @@ function submitAndPrintPaymentPayingVoucher() {
                     }
                 });
 
-                setTimeout('location.href="views/printPaymentPayingVoucher.php?cid='+$('#vendorId').val()+'&amount='+$('#payingAmount').val()+'&detail='+$('#payingDetail').val()+'&date='+$('#paymentPayingDate').val()+'&mode=CASH&balance='+$('#vendorBalanceFigure').val()+'"',1500);
+                setTimeout('location.href="views/printPaymentPayingVoucher.php?cid=' + $('#vendorId').val() + '&amount=' + $('#payingAmount').val() + '&detail=' + $('#payingDetail').val() + '&date=' + $('#paymentPayingDate').val() + '&mode=CASH&balance=' + $('#vendorBalanceFigure').val() + '"', 1500);
             } else {
                 swal({
-                    title:"Cancelled",
+                    title: "Cancelled",
                     type: "error",
                     text: "Payment not Paid",
                     timer: 1200,
@@ -428,69 +343,42 @@ function submitAndPrintPaymentPayingVoucher() {
 }
 
 
-function submitPaymentReceivingVoucher()
-{
-    if($('#receivingPaymentMode').val()==1)
-    {
+function submitPaymentReceivingVoucher() {
+    if ($('#receivingPaymentMode').val() == 1) {
 
-        if(!$('#paymentReceivingDate').val())
-        {
-            swal("Input Error!","Please  enter a valid Date","error");
+        if (!$('#paymentReceivingDate').val()) {
+            swal("Input Error!", "Please  enter a valid Date", "error");
             return;
-        }
-        else
-        if(!$('#customerId').val())
-        {
+        } else if (!$('#customerId').val()) {
             swal("Input Error!", "Please select a customer", "error");
             return;
-        }
-        else
-        if(!$('#receivingAmount').val())
-        {
+        } else if (!$('#receivingAmount').val()) {
             swal("Input Error!", "Please enter a amount", "error");
             return;
         }
 
 
-
-    }else if($('#receivingPaymentMode').val()==2)
-    {
-        if(!$('#paymentPayingDate').val()||!$('#vendorId').val()||!$('#payingAmount').val()||!$('#payingChequeDueDate').val()||!$('#payingChequeNo').val())
-        {
-            swal("Input Error!","Please fill all required fields","error");
+    } else if ($('#receivingPaymentMode').val() == 3) {
+        if (!$('#paymentReceivingDate').val() || !$('#customerId').val() || !$('#receivingAmount').val() || !$('#receivingChequeNo').val()) {
+            swal("Input Error!", "Please fill all required fields", "error");
             return;
         }
-    }
-    else if($('#receivingPaymentMode').val() == 3)
-    {
+    } else if ($('#receivingPaymentMode').val() == 2) {
 
-        if(!$('#paymentReceivingDate').val())
-        {
-            swal("Input Error!","Please  enter a valid Date","error");
-            return ;
-        }
-        else
-        if(!$('#customerId').val())
-        {
+        if (!$('#paymentReceivingDate').val()) {
+            swal("Input Error!", "Please  enter a valid Date", "error");
+            return;
+        } else if (!$('#customerId').val()) {
             swal("Input Error!", "Please select a customer", "error");
             return;
-        }
-        else
-        if(!$('#receivingAmount').val())
-        {
+        } else if (!$('#receivingAmount').val()) {
             swal("Input Error!", "Please enter a amount", "error");
             return;
-        }
-        else
-        if(!$('#receivingBank').val())
-        {
+        } else if (!$('#receivingBank').val()) {
             swal("Input Error!", "Please select the bank", "error");
             return;
         }
-
     }
-
-
 
 
     swal({
@@ -504,13 +392,13 @@ function submitPaymentReceivingVoucher()
             closeOnConfirm: false,
             closeOnCancel: false
         },
-        function(isConfirm){
+        function (isConfirm) {
             if (isConfirm) {
 
                 swal({
-                    title:"Updating",
+                    title: "Updating",
                     type: "warning",
-                    text:"Please Wait :)",
+                    text: "Please Wait :)",
                     timer: 1300,
                     showConfirmButton: false
                 });
@@ -519,9 +407,9 @@ function submitPaymentReceivingVoucher()
                     type: "POST",
                     url: "views/receiveCustomerPayment.php",
                     data: new FormData($('#paymentReceivingForm')[0]),
-                    contentType:false,
+                    contentType: false,
                     cache: false,
-                    processData:false,
+                    processData: false,
                     success: function (msg) {
                         //alert(msg);
                         swal("Payment Added!", "Successfully", "success");
@@ -533,7 +421,7 @@ function submitPaymentReceivingVoucher()
 
             } else {
                 swal({
-                    title:"Cancelled",
+                    title: "Cancelled",
                     type: "error",
                     text: "Payment not Paid",
                     timer: 1200,
@@ -546,67 +434,42 @@ function submitPaymentReceivingVoucher()
 }
 
 function submitAndPrintPaymentReceivingVoucher() {
-    if($('#receivingPaymentMode').val()==1)
-    {
+    if ($('#receivingPaymentMode').val() == 1) {
 
-        if(!$('#paymentReceivingDate').val())
-        {
-            swal("Input Error!","Please  enter a valid Date","error");
+        if (!$('#paymentReceivingDate').val()) {
+            swal("Input Error!", "Please  enter a valid Date", "error");
             return;
-        }
-        else
-        if(!$('#customerId').val())
-        {
+        } else if (!$('#customerId').val()) {
             swal("Input Error!", "Please select a customer", "error");
             return;
-        }
-        else
-        if(!$('#receivingAmount').val())
-        {
+        } else if (!$('#receivingAmount').val()) {
             swal("Input Error!", "Please enter a amount", "error");
             return;
         }
 
 
-
-    }else if($('#receivingPaymentMode').val()==2)
-    {
-        if(!$('#paymentPayingDate').val()||!$('#vendorId').val()||!$('#payingAmount').val()||!$('#payingChequeDueDate').val()||!$('#payingChequeNo').val())
-        {
-            swal("Input Error!","Please fill all required fields","error");
+    } else if ($('#receivingPaymentMode').val() == 3) {
+        if (!$('#paymentReceivingDate').val() || !$('#customerId').val() || !$('#receivingAmount').val() || !$('#receivingChequeNo').val()) {
+            swal("Input Error!", "Please fill all required fields", "error");
             return;
         }
-    }
-    else if($('#receivingPaymentMode').val() == 3)
-    {
+    } else if ($('#receivingPaymentMode').val() == 2) {
 
-        if(!$('#paymentReceivingDate').val())
-        {
-            swal("Input Error!","Please  enter a valid Date","error");
-            return ;
-        }
-        else
-        if(!$('#customerId').val())
-        {
+        if (!$('#paymentReceivingDate').val()) {
+            swal("Input Error!", "Please  enter a valid Date", "error");
+            return;
+        } else if (!$('#customerId').val()) {
             swal("Input Error!", "Please select a customer", "error");
             return;
-        }
-        else
-        if(!$('#receivingAmount').val())
-        {
+        } else if (!$('#receivingAmount').val()) {
             swal("Input Error!", "Please enter a amount", "error");
             return;
-        }
-        else
-        if(!$('#receivingBank').val())
-        {
+        } else if (!$('#receivingBank').val()) {
             swal("Input Error!", "Please select the bank", "error");
             return;
         }
 
     }
-
-
 
 
     swal({
@@ -620,13 +483,13 @@ function submitAndPrintPaymentReceivingVoucher() {
             closeOnConfirm: false,
             closeOnCancel: false
         },
-        function(isConfirm){
+        function (isConfirm) {
             if (isConfirm) {
 
                 swal({
-                    title:"Updating",
+                    title: "Updating",
                     type: "warning",
-                    text:"Please Wait :)",
+                    text: "Please Wait :)",
                     timer: 1300,
                     showConfirmButton: false
                 });
@@ -635,20 +498,20 @@ function submitAndPrintPaymentReceivingVoucher() {
                     type: "POST",
                     url: "views/receiveCustomerPayment.php",
                     data: new FormData($('#paymentReceivingForm')[0]),
-                    contentType:false,
+                    contentType: false,
                     cache: false,
-                    processData:false,
+                    processData: false,
                     success: function (msg) {
                         // alert(msg);
                         swal("Payment Added!", "Successfully", "success");
-                        setTimeout('location.href="views/printPaymentReceivingVoucher.php?cid='+$('#customerId').val()+'&amount='+$('#receivingAmount').val()+'&detail='+$('#receivingDetail').val()+'&date='+$('#paymentReceivingDate').val()+'&mode=CASH&balance='+$('#customerBalanceFigure').val()+'"',1500);
+                        setTimeout('location.href="views/printPaymentReceivingVoucher.php?cid=' + $('#customerId').val() + '&amount=' + $('#receivingAmount').val() + '&detail=' + $('#receivingDetail').val() + '&date=' + $('#paymentReceivingDate').val() + '&mode=CASH&balance=' + $('#customerBalanceFigure').val() + '"', 1500);
                     }
                 });
 
 
             } else {
                 swal({
-                    title:"Cancelled",
+                    title: "Cancelled",
                     type: "error",
                     text: "Payment not Paid",
                     timer: 1200,

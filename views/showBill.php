@@ -102,7 +102,7 @@ $pending = ($amount + $gst) - $paid;
     <div class="row">
         <div class="col-sm-6">
             <?php if ($billing_company === "tipu_orient") { ?>
-                Tipu Orientteppichce
+                <h1>Tipu Orientteppichce</h1>
             <?php } else { ?>
                 <img src="img/carpet_world.png" class="img-responsive" width="160px" height="auto">
             <?php } ?>
