@@ -441,7 +441,7 @@ usort($data, 'date_compare');
 <div class="row" style="min-height:0.4in; max-height:0.4in">
 
     <div class="col-xs-12 text-center">
-        <h3>Ledger</h3>
+        <h3>Kontoauszug</h3>
 
     </div>
 

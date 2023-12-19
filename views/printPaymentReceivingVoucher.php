@@ -17,10 +17,12 @@
     $name = "";
     $phone = "";
     $address = "";
+    $zip_code = "";
     while ($row = mysqli_fetch_array($result)) {
         $name = $row['name'];
         $phone = $row['phone'];
         $city = $row['city'];
+        $zip_code = $row['zip_code'];
         $address = $row['address'];
     }
 
@@ -88,7 +90,8 @@
 </div>
 <div class="row vertical-divider">
     <div class="col-md-6">
-        <center style="margin-bottom:2px;"><h6 id="type" style="border:4px double black;">Zahlungsbeleg</h6></center>
+        <center style="margin-bottom:2px;"><h6 id="type" style="border:4px double black;">Zahlungsbeleg / Quittung</h6>
+        </center>
         <div class="row box">
             <div style="padding:2px;">
 
@@ -96,23 +99,27 @@
                     <table class="table" style="margin:0px; margin-bottom:15px;">
                         <tbody>
                         <tr>
-                            <td class="nocenter" style="font-size: 14px;"><b><i class="fa fa-user"></i>&nbsp;Name:</b>
+                            <td class="nocenter" style="font-size: 14px;"><b>Name:</b>
                                 <?php echo $name; ?>
                             </td>
                         </tr>
                         <tr>
-                            <td class="nocenter" style="font-size: 14px;"><b><i
-                                            class="fa fa-phone "></i>&nbsp;Phone:</b>
+                            <td class="nocenter" style="font-size: 14px;"><b>Phone:</b>
                                 <?php echo $phone; ?>
                             </td>
                         </tr>
                         <tr>
-                            <td class="nocenter" style="font-size: 14px;"><b><i class="fa fa-building "></i>&nbsp;City:</b>
+                            <td class="nocenter" style="font-size: 14px;"><b>Post Code:</b>
+                                <?php echo $zip_code; ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="nocenter" style="font-size: 14px;"><b>City:</b>
                                 <?php echo $city; ?>
                             </td>
                         </tr>
                         <tr>
-                            <td class="nocenter" style="font-size: 14px;"><b><i class="fa fa-address-book"></i>&nbsp;Address:</b>
+                            <td class="nocenter" style="font-size: 14px;"><b>Address:</b>
                                 <?php echo $address; ?>
                             </td>
                         </tr>
@@ -126,16 +133,16 @@
                 <table class="table" style="margin:0px;">
                     <thead>
                     <th class="text-center">
-                        <i class="fa fa-calendar"></i>&nbsp;Date
+                        Datum
                     </th>
                     <th>
-                        <i class="fa fa-money"></i>&nbsp;Amount
+                        Betrag
                     </th>
                     <th>
-                        <i class="fa fa-bars"></i>&nbsp;Payment Mode
+                        Zahlungsart
                     </th>
                     <th class="text-center">
-                        <i class="fa fa-file-text-o"></i>&nbsp;Detail
+                        Rej.
                     </th>
                     </thead>
                     <tbody class="items">
@@ -162,10 +169,7 @@ class="nocenter" ><b>Total Balance:</b></td><td class="nocenter" style="font-wei
         </div>
         <div class="row" style="margin-top:30%;">
             <hr>
-            <p style="float:left;font-size: 10px;"><b>Note:</b>&nbsp;Computer Generated Slip is invalid Without
-                Signature and Stamp.
-            <p style="float:right">Signature
-                and Stamp</p>
+            <p style="float:right">Unterschrift und Stempel</p>
         </div>
     </div>
 
@@ -209,16 +213,16 @@ class="nocenter" ><b>Total Balance:</b></td><td class="nocenter" style="font-wei
                 <table class="table" style="margin:0px;">
                     <thead>
                     <th class="text-center">
-                        <i class="fa fa-calendar"></i>&nbsp;Date
+                        Datum
                     </th>
                     <th>
-                        <i class="fa fa-money"></i>&nbsp;Amount
+                        Betrag
                     </th>
                     <th>
-                        <i class="fa fa-bars"></i>&nbsp;Payment Mode
+                        Zahlungsart
                     </th>
                     <th class="text-center">
-                        <i class="fa fa-file-text-o"></i>&nbsp;Detail
+                        Rej.
                     </th>
                     </thead>
                     <tbody class="items">
@@ -247,10 +251,7 @@ class="nocenter" ><b>Total Balance:</b></td><td class="nocenter" style="font-wei
 
         <div class="row" style="margin-top:30%;">
             <hr>
-            <p style="float:left;font-size: 10px;"><b>Note:</b>&nbsp;Computer Generated Slip is invalid Without
-                Signature and Stamp.
-            <p style="float:right">Signature
-                and Stamp</p>
+            <p style="float:right">Unterschrift und Stempel</p>
         </div>
     </div>
 

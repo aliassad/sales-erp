@@ -8,7 +8,6 @@ $today = date("d-M-Y");
     <div class="page-content">
         <!-- Page Heading -->
 
-
         <div class="row">
             <div class="col-md-4" style="padding-left:0px;">
                 <div class="btn-group btn-breadcrumb">
@@ -18,15 +17,39 @@ $today = date("d-M-Y");
             </div>
         </div>
 
-
-
         <div class="panel panel-default" style="margin-top:0px;">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-bar-chart"></i><span class="break"></span>&nbsp;Reports</h3>
             </div>
             <div class="panel-body" >
                 <div class="row">
-                    <h3><label class="label label-default large"><i class="fa fa-id-card"></i>&nbsp;Vendor Report:</label></h3>
+                    <h3><label class="label label-default large"><i class="fa fa-cubes"></i>&nbsp;Inventory</label></h3>
+                </div>
+                <div class="row" style="margin-top:10px;">
+                    <div class="col-md-4" style="padding-left:5px; padding-right:3px;">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-search"></i>&nbsp;Report Type#</span>
+                            <select id="stock_report_type" class="selectpicker show-tick" data-live-search="true" title="Select Report Type.." >
+                            <option>SALES LEDGER</option>
+                            <option>STOCK LEDGER</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6" style="padding:0px;">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i>&nbsp;From Date#</span>
+                            <input id="stock_report_from" type="text" placeholder="click to select date" class="form-control" value="<?php echo $lastMonth;?>">
+                            <span class="input-group-addon">  to</span>
+                            <input id="stock_report_to" type="text" placeholder="click to select date" class="form-control" value="<?php echo $today;?>">
+                        </div>
+
+                    </div>
+                    <div class="col-md-2" >
+                        <button class="btn btn-info btn-md" onclick="showStockReport();">GO</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <h3><label class="label label-default large"><i class="fa fa-users"></i>&nbsp;Vendor</label></h3>
                 </div>
                 <div class="row" style="margin-top:10px;">
                     <div class="col-md-4" style="padding-left:5px; padding-right:3px;">
@@ -41,8 +64,6 @@ $today = date("d-M-Y");
                                 }
                                 ?>
                             </select>
-
-
                         </div>
                     </div>
 
@@ -55,17 +76,12 @@ $today = date("d-M-Y");
                         </div>
 
                     </div>
-
                     <div class="col-md-2" >
                         <button class="btn btn-info btn-md" onclick="showVendorReport();">GO</button>
                     </div>
-
-
-
-
                 </div>
                 <div class="row">
-                    <h3><label class="label label-default large"><i class="fa fa-group"></i>&nbsp;Customer Report:</label></h3>
+                    <h3><label class="label label-default large"><i class="fa fa-group"></i>&nbsp;Customer</label></h3>
                 </div>
                 <div class="row" style="margin-top:10px;">
                     <div class="col-md-4" style="padding-left:5px; padding-right:3px;">
@@ -80,8 +96,6 @@ $today = date("d-M-Y");
                                 }
                                 ?>
                             </select>
-
-
                         </div>
                     </div>
 
@@ -94,23 +108,13 @@ $today = date("d-M-Y");
                         </div>
 
                     </div>
-
                     <div class="col-md-2" >
                         <button class="btn btn-info btn-md" onclick="showCustomerReport();">GO</button>
                     </div>
-
-
-
-
                 </div>
-
-
-
                 <div class="row">
-                    <h3><label class="label label-default large"><i class="fa fa-bank"></i>&nbsp;Account
-                            Report:</label></h3>
+                    <h3><label class="label label-default large"><i class="fa fa-bank"></i>&nbsp;Account </label></h3>
                 </div>
-
                 <div class="row" style="margin-top:10px;">
                     <div class="col-md-4" style="padding-left:5px; padding-right:3px;">
                         <div class="input-group">
@@ -128,7 +132,6 @@ $today = date("d-M-Y");
 
                         </div>
                     </div>
-
                     <div class="col-md-6" style="padding:0px;">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-calendar"></i>&nbsp;From Date#</span>
@@ -140,24 +143,15 @@ $today = date("d-M-Y");
                         </div>
 
                     </div>
-
                     <div class="col-md-2">
                         <button class="btn btn-info btn-md" onclick="showAccountReport();">GO</button>
                     </div>
-
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
 </div>
 </div>
-
-
 
 <style>
 
@@ -167,10 +161,8 @@ $today = date("d-M-Y");
     }
 </style>
 
-
-<!-- /.container-fluid -->
-<!-- /#page-wrapper 
-    <!-- /#wrapper -->
+<!-- #container-fluid -->
+<!-- #page-wrapper #wrapper -->
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/taffy-min.js"></script>

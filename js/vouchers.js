@@ -329,7 +329,7 @@ function submitAndPrintPaymentPayingVoucher() {
                     }
                 });
 
-                setTimeout('location.href="views/printPaymentPayingVoucher.php?cid=' + $('#vendorId').val() + '&amount=' + $('#payingAmount').val() + '&detail=' + $('#payingDetail').val() + '&date=' + $('#paymentPayingDate').val() + '&mode=CASH&balance=' + $('#vendorBalanceFigure').val() + '"', 1500);
+                setTimeout('location.href="views/printPaymentPayingVoucher.php?cid=' + $('#vendorId').val() + '&amount=' + $('#payingAmount').val() + '&detail=' + $('#payingDetail').val() + '&date=' + $('#paymentPayingDate').val() + '&mode=' + $("#payingPaymentMode option:selected").text() + '&balance=' + $('#vendorBalanceFigure').val() + '"', 1500);
             } else {
                 swal({
                     title: "Cancelled",
@@ -504,7 +504,7 @@ function submitAndPrintPaymentReceivingVoucher() {
                     success: function (msg) {
                         // alert(msg);
                         swal("Payment Added!", "Successfully", "success");
-                        setTimeout('location.href="views/printPaymentReceivingVoucher.php?cid=' + $('#customerId').val() + '&amount=' + $('#receivingAmount').val() + '&detail=' + $('#receivingDetail').val() + '&date=' + $('#paymentReceivingDate').val() + '&mode=CASH&balance=' + $('#customerBalanceFigure').val() + '"', 1500);
+                        setTimeout('location.href="views/printPaymentReceivingVoucher.php?cid=' + $('#customerId').val() + '&amount=' + $('#receivingAmount').val() + '&detail=' + $('#receivingDetail').val() + '&date=' + $('#paymentReceivingDate').val() + '&mode=' + $("#receivingPaymentMode option:selected").text() + '&balance=' + $('#customerBalanceFigure').val() + '"', 1500);
                     }
                 });
 
