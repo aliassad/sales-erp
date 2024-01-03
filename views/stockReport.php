@@ -62,16 +62,17 @@ function ResolveSign($val)
 {
     if ($val <= -1) {
         $val = $val * -1;
-        $val = number_format($val,2,',','.');
+        $val = number_format($val, 2, ',', '.');
         $val .= " Dr.";
         return $val;
     } else if ($val >= 1) {
-        $val = number_format($val,2,',','.');
+        $val = number_format($val, 2, ',', '.');
         return $val . " Cr.";
     }
-    return number_format($val,2,',','.');
+    return number_format($val, 2, ',', '.');
 
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -138,6 +139,25 @@ function ResolveSign($val)
         /* text-align: center; */
         text-align: inherit;
     }
+
+    body {
+        counter-reset: page
+    }
+
+    div.page {
+        page-break-before: always;
+        counter-increment: page
+    }
+
+    div.page:after {
+        display: block;
+        text-align: right;
+        content: counter(page)
+    }
+
+    div.first.page {
+        page-break-before: avoid
+    }
 </style>
 
 
@@ -145,7 +165,7 @@ function ResolveSign($val)
 
 <div class="row" style=" margin-top:0.2in;">
     <div class="col-xs-12 text-right">
-        <a class="btn btn-info" id="non-print-elem" onclick="window.print();"><i class=" fa fa-print"></i> Print</a>
+        <a class="btn btn-info" id="non-print-elem" onclick="window.print()"><i class=" fa fa-print"></i> Print</a>
     </div>
 </div>
 <div class="row" style="min-height:0.4in; max-height:0.4in">
@@ -169,67 +189,99 @@ function ResolveSign($val)
 
 <div class="row">
     <?php if ($report_type == "stock_ledger") { ?>
-        <div style="margin-top:0px;" class="col-xs-12">
-            <table class="table table-condensed">
+        <div style="margin-top:0px; padding: 0px" class="col-xs-12">
+            <table class="table table-condensed" style="margin: 0px">
                 <thead id="invoice-view-table-head">
                 <tr>
-                    <th class="text-center">
+                    <th class="text-center" width="5">
                         Id
                     </th>
-                    <th class="text-center">
+                    <th class="text-center" width="5">
                         Sr
                     </th>
-                    <th class="text-center">
+                    <th class="text-center" width="5">
                         Article
                     </th>
-                    <th class="text-center">
+                    <th class="text-center" width="7">
                         Origin
                     </th>
-                    <th class="text-center">
-                        Vendor
-                    </th>
-                    <th class="text-center">
-                        Length <span class="small">(cm)</span>
-                    </th>
-                    <th class="text-center">
-                        Width <span class="small">(cm)</span>
-                    </th>
-                    <th class="text-center">
-                        Square Meter
-                    </th>
-                    <th class="text-center">
-                        Total Price
-                    </th>
-                    <th class="text-center">
+                    <th class="text-center" width="15">
                         Description
                     </th>
-                    <th class="text-center">
+                    <th class="text-center" width="5">
+                        Length <span class="small">(cm)</span>
+                    </th>
+                    <th class="text-center" width="5">
+                        Width <span class="small">(cm)</span>
+                    </th>
+                    <th class="text-center" width="5">
+                        Square Meter
+                    </th>
+                    <th class="text-center" width="5">
                         Stock
                     </th>
-
-                    <th class="text-center">
+                    <th class="text-center" width="7">
                         Purchase Per Sqm
+                    </th>
+                    <th class="text-center" width="7">
+                        Total Price
+                    </th>
+                    <th class="text-center" width="13">
+                        Vendor
+                    </th>
+                    <th class="text-center" width="6">
+                        Remarks
                     </th>
                 </tr>
                 </thead>
                 <tbody id="invoice-view-table-body">
-                <?php foreach ($data as $stock_row) { ?>
+                <?php
+                $stock_total = 0;
+                $square_meter_total = 0;
+                $total_price = 0;
+                foreach ($data as $stock_row) {
+                    $square_meter = number_format(($stock_row['item_length'] * $stock_row['item_width']) / 10000, 2);
+                    $price_per_meter = number_format($square_meter * $stock_row['sprice'], 2);
+                    if ($stock_row['stock'] > 0) {
+                        $stock_total = $stock_total + $stock_row['stock'];
+                    }
+                    if ($square_meter > 0) {
+                        $square_meter_total = $square_meter_total + $square_meter;
+                    }
+
+                    if ($price_per_meter > 0) {
+                        $total_price = $total_price + $price_per_meter;
+                    }
+                    ?>
                     <tr>
                         <td><?= $stock_row['id'] ?></td>
                         <td><?= $stock_row['s_no'] ?></td>
                         <td><?= $stock_row['article_no'] ?></td>
                         <td><?= $stock_row['origin'] ?></td>
-                        <td><?= $stock_row['vendor_no'] ?></td>
+                        <td><?= $stock_row['des'] ?></td>
                         <td><?= $stock_row['item_length'] ?></td>
                         <td><?= $stock_row['item_width'] ?></td>
-                        <td><?= number_format(($stock_row['item_length'] * $stock_row['item_width']) / 10000, 2); ?></td>
-                        <td><?= number_format(($stock_row['item_length'] * $stock_row['item_width']) / 10000, 2) * $stock_row['sprice'] . CURRENCY_SIGN; ?></td>
-                        <td><?= $stock_row['des'] ?></td>
+                        <td><?= $square_meter ?></td>
                         <td><?= $stock_row['stock'] ?></td>
                         <td><?= $stock_row['pprice'] . CURRENCY_SIGN ?></td>
+                        <td><?= $price_per_meter . CURRENCY_SIGN ?></td>
+                        <td><?= $stock_row['vendor_no'] ?></td>
+                        <td></td>
                     </tr>
                 <?php } ?>
                 </tbody>
+                <tfoot>
+                <tr>
+                    <th colspan="7" style="text-align:right; font-size:18px;"></th>
+                    <th colspan="1" style="font-size:18px;"><?= $square_meter_total; ?></th>
+                    <th colspan="1" style="font-size:18px;"><?= $stock_total; ?></th>
+                    <th colspan="1" style="font-size:18px;"></th>
+                    <th colspan="1" style="font-size:18px;"><?= $total_price; ?></th>
+                    <th colspan="1" style="font-size:18px;"></th>
+                    <th colspan="1" style="font-size:18px;"></th>
+                </tr>
+
+                </tfoot>
             </table>
         </div>
     <?php } else { ?>
@@ -252,11 +304,11 @@ function ResolveSign($val)
                     for ($j = 0; $j < count($data); $j++) {
                         $totalCredit += $data[$j]['credit'];
 
-                        $total_debit_with_gst = $data[$j]['debit'] + (number_format($data[$j]['debit']*$data[$j]['customer_gst']/100,2))*1.0;
+                        $total_debit_with_gst = $data[$j]['debit'] + (number_format($data[$j]['debit'] * $data[$j]['customer_gst'] / 100, 2)) * 1.0;
 
                         $totalDebit += $total_debit_with_gst;
 
-                        echo '<tr><td class="text-center">' . $i . '</td><td>' . $data[$j]['date'] . '</td><td >' . $data[$j]['des'] . '</td><td>' . number_format($total_debit_with_gst,2, ',','.') . '</td><td>' . ResolveSign($totalCredit - $totalDebit) . '</td></tr>';
+                        echo '<tr><td class="text-center">' . $i . '</td><td>' . $data[$j]['date'] . '</td><td >' . $data[$j]['des'] . '</td><td>' . number_format($total_debit_with_gst, 2, ',', '.') . '</td><td>' . ResolveSign($totalCredit - $totalDebit) . '</td></tr>';
                         $i++;
                     }
 
@@ -265,12 +317,15 @@ function ResolveSign($val)
                     <tfoot>
                     <tr>
                         <th colspan="4" style="text-align:right; font-size:18px;">Total</th>
-                        <th colspan="1" style="font-size:18px;"><?php echo ResolveSign($totalCredit - $totalDebit); ?></th>
+                        <th colspan="1"
+                            style="font-size:18px;"><?php echo ResolveSign($totalCredit - $totalDebit); ?></th>
                     </tr>
+
                     </tfoot>
                 </table>
             </div>
         </div>
     <?php } ?>
+
 </body>
 </html>
