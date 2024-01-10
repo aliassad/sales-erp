@@ -20,14 +20,19 @@
         </div>
         </div>
         <div class="row" style="margin-top:10px;">
-            <div class="col-md-3" style="padding:0px;">
-
+            <div class="col-md-2" style="padding:0px;">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-search"></i>&nbsp;Bill no#</span>
                     <input id="billno" type="number" class="form-control" onkeyup="filter();">
                 </div>
             </div>
-            <div class="col-md-4" style="padding-left:5px; padding-right:3px;">
+            <div class="col-md-2" style="padding-left:5px; padding-right:3px;">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-search"></i>&nbsp;Bill Sr#</span>
+                    <input id="bill_serial" type="text" class="form-control" onkeyup="filter();">
+                </div>
+            </div>
+            <div class="col-md-3" style="padding-left:5px; padding-right:3px;">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-search"></i>&nbsp;Customer#</span>
                     <select id="customer" class="selectpicker show-tick" data-live-search="true" title="Enter Customer Name.." onchange="filter();">
@@ -74,7 +79,10 @@
                         <thead>
                         <tr>
                             <th class="text-center">
-                                <i class="fa fa-file"></i>&nbsp;Bill&nbsp;no#
+                                <i class="fa fa-hashtag"></i>&nbsp;Bill&nbsp;no
+                            </th>
+                            <th class="text-center">
+                                <i class="fa fa-hashtag"></i>&nbsp;Bill&nbsp;Sr
                             </th>
                             <th class="text-center">
                                 <i class="fa fa-user"></i>&nbsp;Customer
@@ -100,7 +108,7 @@
                         </tr>
                         </thead>
                         <tbody id="bills">
-                                <tr id="loading" ><td colspan="8"><center > <img src="img/loading.gif"> </center></td></tr>
+                                <tr id="loading" ><td colspan="9"><center > <img src="img/loading.gif"> </center></td></tr>
                         </tbody>
                     </table>
 
@@ -118,8 +126,7 @@
 </div>
 </div>
 <!-- /.container-fluid -->
-<!-- /#page-wrapper 
-    <!-- /#wrapper -->
+<!-- /#page-wrapper  /#wrapper -->
 
 
 <script src="js/jquery.js"></script>

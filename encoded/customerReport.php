@@ -105,7 +105,7 @@ while ($row = mysqli_fetch_array($result)) {
 
 $data = array();
 
-$result = query("select concat('Incentive on Bill no # ',b.id) as des, b.discount as credit, DATE_FORMAT(b
+$result = query("select concat('Incentive on Bill Sr # ',b.bill_serial) as des, b.discount as credit, DATE_FORMAT(b
 .date,'%d-%m-%Y') as date from `bill` b where b.cid='$pid' and b.type='Invoice'  and b.date BETWEEN 
 STR_TO_DATE
 ('$from','%d-%M-%Y') AND STR_TO_DATE('$to','%d-%M-%Y')");
@@ -128,7 +128,7 @@ array_push($data, $row_data);
 
 
 
-$result = query("select concat(l.product,' QTY: ', l.unit,' Rate: ', round(((l.rate-((l.rate*l.discount)/100)))),' Bill Id: ',b.id) as des ,(l.unit*(l.rate-((l.rate*l
+$result = query("select concat(l.product,' QTY: ', l.unit,' Rate: ', round(((l.rate-((l.rate*l.discount)/100)))),' Bill Sr: ',b.bill_serial) as des ,(l.unit*(l.rate-((l.rate*l
 .discount)/100))) as debit,
 DATE_FORMAT(b
 .date,'%d-%m-%Y') as date  from 
@@ -152,7 +152,7 @@ while ($row = mysqli_fetch_array($result)) {
 }
 
 
-$result = query("select concat('Payment Received Bill Id: ',b.id) as des, sum(ba.amount) as credit,DATE_FORMAT(b
+$result = query("select concat('Payment Received Bill Sr: ',b.bill_serial) as des, sum(ba.amount) as credit,DATE_FORMAT(b
 .date,'%d-%m-%Y') as date from `bill` b,`billamounts` ba where  b.type='Invoice' and b.cid='$pid' and ba.bid=b
 .id and
 b.date BETWEEN 

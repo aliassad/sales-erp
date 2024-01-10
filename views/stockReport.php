@@ -200,37 +200,37 @@ function ResolveSign($val)
                         Sr
                     </th>
                     <th class="text-center" width="5">
-                        Article
+                        Artikel
                     </th>
                     <th class="text-center" width="7">
-                        Origin
+                        Herkunft
                     </th>
                     <th class="text-center" width="15">
-                        Description
+                        Beschreibung
                     </th>
                     <th class="text-center" width="5">
-                        Length <span class="small">(cm)</span>
+                        Länge <span class="small">(cm)</span>
                     </th>
                     <th class="text-center" width="5">
-                        Width <span class="small">(cm)</span>
+                        Breite <span class="small">(cm)</span>
                     </th>
                     <th class="text-center" width="5">
-                        Square Meter
+                        Quadratmeter
                     </th>
                     <th class="text-center" width="5">
-                        Stock
+                        Bestand
                     </th>
                     <th class="text-center" width="7">
-                        Purchase Per Sqm
+                        Kauf pro Quadratmeter
                     </th>
                     <th class="text-center" width="7">
-                        Total Price
+                        Gesamtpreis
                     </th>
                     <th class="text-center" width="13">
-                        Vendor
+                        Verkäuferin
                     </th>
                     <th class="text-center" width="6">
-                        Remarks
+                        Bemerkungen
                     </th>
                 </tr>
                 </thead>
@@ -241,8 +241,13 @@ function ResolveSign($val)
                 $total_price = 0;
                 foreach ($data as $stock_row) {
                     $square_meter = number_format(($stock_row['item_length'] * $stock_row['item_width']) / 10000, 2);
-                    $price_per_meter = number_format($square_meter * $stock_row['sprice'], 2);
-                    if ($stock_row['stock'] > 0) {
+
+                    if (($stock_row['stock'] * 1) > 0) {
+                        $price_per_meter = number_format($square_meter * $stock_row['pprice'], 2) * $stock_row['stock'];
+                    } else {
+                        $price_per_meter = 0;
+                    }
+                    if (($stock_row['stock'] * 1) > 0) {
                         $stock_total = $stock_total + $stock_row['stock'];
                     }
                     if ($square_meter > 0) {
@@ -269,8 +274,6 @@ function ResolveSign($val)
                         <td></td>
                     </tr>
                 <?php } ?>
-                </tbody>
-                <tfoot>
                 <tr>
                     <th colspan="7" style="text-align:right; font-size:18px;"></th>
                     <th colspan="1" style="font-size:18px;"><?= $square_meter_total; ?></th>
@@ -280,8 +283,7 @@ function ResolveSign($val)
                     <th colspan="1" style="font-size:18px;"></th>
                     <th colspan="1" style="font-size:18px;"></th>
                 </tr>
-
-                </tfoot>
+                </tbody>
             </table>
         </div>
     <?php } else { ?>

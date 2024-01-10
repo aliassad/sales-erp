@@ -56,16 +56,23 @@ $products = query("select * from product");
                 </center>
             </div>
             <div class="col-md-4">
-                <button class="btn btn-md btn-info" style="margin-top:5px; float: right"><input id="billdate"
-                                                                                                type="text"
-                                                                                                class="form-control"
-                                                                                                style="width:166px;font-size:24px;  "/>
+                <button class="btn btn-md btn-info" style="margin-top:5px; float: right">
+                    <input id="billdate" type="text"
+                           class="form-control"
+                           style="width:166px;font-size:24px;  "/>
                 </button>
             </div>
         </div>
 
         <div class="row" style="padding-bottom:10px;padding-top:20px;">
-            <div class="col-md-1"></div>
+            <div class="col-md-3" style="padding-left: 0;">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-hashtag"></i>&nbsp;Sr</span>
+                        <input class="form-control" id="bill_serial" />
+                    </div>
+                </div>
+            </div>
             <div class="col-md-3" style="padding-left: 0;">
                 <div class="form-group">
                     <div class="input-group">
@@ -78,7 +85,7 @@ $products = query("select * from product");
                     </div>
                 </div>
             </div>
-            <div class="col-md-4" style="padding: 0px; ">
+            <div class="col-md-3" style="padding: 0px; ">
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user"></i>&nbsp;Customer</span>
@@ -426,6 +433,12 @@ $products = query("select * from product");
                         <tbody id="inv">
                         <script>
                             function updateInvoice() {
+
+                                if(!$('#bill_serial').val()) {
+                                    $('#bill_serial').focus();
+                                    swal("Missing Invoice Serial", "Please add valid Invoice Serial", "error");
+                                    return;
+                                }
 
                                 if ($('#cuname').val().replace(/[^0-9\.\-]+/g, "") == 1 && ($('#paid').val() == 0 || !$('#paid').val())) {
                                     swal("Please add valid Amount", "for walk in customer full amount must be entered!!", "error");

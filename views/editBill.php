@@ -7,10 +7,11 @@ if (isset($_GET["cid"])) {
     $cid = $_GET["cid"];
 }
 
-$result = query("select b.cid,b.amount,b.discount,DATE_FORMAT(b.date,'%d-%m-%Y') as date,DATE_FORMAT(b.ddate,'%d-%m-%Y') as ddate,b.notes,b.type,b.gst,b.billing_company from bill b where id='$billno'");
+$result = query("select b.bill_serial, b.cid,b.amount,b.discount,DATE_FORMAT(b.date,'%d-%m-%Y') as date,DATE_FORMAT(b.ddate,'%d-%m-%Y') as ddate,b.notes,b.type,b.gst,b.billing_company from bill b where id='$billno'");
 
 while ($row = mysqli_fetch_array($result)) {
     $cid = $row['cid'];
+    $bill_serial = $row['bill_serial'];
     $amount = $row['amount'];
     $discount = $row['discount'];
     $date = $row['date'];
@@ -117,9 +118,7 @@ $products = query("select * from product");
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-building"></i>&nbsp;Company</span>
                         <select style="font-size:18px" id="billing_company" class="form-control">
-                            <option value="teppich_clean" <?php if ($billing_company === "tippich_clean") echo "SELECTED"; ?>>
-                                TEPPICH CLEAN24
-                            </option>
+                            <option value="tipu_orient" <?php if ($billing_company === "tipu_orient") echo "SELECTED"; ?>>Tipu Orientteppichce</option>
                             <option value="carpet_world" <?php if ($billing_company === "carpet_world") echo "SELECTED"; ?>>
                                 CARPET WORLD24
                             </option>
@@ -132,11 +131,20 @@ $products = query("select * from product");
         </div>
 
         <div class="row">
-            <div class="col-md-5" style="padding:0px; padding-right:20px; margin:0px;">
+            <div class="col-md-2" style="padding:0px; padding-right:20px; margin:0px;">
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-edit"></i><b>&nbsp;Number:</b> </span>
                         <input class="form-control" id="invNo" value="<?php echo $billno; ?>" readonly/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3" style="padding:0px; padding-right:10px; margin:0px;">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-hashtag"></i><b>&nbsp;Sr</b> </span>
+                        <input class="form-control" id="bill_serial" value="<?php echo $bill_serial; ?>" />
                     </div>
                 </div>
             </div>

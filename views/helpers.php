@@ -54,4 +54,10 @@ function multi_query($sql_data)
 }
 
 
+function getCustomerId($cname)
+{
+    return strtok($cname, ':');
+}
+
+
 ?>

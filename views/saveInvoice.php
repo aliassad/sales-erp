@@ -15,6 +15,7 @@ $mno = $_POST['mno'];
 $bdate = $_POST['bdate'];
 $gst = $_POST['gst'];
 $billing_company = $_POST['billing_company'];
+$bill_serial = $_POST['bill_serial'];
 
 $tableData = stripcslashes($_POST['pTableData']);
 
@@ -22,19 +23,16 @@ $tableData = stripcslashes($_POST['pTableData']);
 // Decode the JSON array
 $tableData = json_decode($tableData, TRUE);
 // now $tableData can be accessed like a PHP array
-$r = query("select id from customer where concat(id,': ',name)='$cname'");
+$id = getCustomerId($cname);
 
-if (!$r) {
+if (!$id) {
     echo "false1";
 } else {
-    while ($ro = mysqli_fetch_array($r)) {
-        $id = $ro['id'];
-    }
     if ($id == 1) {
         $r = query("insert into wicustomer values('NULL','$wname','$cno')");
     }
 
-    $r = query("insert into `bill`(`cid`, `discount`, `amount`, `date`, `ddate`, `notes`, `type`, `gst`,`billing_company`) values('$id','$discount','$gtotal',STR_TO_DATE('$bdate','%d-%m-%Y'),STR_TO_DATE('$duedate', '%d-%m-%Y'),'$notes','$type','$gst','$billing_company')");
+    $r = query("insert into `bill`(`cid`, `discount`, `amount`, `date`, `ddate`, `notes`, `type`, `gst`,`billing_company`,`bill_serial`) values('$id','$discount','$gtotal',STR_TO_DATE('$bdate','%d-%m-%Y'),STR_TO_DATE('$duedate', '%d-%m-%Y'),'$notes','$type','$gst','$billing_company','$bill_serial')");
 
     if (!$r) {
         echo "false2";

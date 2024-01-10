@@ -5,11 +5,12 @@ if (isset($_GET["cid"])) {
     $cid = $_GET["cid"];
 }
 
-$result = query("select b.cid,b.amount,b.discount,DATE_FORMAT(b.date,'%d-%m-%Y') as date,DATE_FORMAT(b.ddate,'%d-%m-%Y') as ddate,b.notes,b.type,b.gst,b.billing_company from bill b where b.id='$billno'");
+$result = query("select b.bill_serial,b.cid,b.amount,b.discount,DATE_FORMAT(b.date,'%d-%m-%Y') as date,DATE_FORMAT(b.ddate,'%d-%m-%Y') as ddate,b.notes,b.type,b.gst,b.billing_company from bill b where b.id='$billno'");
 
 
 while ($row = mysqli_fetch_array($result)) {
     $cid = $row['cid'];
+    $bill_serial = $row['bill_serial'];
     $amount = $row['amount'];
     $discount = $row['discount'];
     $date = $row['date'];
@@ -188,7 +189,7 @@ $pending = ($amount + $gst) - $paid;
         </div>
     </div>
     <div class="row box">
-        <b style="font-size: 16px"><?= $type; ?> No: <?php echo $billno; ?></b><input type="number" id="billno"
+        <b style="font-size: 16px"><?= $type; ?> No: <?php echo $bill_serial; ?></b><input type="number" id="billno"
                                                                                       value="<?php echo $billno; ?>"
                                                                                       style="display:none;"/>
     </div>

@@ -5,12 +5,13 @@
     require_once("helpers.php");
 
     $billno = $_GET["billid"];
+    $bill_serial = "";
     $isDL = isset($_GET["DL"]);
     if (isset($_GET["cid"])) {
         $cid = $_GET["cid"];
     }
 
-    $result = query("select b.cid,b.amount,b.discount,DATE_FORMAT(b.date,'%d-%m-%Y') as date,DATE_FORMAT(b.ddate,'%d-%m-%Y') as ddate,b.notes,b.type,b.gst,b.billing_company from bill b where b.id='$billno'");
+    $result = query("select b.bill_serial, b.cid,b.amount,b.discount,DATE_FORMAT(b.date,'%d-%m-%Y') as date,DATE_FORMAT(b.ddate,'%d-%m-%Y') as ddate,b.notes,b.type,b.gst,b.billing_company from bill b where b.id='$billno'");
 
 
     while ($row = mysqli_fetch_array($result)) {
@@ -23,6 +24,7 @@
         $type = $row['type'];
         $billing_company = $row['billing_company'];
         $gst = $row['gst'];
+        $bill_serial = $row['bill_serial'];
     }
 
     $result = query("select Sum(amount) as paid from billamounts where bid='$billno'");
@@ -107,7 +109,7 @@
         }
 
         .customer-title-table {
-            margin-top: 2.5cm;
+            margin-top: 2.8cm;
             margin-left: 2cm;
         }
 
@@ -166,7 +168,7 @@
                 <tbody id="tocustomer" style="background: transparent !important;">
                 <?php if ($billing_company === "tipu_orient") { ?>
                     <tr>
-                        <td style="font-size: 16px !important;" class="nocenter">Teppich Clean24 Inh, Im Taubental 40,
+                        <td style="font-size: 16px !important;" class="nocenter">Tipu Orientteppichce, Im Taubental 40,
                             41468 Neuss
                         </td>
                     </tr>
@@ -198,7 +200,7 @@
                 <table class="table table customer-title-table-1">
                     <tbody>
                     <tr>
-                        <td class="nocenter">Teppich Clean24 Inh.</td>
+                        <td class="nocenter">Tipu Orientteppichce. Inh Tipu Khan</td>
                     </tr>
                     <tr>
                         <td class="nocenter"><i class="fa fa-building-o"></i>&nbsp;Im Taubental 40, 41468 Neuss</td>
@@ -255,7 +257,7 @@
                 <?php } else { ?>
                     Auftrags Nr.
                 <?php } ?>
-                <?php echo str_pad($billno, 6, '0', STR_PAD_LEFT);; ?></b><input type="number" id="billno"
+                <?php echo $bill_serial; ?></b><input type="number" id="billno"
                                                                                  value="<?php echo $billno; ?>"
                                                                                  style="display:none;"/>
         </div>
@@ -391,7 +393,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="nocenter"><b>GST (<?= $customer_gst ?>)%:</b></td>
+                            <td class="nocenter"><b>MWSt (<?= $customer_gst ?>)%:</b></td>
                             <td class="nocenter"><?= number_format(($gst), 2, ',', '.') . CURRENCY_SIGN; ?></td>
                         </tr>
                         <tr>
@@ -429,8 +431,7 @@
             <div class="row box">
                 Sie sind verpflichtet, die Rechnung zu Steuerzwecken zwei Jahre lang aufzubewahren
                 <p>
-                    Zahibar: Nach Rechnungserhalt Netto
-                    Entgeltminderungen ergeben sich us unserer aktuellen Rahmen- ode Konditionsbedingungen.
+                    Entgeltminderungen ergeben sich aus unseren aktuellen Rahmen- oder Konditionsbedingungen.
                 </p>
             </div>
             <div class="row box">
@@ -439,7 +440,7 @@
                     Sparkasse Neuss: IBAN: DE81 3055 0000 0093 4230 69
                 </div>
                 <div class="col-sm-3">
-                    <b style="font-size: 18px">Gerichtsstand Amtsgereieht Neuss</b>
+                    <b style="font-size: 18px">Gerichtsstand<br>Amtsgericht Neuss</b>
                 </div>
                 <div class="col-sm-3"><b>
                         Steuer Nr. 125/5308/5032<br>
