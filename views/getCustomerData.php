@@ -24,7 +24,7 @@ while ($row = mysqli_fetch_array($result)) {
 
 
 
-$result = query("Select (SELECT sum(ba.amount) from billamounts ba,bill b WHERE ba.bid=b.id and b.cid='$id' ) tpaid,sum(amount-discount) tamount  from bill b where b.type='Invoice' and b.cid='$id'");
+$result = query("Select (SELECT sum(ba.amount) from billamounts ba,bill b WHERE ba.bid=b.id and b.cid='$id' ) tpaid,sum(amount+gst-discount) tamount  from bill b where b.type='Invoice' and b.cid='$id'");
 if ($result) {
     while ($row = mysqli_fetch_array($result)) {
         $tamount = ($row['tamount']);

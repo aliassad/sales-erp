@@ -88,8 +88,8 @@
         <a class="btn btn-info" id="non-print-elem" onclick="window.print();"><i class=" fa fa-print"></i> Print</a>
     </div>
 </div>
-<div class="row vertical-divider">
-    <div class="col-md-6">
+<div class="row">
+    <div class="col-md-12">
         <center style="margin-bottom:2px;"><h6 id="type" style="border:4px double black;">Zahlungsbeleg / Quittung</h6>
         </center>
         <div class="row box">
@@ -99,27 +99,17 @@
                     <table class="table" style="margin:0px; margin-bottom:15px;">
                         <tbody>
                         <tr>
-                            <td class="nocenter" style="font-size: 14px;"><b>Name:</b>
+                            <td class="nocenter" style="font-size: 14px;">
                                 <?php echo $name; ?>
                             </td>
                         </tr>
                         <tr>
-                            <td class="nocenter" style="font-size: 14px;"><b>Phone:</b>
-                                <?php echo $phone; ?>
+                            <td class="nocenter" style="font-size: 14px;">
+                                <?php echo $zip_code.', '.$city; ?>
                             </td>
                         </tr>
                         <tr>
-                            <td class="nocenter" style="font-size: 14px;"><b>Post Code:</b>
-                                <?php echo $zip_code; ?>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="nocenter" style="font-size: 14px;"><b>City:</b>
-                                <?php echo $city; ?>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="nocenter" style="font-size: 14px;"><b>Address:</b>
+                            <td class="nocenter" style="font-size: 14px;">
                                 <?php echo $address; ?>
                             </td>
                         </tr>
@@ -159,9 +149,8 @@
 
                     echo '<tr>
 <td colspan="4" ><table class="table table-bordered" style="margin:100px 0px 0px 0px;"><tbody>
-<tr><td class="nocenter" ><b>Total Amount Received:</b></td>
-<td class="nocenter" style="font-weight:bold;font-size:14px;">' . number_format(($amount), 2, ',', '.') . CURRENCY_SIGN . '</td></tr><tr><td 
-class="nocenter" ><b>Total Balance:</b></td><td class="nocenter" style="font-weight:bold;font-size:14px;">' . number_format($balance, 2, ',', '.') . CURRENCY_SIGN . '</td></tr></tbody></table>';
+<tr><td class="nocenter" ><b>Erhalten betrag:</b></td>
+<td class="nocenter" style="font-weight:bold;font-size:14px;">' . number_format(($amount), 2, ',', '.') . CURRENCY_SIGN . '</td></tbody></table>';
                     ?>
                     </tfoot>
                 </table>
@@ -172,89 +161,6 @@ class="nocenter" ><b>Total Balance:</b></td><td class="nocenter" style="font-wei
             <p style="float:right">Unterschrift und Stempel</p>
         </div>
     </div>
-
-    <div class="col-md-6">
-        <center style="margin-bottom:2px;"><h6 id="type" style="border:4px double black;">Zahlungsbeleg</h6></center>
-        <div class="row box">
-            <div style="padding:2px;">
-
-                <div class="col-md-12">
-
-                    <table class="table" style="margin:0px; margin-bottom:15px;">
-                        <tbody>
-                        <tr>
-                            <td class="nocenter" style="font-size: 14px;"><b><i class="fa fa-user"></i>&nbsp;Name:</b>
-                                <?php echo $name; ?>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="nocenter" style="font-size: 14px;"><b><i
-                                            class="fa fa-phone "></i>&nbsp;Phone:</b>
-                                <?php echo $phone; ?>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="nocenter" style="font-size: 14px;"><b><i class="fa fa-building "></i>&nbsp;City:</b>
-                                <?php echo $city; ?>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="nocenter" style="font-size: 14px;"><b><i class="fa fa-address-book"></i>&nbsp;Address:</b>
-                                <?php echo $address; ?>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="row box">
-            <div style="padding:2px;">
-                <table class="table" style="margin:0px;">
-                    <thead>
-                    <th class="text-center">
-                        Datum
-                    </th>
-                    <th>
-                        Betrag
-                    </th>
-                    <th>
-                        Zahlungsart
-                    </th>
-                    <th class="text-center">
-                        Rej.
-                    </th>
-                    </thead>
-                    <tbody class="items">
-                    <tr>
-                        <td><?php echo $date; ?></td>
-                        <td><?php echo number_format(($amount), 2, ',', '.'); ?></td>
-                        <td><?php echo $mode; ?></td>
-                        <td><?php echo $detail; ?></td>
-                    </tr>
-                    </tbody>
-                    <tfoot>
-
-                    <?php
-
-                    echo '<tr>
-<td colspan="4" ><table class="table table-bordered" style="margin:100px 0px 0px 0px;"><tbody>
-<tr><td class="nocenter" ><b>Total Amount Received:</b></td><td class="nocenter" style="font-weight:bold;font-size:14px;">' . number_format(($amount), 2, ',', '.') . CURRENCY_SIGN . '
-                     </td></tr><tr><td 
-class="nocenter" ><b>Total Balance:</b></td><td class="nocenter" style="font-weight:bold;font-size:14px;">' . number_format($balance, 2, ',', '.') . CURRENCY_SIGN . '</td></tr></tbody></table>';
-
-                    ?>
-                    </tfoot>
-                </table>
-            </div>
-        </div>
-
-        <div class="row" style="margin-top:30%;">
-            <hr>
-            <p style="float:right">Unterschrift und Stempel</p>
-        </div>
-    </div>
-
 </div>
 
 
