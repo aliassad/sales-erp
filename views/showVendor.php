@@ -43,9 +43,9 @@ ptype='Credit'");
 while ($row = mysqli_fetch_array($result)) {
     $receivedAmount = $row['amount'];
 }
-$result = query("select sum(p.qty*p.rate) as amount from vendorpurchase p where p.vp='$eid'");
+$result = query("select p.amount from vendorpurchase p where p.vp='$eid'");
 while ($row = mysqli_fetch_array($result)) {
-    $pendingpayment = $row['amount'];
+    $pendingpayment += $row['amount'];
 }
 $pendingpayment = $pendingpayment - $paidAmount + $receivedAmount + $opening_balance;
 ?>
@@ -492,7 +492,7 @@ $pendingpayment = $pendingpayment - $paidAmount + $receivedAmount + $opening_bal
                                         <div class="input-group">
                                             <span class="input-group-addon"><i
                                                         class="fa fa-building-o"></i>&nbsp;City</span>
-                                            <input name="vcity" id="vcity" type="text" class="form-control" />
+                                            <input name="vcity" id="vcity" type="text" class="form-control"/>
                                         </div>
                                     </div>
                                 </div>
@@ -623,7 +623,8 @@ $pendingpayment = $pendingpayment - $paidAmount + $receivedAmount + $opening_bal
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-money"></i>&nbsp;Total Advance</span>
                         <input type="text" class="form-control"
-                               value="<?php echo CURRENCY_SIGN . ' ' . number_format($pendingadvance + $paidadvance, 2); ?>" readonly>
+                               value="<?php echo CURRENCY_SIGN . ' ' . number_format($pendingadvance + $paidadvance, 2); ?>"
+                               readonly>
                     </div>
                 </div>
                 <div class="form-group">
@@ -686,7 +687,8 @@ $pendingpayment = $pendingpayment - $paidAmount + $receivedAmount + $opening_bal
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-money"></i>&nbsp;Total Amount Balance</span>
                             <input type="text" class="form-control"
-                                   value="<?php echo CURRENCY_SIGN . ' ' . number_format($pendingpayment, 2); ?>" readonly>
+                                   value="<?php echo CURRENCY_SIGN . ' ' . number_format($pendingpayment, 2); ?>"
+                                   readonly>
                         </div>
                     </div>
                     <div class="col-md-6" style="padding-left:0px">
@@ -769,6 +771,7 @@ $pendingpayment = $pendingpayment - $paidAmount + $receivedAmount + $opening_bal
                 <h4 class="modal-title" id="myModalLabel"><i class="fa fa-briefcase fa-1x" tabindex="-1"></i>&nbsp;Edit
                     Item no:&nbsp;<span id="pid" style="color:red"></span>&nbsp;of&nbsp;Date:&nbsp;<span
                             style="color:blue" id="epdate"></span></h4>
+                <input id="product_id" style="display: none">
             </div>
             <form>
                 <div class="modal-body well">
@@ -798,10 +801,11 @@ $pendingpayment = $pendingpayment - $paidAmount + $receivedAmount + $opening_bal
                                     <tbody>
                                     <form>
                                         <td>
-                                            <select id="epname" class="form-control" placeholder='Select Product...'
+                                            <select style="pointer-events: none;" readonly="readonly" id="epname"
+                                                    class="form-control" placeholder='Select Product...'
                                                     tabindex="1">
                                                 <?php
-                                                $result = query("select p.des from product p;");
+                                                $result = query("select concat(pr.article_no,' ', pr.origin,' ',pr.des,' ',pr.item_length,'*',pr.item_width,': ',(ROUND(pr.item_length*pr.item_width/10000,2)),' SQM') as des from product pr where pr.vendor_id='$eid';");
                                                 while ($row = mysqli_fetch_array($result)) {
                                                     echo '<option>' . $row['des'] . '</option>';
                                                 }

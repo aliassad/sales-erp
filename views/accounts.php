@@ -404,7 +404,7 @@
                                     <tbody>
                                         <form>
                                             <td>
-                                            <select id="vproduct" class="form-control" title='Select Product...' tabindex="2" onchange="loadProductDetail();">
+                                            <select id="vproduct" class="form-control" title='Select Product...' tabindex="2" onchange="loadProductDetail();" data-live-search="true">
                                             </select>
                                                         
                                             </td>
@@ -513,7 +513,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6" style="padding-left:0px;">
-                            <div style="padding-top:5px; padding-left:0px; padding-right:0px;">
+                            <div style="padding-top:0px; padding-left:0px; padding-right:0px;">
                                 <div class="input-group">
                                     <span class="input-group-addon green"><i class="fa fa-money"></i>&nbsp;Final Payment</span>
                                     <input id="fpay" type="text" class="form-control" readonly tabindex="-1" />

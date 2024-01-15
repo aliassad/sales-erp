@@ -576,9 +576,9 @@ function loadPurchaces() {
         }
         for (var i = 0; i < 500; i++) {
             if ($('#userRole').val() == "Admin") {
-                $('#vendorpurchase').append("<tr><td>" + rows[i]['id'] + "</td><td>" + rows[i]['date'] + "</td><td>" + rows[i]['product'] + "</td><td>" + rows[i]['unit'] + "</td><td>" + rows[i]['rate'] + "</td><td>" + $('#CURRENCY_SIGN').val() + " " + (parseFloat(rows[i]['rate']) * parseFloat(rows[i]['unit'])).toLocaleString() + "</td><td><a class='btn btn-sm btn-primary' onclick='editrow(this);' ><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td ><a class='btn btn-sm btn-danger' onclick='deleterow(this);'><i class='fa fa-trash'></i>&nbsp;Delete</a></td></tr>");
+                $('#vendorpurchase').append("<tr id='"+ rows[i]['product_id'] +"'><td>" + rows[i]['id'] + "</td><td>" + rows[i]['date'] + "</td><td>" + rows[i]['product'] + "</td><td>" + rows[i]['unit'] + "</td><td>" + rows[i]['rate'] + "</td><td>" + $('#CURRENCY_SIGN').val() + " " +rows[i]['amount'] + "</td><td><a class='btn btn-sm btn-primary' onclick='editrow(this);' ><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td ><a class='btn btn-sm btn-danger' onclick='deleterow(this);'><i class='fa fa-trash'></i>&nbsp;Delete</a></td></tr>");
             } else {
-                $('#vendorpurchase').append("<tr><td>" + rows[i]['id'] + "</td><td>" + rows[i]['date'] + "</td><td>" + rows[i]['product'] + "</td><td>" + rows[i]['unit'] + "</td><td>" + rows[i]['rate'] + "</td><td>" + $('#CURRENCY_SIGN').val() + " " + (parseFloat(rows[i]['rate']) * parseFloat(rows[i]['unit'])).toLocaleString() + "</td><td><a class='btn btn-sm btn-primary' onclick='editrow(this);' style='display: none;'><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td ><a class='btn btn-sm btn-danger' style='display: none;' onclick='deleterow(this);'><i class='fa fa-trash'></i>&nbsp;Delete</a></td></tr>");
+                $('#vendorpurchase').append("<tr id='"+ rows[i]['product_id'] +"'><td>" + rows[i]['id'] + "</td><td>" + rows[i]['date'] + "</td><td>" + rows[i]['product'] + "</td><td>" + rows[i]['unit'] + "</td><td>" + rows[i]['rate'] + "</td><td>" + $('#CURRENCY_SIGN').val() + " " + rows[i]['amount'] + "</td><td><a class='btn btn-sm btn-primary' onclick='editrow(this);' style='display: none;'><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td ><a class='btn btn-sm btn-danger' style='display: none;' onclick='deleterow(this);'><i class='fa fa-trash'></i>&nbsp;Delete</a></td></tr>");
             }
         }
 
@@ -589,7 +589,6 @@ function loadPurchaces() {
 function deleterow(id) {
 
     var rowid = id.parentNode.parentNode.children[0].innerHTML;
-
 
     swal({
             title: "Are you sure?",
@@ -652,15 +651,14 @@ function deleterow(id) {
 
 function editrow(id) {
 
-
     $('#pid').html(id.parentNode.parentNode.children[0].innerHTML);
+    $('#product_id').html(id.id);
     $('#epdate').html(id.parentNode.parentNode.children[1].innerHTML);
     $('#epname').val(id.parentNode.parentNode.children[2].innerHTML);
     $('#punit').val(id.parentNode.parentNode.children[3].innerHTML);
     $('#prate').val(id.parentNode.parentNode.children[4].innerHTML);
 
     $('#editrow').modal('show');
-
 
 }
 
@@ -681,7 +679,6 @@ function saveE() {
         function (isConfirm) {
             if (isConfirm) {
 
-
                 swal({
                     title: "Updating",
                     type: "warning",
@@ -695,6 +692,7 @@ function saveE() {
                     type: "POST",
                     data: {
                         pid: $('#pid').html(),
+                        product_id: $('#product_id').html(),
                         pname: $('#epname').val(),
                         punit: $('#punit').val(),
                         prate: $('#prate').val()
@@ -968,9 +966,9 @@ function filterPurchase() {
                 if (toDate(fdate).getTime() === toDate(rows[i]['date']).getTime()) {
                     flag = true;
                     if ($('#userRole').val() == "Admin") {
-                        $('#vendorpurchase').append("<tr class='success'><td>" + rows[i]['id'] + "</td><td>" + rows[i]['date'] + "</td><td>" + rows[i]['product'] + "</td><td>" + rows[i]['unit'] + "</td><td>" + rows[i]['rate'] + "</td><td>" + $('#CURRENCY_SIGN').val() + " " + (parseFloat(rows[i]['rate']) * parseFloat(rows[i]['unit'])).toLocaleString() + "</td><td><a class='btn btn-sm btn-primary' onclick='editrow(this);' ><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td ><a class='btn btn-sm btn-danger' onclick='deleterow(this);'><i class='fa fa-trash'></i>&nbsp;Delete</a></td></tr>");
+                        $('#vendorpurchase').append("<tr class='success' id='"+ rows[i]['product_id'] +"'><td>" + rows[i]['id'] + "</td><td>" + rows[i]['date'] + "</td><td>" + rows[i]['product'] + "</td><td>" + rows[i]['unit'] + "</td><td>" + rows[i]['rate'] + "</td><td>" + $('#CURRENCY_SIGN').val() + " " +rows[i]['amount'] + "</td><td><a class='btn btn-sm btn-primary' onclick='editrow(this);' ><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td ><a class='btn btn-sm btn-danger' onclick='deleterow(this);'><i class='fa fa-trash'></i>&nbsp;Delete</a></td></tr>");
                     } else {
-                        $('#vendorpurchase').append("<tr><td>" + rows[i]['id'] + "</td><td>" + rows[i]['date'] + "</td><td>" + rows[i]['product'] + "</td><td>" + rows[i]['unit'] + "</td><td>" + rows[i]['rate'] + "</td><td>" + $('#CURRENCY_SIGN').val() + " " + (parseFloat(rows[i]['rate']) * parseFloat(rows[i]['unit'])).toLocaleString() + "</td><td><a class='btn btn-sm btn-primary' onclick='editrow(this);' style='display: none;'><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td ><a class='btn btn-sm btn-danger' style='display: none;' onclick='deleterow(this);'><i class='fa fa-trash'></i>&nbsp;Delete</a></td></tr>");
+                        $('#vendorpurchase').append("<tr class='success' id='"+ rows[i]['product_id'] +"'><td>" + rows[i]['id'] + "</td><td>" + rows[i]['date'] + "</td><td>" + rows[i]['product'] + "</td><td>" + rows[i]['unit'] + "</td><td>" + rows[i]['rate'] + "</td><td>" + $('#CURRENCY_SIGN').val() + " " +rows[i]['amount'] + "</td><td><a class='btn btn-sm btn-primary' onclick='editrow(this);' style='display: none;'><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td ><a class='btn btn-sm btn-danger' style='display: none;' onclick='deleterow(this);'><i class='fa fa-trash'></i>&nbsp;Delete</a></td></tr>");
                     }
                 }
 
@@ -988,9 +986,9 @@ function filterPurchase() {
                 if (toDate(rows[i]['date']).getTime() >= toDate(fdate).getTime() && toDate(rows[i]['date']).getTime() <= toDate(tdate).getTime()) {
                     flag = true;
                     if ($('#userRole').val() == "Admin") {
-                        $('#vendorpurchase').append("<tr class='success'><td>" + rows[i]['id'] + "</td><td>" + rows[i]['date'] + "</td><td>" + rows[i]['product'] + "</td><td>" + rows[i]['unit'] + "</td><td>" + rows[i]['rate'] + "</td><td>" + $('#CURRENCY_SIGN').val() + " " + (parseFloat(rows[i]['rate']) * parseFloat(rows[i]['unit'])).toLocaleString() + "</td><td><a class='btn btn-sm btn-primary' onclick='editrow(this);' ><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td ><a class='btn btn-sm btn-danger' onclick='deleterow(this);'><i class='fa fa-trash'></i>&nbsp;Delete</a></td></tr>");
+                        $('#vendorpurchase').append("<tr class='success' id='"+ rows[i]['product_id'] +"'><td>" + rows[i]['id'] + "</td><td>" + rows[i]['date'] + "</td><td>" + rows[i]['product'] + "</td><td>" + rows[i]['unit'] + "</td><td>" + rows[i]['rate'] + "</td><td>" + $('#CURRENCY_SIGN').val() + " " +rows[i]['amount'] + "</td><td><a class='btn btn-sm btn-primary' onclick='editrow(this);' ><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td ><a class='btn btn-sm btn-danger' onclick='deleterow(this);'><i class='fa fa-trash'></i>&nbsp;Delete</a></td></tr>");
                     } else {
-                        $('#vendorpurchase').append("<tr><td>" + rows[i]['id'] + "</td><td>" + rows[i]['date'] + "</td><td>" + rows[i]['product'] + "</td><td>" + rows[i]['unit'] + "</td><td>" + rows[i]['rate'] + "</td><td>" + $('#CURRENCY_SIGN').val() + " " + (parseFloat(rows[i]['rate']) * parseFloat(rows[i]['unit'])).toLocaleString() + "</td><td><a class='btn btn-sm btn-primary' onclick='editrow(this);' style='display: none;'><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td ><a class='btn btn-sm btn-danger' style='display: none;' onclick='deleterow(this);'><i class='fa fa-trash'></i>&nbsp;Delete</a></td></tr>");
+                        $('#vendorpurchase').append("<tr class='success' id='"+ rows[i]['product_id'] +"'><td>" + rows[i]['id'] + "</td><td>" + rows[i]['date'] + "</td><td>" + rows[i]['product'] + "</td><td>" + rows[i]['unit'] + "</td><td>" + rows[i]['rate'] + "</td><td>" + $('#CURRENCY_SIGN').val() + " " +rows[i]['amount'] + "</td><td><a class='btn btn-sm btn-primary' onclick='editrow(this);' style='display: none;'><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td ><a class='btn btn-sm btn-danger' style='display: none;' onclick='deleterow(this);'><i class='fa fa-trash'></i>&nbsp;Delete</a></td></tr>");
                     }
                 }
 
@@ -1007,9 +1005,9 @@ function filterPurchase() {
         rows = db2().get();
         for (var i = 0; i < 500; i++) {
             if ($('#userRole').val() == "Admin") {
-                $('#vendorpurchase').append("<tr><td>" + rows[i]['id'] + "</td><td>" + rows[i]['date'] + "</td><td>" + rows[i]['product'] + "</td><td>" + rows[i]['unit'] + "</td><td>" + rows[i]['rate'] + "</td><td>" + $('#CURRENCY_SIGN').val() + " " + (parseFloat(rows[i]['rate']) * parseFloat(rows[i]['unit'])).toLocaleString() + "</td><td><a class='btn btn-sm btn-primary' onclick='editrow(this);' ><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td ><a class='btn btn-sm btn-danger' onclick='deleterow(this);'><i class='fa fa-trash'></i>&nbsp;Delete</a></td></tr>");
+                $('#vendorpurchase').append("<tr class='success' id='"+ rows[i]['product_id'] +"'><td>" + rows[i]['id'] + "</td><td>" + rows[i]['date'] + "</td><td>" + rows[i]['product'] + "</td><td>" + rows[i]['unit'] + "</td><td>" + rows[i]['rate'] + "</td><td>" + $('#CURRENCY_SIGN').val() + " " +rows[i]['amount'] + "</td><td><a class='btn btn-sm btn-primary' onclick='editrow(this);' ><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td ><a class='btn btn-sm btn-danger' onclick='deleterow(this);'><i class='fa fa-trash'></i>&nbsp;Delete</a></td></tr>");
             } else {
-                $('#vendorpurchase').append("<tr><td>" + rows[i]['id'] + "</td><td>" + rows[i]['date'] + "</td><td>" + rows[i]['product'] + "</td><td>" + rows[i]['unit'] + "</td><td>" + rows[i]['rate'] + "</td><td>" + $('#CURRENCY_SIGN').val() + " " + (parseFloat(rows[i]['rate']) * parseFloat(rows[i]['unit'])).toLocaleString() + "</td><td><a class='btn btn-sm btn-primary' onclick='editrow(this);' style='display: none;'><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td ><a class='btn btn-sm btn-danger' style='display: none;' onclick='deleterow(this);'><i class='fa fa-trash'></i>&nbsp;Delete</a></td></tr>");
+                $('#vendorpurchase').append("<tr class='success' id='"+ rows[i]['product_id'] +"'><td>" + rows[i]['id'] + "</td><td>" + rows[i]['date'] + "</td><td>" + rows[i]['product'] + "</td><td>" + rows[i]['unit'] + "</td><td>" + rows[i]['rate'] + "</td><td>" + $('#CURRENCY_SIGN').val() + " " +rows[i]['amount'] + "</td><td><a class='btn btn-sm btn-primary' onclick='editrow(this);' style='display: none;'><i class='fa fa-edit'></i>&nbsp;Edit</a></td><td ><a class='btn btn-sm btn-danger' style='display: none;' onclick='deleterow(this);'><i class='fa fa-trash'></i>&nbsp;Delete</a></td></tr>");
             }
         }
 
