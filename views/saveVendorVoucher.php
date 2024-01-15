@@ -10,6 +10,15 @@ $dadvance = $_POST['dadvance'];
 $vdate = $_POST['vdate'];
 $bno = $_POST['bno'];
 
+
+$gst = 0;
+
+$result = query("SELECT * FROM `vendor` where id='$id'");
+while ($row = mysqli_fetch_array($result)) {
+    $gst = $row['gst'];
+}
+
+
 $tableData = stripcslashes($_POST['pTableData']);
 
 
@@ -27,7 +36,11 @@ if ($payment > 0 || $advance > 0 || $dadvance > 0) {
 
 for ($i = 0; $i < count($tableData); $i++) {
     $qty = $tableData[$i]['qty'];
-    $amount = $tableData[$i]['amount'];
+    $gst_amount = 0;
+    if ($gst) {
+        $gst_amount = number_format(($tableData[$i]['amount'] * $gst) / 100, 2);
+    }
+    $amount = $tableData[$i]['amount'] + $gst_amount;
     $product = $tableData[$i]['product'];
     $rate = $tableData[$i]['rate'];
 

@@ -7,9 +7,9 @@ $to = $_GET['to'];
 $totalCredit=0;
 $totalDebit=0;
 
+$party_id = getCustomerId($party);
 
-
-$result=query("select id,name,address,openingbalance from vendor where concat(id,': ',name)='$party';");
+$result=query("select id,name,address,openingbalance from vendor where id='$party_id';");
 while($row=mysqli_fetch_array($result)) {
     $pid = $row['id'];
     $pname=$row['name'];
@@ -17,7 +17,7 @@ while($row=mysqli_fetch_array($result)) {
     $openingbalance=$row['openingbalance'];
 }
 $totalCredit=$openingbalance;
-$result=query("select sum(qty*rate) as credit  from `vendorpurchase` where vp='$pid' and date < STR_TO_DATE('$from','%d-%M-%Y');");
+$result=query("select sum(amount) as credit  from `vendorpurchase` where vp='$pid' and date < STR_TO_DATE('$from','%d-%M-%Y');");
 while($row=mysqli_fetch_array($result))
     $totalCredit+=$row['credit'];
 
@@ -30,15 +30,9 @@ $result=query("select sum(amount) as debit  from `vendorpayments` where vid='$pi
 while($row=mysqli_fetch_array($result))
     $totalDebit+=$row['debit'];
 
-
-
-
-
-
-
 $data=array();
-$result=query("select id,concat(pid,' Qty: ',qty,' Rate: ',rate) as des,(qty*rate) as credit,DATE_FORMAT(date,'%d-%M-%Y') as date from 
-`vendorpurchase` 
+$result=query("select id,(select concat(pr.article_no,' ', pr.origin,' ',pr.des,' ',pr.item_length,'*',pr.item_width,': ',(ROUND(pr.item_length*pr.item_width/10000,2)),' SQM',' QTY: ',vp.qty,' @: ',vp.rate) from product pr where pr.id=vp.pid ) as des,amount as credit,DATE_FORMAT(date,'%d-%M-%Y') as date from 
+`vendorpurchase`  vp
 where 
 vp='$pid' 
 and date
