@@ -168,6 +168,14 @@ else {
                     </i>
                 </a>
             </li>
+            <li <?php if ($page == "teppich_sell" || $page == "teppich_invoice" || $page == "teppich_showBill" || $page == "teppich_editBill") { ?> class="active"
+            <?php } ?> >
+                <a href="index.php?page=teppich_sell">
+                    <i class="fa fa-pagelines fa-5x" style="font-size:18px; ">
+                        <b style="margin-left:8px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">Teppich Clean</b>
+                    </i>
+                </a>
+            </li>
             <li <?php if ($page == "wcustomers") { ?> class="active"
             <?php } ?> >
                 <a href="index.php?page=wcustomers">
