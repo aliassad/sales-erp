@@ -4,9 +4,6 @@ else {
     $page = "home";
 }
 
-$products = query("select * from product");
-
-
 ?>
 <style>
     #discount > td > input {
@@ -31,13 +28,11 @@ $products = query("select * from product");
 <div class="container-fluid">
     <div class="page-content">
         <!-- Page Heading -->
-
-
         <div class="row">
             <div class="col-md-4" style="padding-left:0px;">
                 <div class="btn-group btn-breadcrumb">
                     <a href="index.php?page=home" class="btn btn-default"><i class="glyphicon glyphicon-home"></i></a>
-                    <a href="index.php?page=sell" class="btn btn-default"><i
+                    <a href="index.php?page=teppich_sell" class="btn btn-default"><i
                                 class="fa fa-pagelines"></i>&nbsp;Selling</a>
                     <a href="#" class="btn btn-primary"><i class="fa fa-file-text"></i>&nbsp;New Bill</a>
                 </div>
@@ -47,7 +42,7 @@ $products = query("select * from product");
                     <div class="form-group">
                         <button class="btn btn-md btn-warning" style="margin-top:5px;"><b>BILL No</b> <span
                                     class="badge"><?php
-                                $result = query("SHOW TABLE STATUS LIKE 'bill'");
+                                $result = query("SHOW TABLE STATUS LIKE 'teppich_clean_bill'");
                                 $data = mysqli_fetch_assoc($result);
                                 $next_increment = $data['Auto_increment'];
                                 echo($next_increment);
@@ -96,7 +91,7 @@ $products = query("select * from product");
                     </div>
                 </div>
             </div>
-            <div class="col-md-3" style="padding: 0px;padding-left: 10px; ">
+            <div class="col-md-2" style="padding: 0px;padding-left: 10px; ">
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-phone"></i>&nbsp;Phone</span>
@@ -104,11 +99,27 @@ $products = query("select * from product");
                     </div>
                 </div>
             </div>
-            <div class="col-md-4" style="padding: 0px;padding-left: 10px; ">
+            <div class="col-md-3" style="padding: 0px;padding-left: 10px; ">
                 <div class="form-group">
                     <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-address-book"></i>&nbsp;Address</span>
-                        <input id="customer_address" class="form-control"/>
+                        <span class="input-group-addon"><i class="fa fa-book"></i>&nbsp;Street</span>
+                        <input id="customer_street" class="form-control"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2" style="padding: 0px;padding-left: 10px; ">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-envelope"></i>&nbsp;Post Code</span>
+                        <input id="customer_post" class="form-control"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2" style="padding: 0px;padding-left: 10px; ">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-globe"></i>&nbsp;City</span>
+                        <input id="customer_city" class="form-control"/>
                     </div>
                 </div>
             </div>
@@ -134,7 +145,10 @@ $products = query("select * from product");
                         <i class="fa fa-arrow-right"></i>&nbsp;Width <span class="text-xs">cm</span>
                     </th>
                     <th class="text-center">
-                        <i class="fa fa-money "></i>&nbsp;Per SQM @
+                        <i class="fa fa-money "></i>&nbsp;@
+                    </th>
+                    <th class="text-center">
+                        SQM
                     </th>
                     <th class="text-center">
                         <i class="fa fa-table"></i>&nbsp;Qty
@@ -144,6 +158,9 @@ $products = query("select * from product");
                     </th>
                     <th class="text-center">
                         GST Incl
+                    </th>
+                    <th class="text-center">
+                        Net
                     </th>
                     <th class="text-center">
                         <i class="fa fa-money"></i>&nbsp;GST
@@ -174,11 +191,15 @@ $products = query("select * from product");
                             <input type="number" id="rate1" placeholder="@" class="form-control"
                                    onkeyup="calAmount(this);">
                         </td>
-                        <td style=" width:8%">
+                        <td style=" width:5%">
+                            <input type="number" id="sqm1" placeholder="SQM" class="form-control"
+                                   readonly value="0" tabindex="-1">
+                        </td>
+                        <td style=" width:7%">
                             <input type="number" id="unit1" placeholder="Qty" class="form-control"
                                    onkeyup="calAmount(this);">
                         </td>
-                        <td style=" width:8%">
+                        <td style=" width:7%">
                             <input type="number" id="disc1" placeholder="Discount" tabindex='-1' class="form-control"
                                    onkeyup="calAmount(this);">
                         </td>
@@ -186,8 +207,12 @@ $products = query("select * from product");
                             <input type="checkbox" tabindex="-1" id="gst_included1" class="form-control"
                                    readonly value="0" onchange="calAmount(this)">
                         </td>
-                        <td style="width:10%">
-                            <input type="text" tabindex="-1" id="gst1" placeholder="0" class="form-control"
+                        <td style="width:5%">
+                            <input type="text" tabindex="-1" id="net1" placeholder="0" class="form-control net"
+                                   readonly value="0">
+                        </td>
+                        <td style="width:5%">
+                            <input type="text" tabindex="-1" id="gst1" placeholder="0" class="form-control gst"
                                    readonly value="0">
                         </td>
                         <td style="width:15%">
@@ -216,7 +241,7 @@ $products = query("select * from product");
                 <table class="table" style="margin: 0px;">
                     <thead>
                     <th>Gross Total(<?= CURRENCY ?>):</th>
-                    <th>GST (<span id="invoice_gst">--</span>%):</th>
+                    <th>GST (19%):</th>
                     <th>Net Total(<?= CURRENCY ?>):</th>
                     <th>Discount:</th>
                     <th>Amount Received:</th>
@@ -368,16 +393,11 @@ $products = query("select * from product");
                         <div class="col-lg-6" style="padding-right: 0px;">
                             <div class="col-lg-10 col-lg-offset-2" style="padding-right: 0px;">
                                 <table class="table">
-
-
                                     <tbody>
                                     <tr>
                                         <td class="nocenter">
-
                                             <i class="fa fa-tag"></i>&nbsp;<b>Trx ID: </b>
                                             <span class="badge" id="invNo"></span>
-
-
                                         </td>
                                     </tr>
                                     <tr>
@@ -406,13 +426,31 @@ $products = query("select * from product");
                             <i class="fa fa-briefcase "></i>&nbsp;Product
                         </th>
                         <th class="text-center">
+                            <i class="fa fa-arrow-up"></i>&nbsp;Length <span class="text-xs">cm</span>
+                        </th>
+                        <th class="text-center">
+                            <i class="fa fa-arrow-right"></i>&nbsp;Width <span class="text-xs">cm</span>
+                        </th>
+                        <th class="text-center">
                             <i class="fa fa-money "></i>&nbsp;@
+                        </th>
+                        <th class="text-center">
+                            SQM
                         </th>
                         <th class="text-center">
                             <i class="fa fa-table"></i>&nbsp;Qty
                         </th>
                         <th class="text-center">
                             <b>%</b>&nbsp;Discount
+                        </th>
+                        <th class="text-center">
+                            GST Incl
+                        </th>
+                        <th class="text-center">
+                            Net
+                        </th>
+                        <th class="text-center">
+                            <i class="fa fa-money"></i>&nbsp;GST
                         </th>
                         <th class="text-center">
                             <i class="fa fa-money "></i>&nbsp;Amount
@@ -428,33 +466,14 @@ $products = query("select * from product");
                                     return;
                                 }
 
-                                if ($('#cuname').val().replace(/[^0-9\.\-]+/g, "") == 1 && ($('#paid').val() == 0 || !$('#paid').val())) {
-                                    swal("Please add valid Amount", "for walk in customer full amount must be entered!!", "error");
-                                    return;
-                                } else if ($('#cuname').val().replace(/[^0-9\.\-]+/g, "") == 1 && $('#total').val() != 0) {
-                                    swal("Please add valid Amount", "Net total must be zero", "error");
-                                    return;
-                                }
-
-                                if (!$('#cuname').val()) {
+                                if (!$('#customer_name').val()) {
                                     swal("Error! No Customer selected", "Please select Customer first", "error");
                                     return;
                                 }
                                 $('#myModal').modal('toggle');
 
-                                $.ajax({
-                                    type: "POST",
-                                    url: "views/customerdata.php",
-                                    data: {
-                                        name: $('#cuname').val()
-                                    },
-                                    success: function (data) {
-                                        $('#tocustomer').html(data);
-                                    }
-                                });
 
                                 $('#invNo').html($('#billidno').val());
-
 
                                 $('#inv').html("");
                                 $('#type').html("");
@@ -482,20 +501,106 @@ $products = query("select * from product");
                                         parseFloat((paid_amount)).toLocaleString() + ' </td></tr>';
                                 }
 
-                                $('#gtotal').append('<tr><td colspan="4" rowspan="3" style="border-style:none;"><table class="table table-bordered"><thead><th style="background:lightgrey;"><i class="fa fa-newspaper-o"></i>Notes</th></thead><tbody><tr><td><textarea id="mnot" class="form-control" rows="3" style="font-size:14px;" readonly></textarea></td></tr></tbody></table></td><td></td><td colspan="2"><table class="table table-bordered"><tbody><tr><td class="nocenter"><b>Gross Total:</b></td><td class="nocenter">' + $('#CURRENCY_SIGN').val() + ' ' +
-                                    parseFloat(($('#gross_total').val())).toLocaleString() + ' </td></tr><tr><td class="nocenter"><b>GST (' + $('#invoice_gst').html() + ')%:</b></td><td class="nocenter">' + $('#CURRENCY_SIGN').val() + ' ' +
-                                    parseFloat(($('#gst_amount').val())).toLocaleString() + ' </td></tr><tr><td class="nocenter"><b>Net Total:</b></td><td class="nocenter">' + $('#CURRENCY_SIGN').val() + ' ' +
-                                    parseFloat(($('#net_total').val())).toLocaleString() + ' </td></tr>' + discount_section + paid_section + '<tr><td class="nocenter" style="background:lightgrey;"><b>Balance:</b></td><td class="nocenter">' + $('#CURRENCY_SIGN').val() + ' ' +
-                                    parseFloat(($('#final_total').val())).toLocaleString() + ' </td></tr></tbody></table></td></tr>');
-                                $('#invoice tr').each(function (row, tr) {
+                                $('#tocustomer').html(
+                                    '<tr><td class="nocenter"><i class="fa fa-user"></i>&nbsp;<b>Name:</b> ' +
+                                    $('#customer_name').val() +
+                                    '</td></tr>' +
+                                    '<tr><td class="nocenter"><i class="fa fa-phone"></i>&nbsp;<b>Phone:</b> ' +
+                                    $('#customer_phone').val() +
+                                    '</td></tr>' +
+                                    '<tr><td class="nocenter"><i class="fa fa-book"></i>&nbsp;<b>Address:</b> ' +
+                                    $('#customer_post').val() + ' ' +
+                                    $('#customer_street').val() + ' ' +
+                                    $('#customer_city').val() +
+                                    '</td></tr>'
+                                );
 
-                                    $('#inv').append('<tr><td>' + $(tr).find('td:eq(0)').text() + '</td><td>' + $(tr).find('td:eq(1)').children().find(":selected").text() + '</td><td>' + $(tr).find('td:eq(2)').children().val() + '</td><td>' + $(tr).find('td:eq(3)').children().val() + '</td><td>' + $(tr).find('td:eq(4)').children().val() + '</td><td>' + $(tr).find('td:eq(5)').children().val() + '</td></tr>');
+                                $('#gtotal').append(
+                                    '<tr>' +
+                                    '<td colspan="7" rowspan="3" style="border-style:none;">' +
+                                    '<table class="table table-bordered">' +
+                                    '<thead>' +
+                                    '<th style="background:lightgrey;">' +
+                                    '<i class="fa fa-newspaper-o"></i>Notes' +
+                                    '</th>' +
+                                    '</thead>' +
+                                    '<tbody>' +
+                                    '<tr>' +
+                                    '<td>' +
+                                    '<textarea id="mnot" class="form-control" rows="3" style="font-size:14px;" readonly></textarea>' +
+                                    '</td>' +
+                                    '</tr>' +
+                                    '</tbody>' +
+                                    '</table>' +
+                                    '</td>' +
+                                    '<td></td>' +
+                                    '<td colspan="4">' +
+                                    '<table class="table table-bordered">' +
+                                    '<tbody>' +
+                                    '<tr>' +
+                                    '<td class="nocenter"><b>Gross Total:</b></td>' +
+                                    '<td class="nocenter">' +
+                                    $('#CURRENCY_SIGN').val() + ' ' +
+                                    parseFloat(($('#gross_total').val())).toLocaleString() +
+                                    '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td class="nocenter"><b>GST (19)%:</b></td>' +
+                                    '<td class="nocenter">' +
+                                    $('#CURRENCY_SIGN').val() + ' ' +
+                                    parseFloat(($('#gst_amount').val())).toLocaleString() +
+                                    '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td class="nocenter"><b>Net Total:</b></td>' +
+                                    '<td class="nocenter">' +
+                                    $('#CURRENCY_SIGN').val() + ' ' +
+                                    parseFloat(($('#net_total').val())).toLocaleString() +
+                                    '</td>' +
+                                    '</tr>' +
+                                    discount_section +
+                                    paid_section +
+                                    '<tr>' +
+                                    '<td class="nocenter" style="background:lightgrey;"><b>Balance:</b></td>' +
+                                    '<td class="nocenter">' +
+                                    $('#CURRENCY_SIGN').val() + ' ' +
+                                    parseFloat(($('#final_total').val())).toLocaleString() +
+                                    '</td>' +
+                                    '</tr>' +
+                                    '</tbody>' +
+                                    '</table>' +
+                                    '</td>' +
+                                    '</tr>'
+                                );
+
+                                $('#invoice tr').each(function (row, tr) {
+                                    let is_gst_included = $(tr).find('td:eq(8) > input[type="checkbox"]').prop('checked');
+                                    let gst_checkbox = ""
+                                    if (is_gst_included) {
+                                        gst_checkbox = "checked";
+                                    }
+
+                                    $('#inv').append(
+                                        '<tr>' +
+                                        '<td>' + $(tr).find('td:eq(0)').text() + '</td>' +
+                                        '<td>' + $(tr).find('td:eq(1) > input').val() + '</td>' +
+                                        '<td>' + $(tr).find('td:eq(2) > input').val() + '</td>' +
+                                        '<td>' + $(tr).find('td:eq(3) > input').val() + '</td>' +
+                                        '<td>' + $(tr).find('td:eq(4) > input').val() + '</td>' +
+                                        '<td>' + $(tr).find('td:eq(5) > input').val() + '</td>' +
+                                        '<td>' + $(tr).find('td:eq(6) > input').val() + '</td>' +
+                                        '<td>' + $(tr).find('td:eq(7) > input').val() + '</td>' +
+                                        '<td><input type="checkbox" ' + gst_checkbox + ' readonly disabled/> </td>' +
+                                        '<td>' + $(tr).find('td:eq(9) > input').val() + '</td>' +
+                                        '<td>' + $(tr).find('td:eq(10) > input').val() + '</td>' +
+                                        '<td>' + $(tr).find('td:eq(11) > input').val() + '</td>' +
+                                        '</tr>'
+                                    );
 
                                 });
                                 $('#mnot').val($('#notes').val());
                             }
                         </script>
-
                         </tbody>
                         <tfoot id="gtotal"></tfoot>
                     </table>

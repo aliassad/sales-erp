@@ -1,7 +1,7 @@
 var db;
 $(document).ready(function () {
 
-    var url = 'views/gettingBills.php';
+    var url = 'views/gettingTeppichBills.php';
     $.getJSON(url, function (data) {
         db = TAFFY(data);
         var rows = db().get();
@@ -109,5 +109,5 @@ function filter() {
 
 function showbill(row) {
     var id = row.cells[0].innerHTML;
-    window.location.href = "index.php?page=showBill&billno=" + id;
+    window.location.href = "index.php?page=showTeppichBill&billno=" + id;
 }

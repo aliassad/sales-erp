@@ -1,25 +1,4 @@
-$("#cuname").change(function () {
-    if ($('#cuname').val().replace(/[^0-9\.\-]+/g, "") == 1) {
-        $('#wname').removeAttr("disabled");
-        $('#cno').removeAttr("disabled");
-        $('#wname').focus();
-    } else {
-        $('#wname').prop("disabled", true);
-        $('#cno').prop("disabled", true);
-        $('#product1').focus();
-    }
-
-});
-
-
 var products;
-$(document).ready(function () {
-    setTimeout(function () {
-        $('[data-id="cuname"]').focus();
-    }, 1400);
-});
-
-
 var item = 1; // Adding Dynamic rows in invoice
 $(document).ready(function () {
     var i = 2;
@@ -66,13 +45,16 @@ function delete_emp(id) {
     var grandTotal = 0;
 
     var row = document.getElementById(id);
+
     row.parentNode.parentNode.remove(row);
     var number = 1;
 
     $('.itemno').each(function () {
+
         $(this).html(number);
         number++;
     });
+
     $('.amt').each(function () {
         var price = $(this).val();
         grandTotal = parseFloat(price) + grandTotal;
@@ -84,7 +66,7 @@ function delete_emp(id) {
 
 }
 
-//Calculating Grand Total
+//Calculating Grand Total 
 var flag = true;
 var c2 = "";
 
@@ -220,116 +202,98 @@ function storeValues() {
 }
 
 
-//Saving Invoice in DB
-function saveData() {
-
-    var TableData;
-    TableData = $.toJSON(storeValues());
-    $.ajax({
-        type: "POST",
-        url: "views/saveTeppichInvoice.php",
-        data: {
-            type: $('#intitle').val(),
-            notes: $('#notes').val(),
-            customer: $('#customer_name').val(),
-            customer_phone: $('#customer_phone').val(),
-            customer_street: $('#customer_street').val(),
-            customer_post: $('#customer_post').val(),
-            customer_city: $('#customer_city').val(),
-            billid: $('#billidno').val(),
-            duedate: $('#duedate').val(),
-            bdate: $('#billdate').val(),
-            pTableData: TableData,
-            total: $('#gross_total').val(),
-            gst: $('#gst_amount').val(),
-            paid: $('#paid').val(),
-            discount: $('#discount1').val(),
-            balance: $('#final_total').val(),
-            bill_serial: $('#bill_serial').val()
-        },
-        success: function (msg) {
-            swal("Bill Saved!", "Successfully", "success");
-            return;
-        }
-    });
-
-}
 
 
 function saveInvoice() {
-    saveData();
-    setTimeout("location.href='index.php?page=teppich_sell';", 1500);
+    swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover the Previous Bill !",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            cancelButtonText: "No, cancel plz!",
+            confirmButtonText: "Yes,Update it!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+        function (isConfirm) {
+            if (isConfirm) {
+
+                swal({
+                    title: "Updating",
+                    type: "warning",
+                    text: "Please Wait :)",
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+
+
+                var TableData;
+                TableData = $.toJSON(storeValues());
+                $.ajax({
+                    type: "POST",
+                    url: "views/editTeppichInvoice.php",
+                    data: {
+                        type: $('#intitle').val(),
+                        notes: $('#notes').val(),
+                        customer: $('#customer_name').val(),
+                        customer_phone: $('#customer_phone').val(),
+                        customer_street: $('#customer_street').val(),
+                        customer_post: $('#customer_post').val(),
+                        customer_city: $('#customer_city').val(),
+                        billid: $('#billidno').val(),
+                        duedate: $('#duedate').val(),
+                        bdate: $('#billdate').val(),
+                        pTableData: TableData,
+                        total: $('#gross_total').val(),
+                        gst: $('#gst_amount').val(),
+                        paid: $('#paid').val(),
+                        discount: $('#discount1').val(),
+                        balance: $('#final_total').val(),
+                        bill_serial: $('#bill_serial').val(),
+                        bill_id: $('#invNo').val()
+                    },
+                    success: function (msg) {
+                        swal({
+                            title: "Bill Updated & Saved!",
+                            type: "success",
+                            text: "Successfully :)",
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                        setTimeout("location.href='index.php?page=editTeppichBill&billno=" + $('#invNo').val() + "'", 3000);
+                        return;
+                    }
+                });
+
+
+            } else {
+                swal({
+                    title: "Cancelled",
+                    type: "error",
+                    text: "Your Bill is not Updated! Bill is safe :)",
+                    timer: 1300,
+                    showConfirmButton: false
+                });
+            }
+        });
+
 }
+
 
 //Saving  Invoice in DB with a print.
 function saveprintInvoice() {
     saveData();
-    setTimeout("location.href='views/printInvoice.php?billid=" + $('#billidno').val() + "'", 3000);
+    setTimeout("location.href='views/printInvoice.php?billid=" + $('#invNo').val() + "'", 1500);
 }
 
-//Clearing New Customer Modal
-function clearModal() {
-    $('#cname').val('');
-    $('#cphone').val('');
-    $('#cemail').val('');
-    $('#caddress').val('');
-}
-
-function saveCustomer() {
-
-    var n = $('#cname').val();
-    var e = $('#cemail').val();
-    var p = $('#cphone').val();
-    var ad = $('#caddress').val();
-
-    if (!$('#cname').val() || !$('#cemail').val() || !$('#cphone').val() || !$('#caddress').val()) {
-        swal("Input Error", "Please fill all the fields", "error");
-        return;
-    }
-    $.ajax({
-        url: "views/addCustomer.php",
-        data: {name: n, email: e, phone: p, address: ad},
-        type: "post",
-        success: function (msg) {
-            if (msg == "true") {
-                $('#newCustomerModal').modal('hide');
-                swal({
-                    title: "Saved!",
-                    type: "success",
-                    text: "New customer added successfully:)",
-                    timer: 2000,
-                    showConfirmButton: true
-                });
-
-                setTimeout('location.href="index.php?page=invoice"', 1500);
-            } else {
-                swal("Database Error", "Please wait and try Again!", "error");
-                return;
-            }
-
-        }
-    });
-
-
-}
-
-function loadGST() {
-    let selected_customer = ($('#cuname').val()).split(':');
-    if (selected_customer[0]) {
-        let gst = $('#customer_' + selected_customer[0]).html();
-        $('#invoice_gst').html(gst);
-    }
-    dis();
-}
-
-$('#intitle').on('change', function (e) {
-    if (this.value == "Order") {
-        $('#wname').val("");
-        $('#cno').val("");
-        $('#wname').prop("disabled", true);
-        $('#cno').prop("disabled", true);
-    } else {
-        $('#wname').removeAttr("disabled", true);
-        $('#cno').removeAttr("disabled", true);
-    }
-});
+//function clearBill()
+//{ 
+//    $.ajax({
+//           type:"POST",
+//           url:"views/clearBill.php",
+//           data:{billid:$('#invNo').val()},
+//           success: function(msg){}
+//          });
+//
+//}
